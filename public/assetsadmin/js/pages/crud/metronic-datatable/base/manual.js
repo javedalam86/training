@@ -97,7 +97,7 @@ var KTDatatableRemoteAjaxManual = function() {
 						<a href="manualdetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
 							<i class="flaticon-eye"></i>\
 						</a>\
-						<a href="javascript:;" data-id='+row.id+'   data-manual_title="'+row.manual_title+'"      data-manual_text="'+row.manual_text+'" data-toggle="modal" data-target="#manualedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+						<a href="javascript:;" data-id='+row.id+'   data-manual_title="'+row.manual_title+'"      data-manual_text="test" data-toggle="modal" data-target="#manualedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
 							<i class="flaticon2-paper"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
