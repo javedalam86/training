@@ -8,7 +8,7 @@ var KTDatatableRemoteAjaxManual = function() {
 	// basic demo
 	var demo = function() {
 
-		var datatable = $('.kt-manualdatatable').KTDatatable({ 
+		var datatable = $('.kt-manualdatatable').KTDatatable({
 			// datasource definition
 			data: {
 				type: 'remote',
@@ -16,7 +16,6 @@ var KTDatatableRemoteAjaxManual = function() {
 					read: {
 						url: 'ajaxmanualslist',
 						method: 'GET',
-						
 						// sample custom headers
 						headers: {'x-my-custokt-header': 'some value', 'x-test-header': 'the value'},
 						map: function(raw) {
@@ -49,7 +48,7 @@ var KTDatatableRemoteAjaxManual = function() {
 			search: {
 				//input: $('#generalSearch'),
 			},
-				
+
 			// columns definition
 			columns: [
 				/*{
@@ -67,42 +66,32 @@ var KTDatatableRemoteAjaxManual = function() {
 				{
 					field: 'manual_title',
 					title: 'Title',
-				}, 
-				
-				
-				{
-					field: 'id',
-					title: 'Download',		
-					template: function(row) {
-						var filepath = 'manual-download/'+row.filepath;
-						return '\
-						<a href="'+filepath+'" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Download">\
-							<i class="flaticon-download"></i>\
-						</a>\
-					';
-					},
-
-					
 				},
-				
+        {
+          field: 'section_order',
+          title: 'Order',
+        },
 				{
 					field: 'Actions',
 					title: 'Actions',
 					sortable: false,
-					width: 110,
+					width: 140,
 					overflow: 'visible',
 					autoHide: false,
 					template: function(row) {
 						return '\
-						<a href="manualdetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
+						<a onclick="veiwManualDetails('+row.id+')" href="javascript:void(0);" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
 							<i class="flaticon-eye"></i>\
 						</a>\
-						<a href="javascript:;" data-id='+row.id+'   data-manual_title="'+row.manual_title+'"      data-manual_text="test" data-toggle="modal" data-target="#manualedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
-							<i class="flaticon2-paper"></i>\
+						<a href="javascript:void(0);" onclick="editManualDetails('+row.id+')" data-toggle="modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+							<i class="flaticon2-edit"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
 							<i class="flaticon2-trash"></i>\
 						</a>\
+             <a class="viewLoader-'+row.id+' spinner-border spinner-border-sm text-primary" style="display:none;" role="status">\
+              <span class="sr-only">Loading...</span>\
+            </a>\
 					';
 					},
 				}],
@@ -124,8 +113,8 @@ var KTDatatableRemoteAjaxManual = function() {
 			datatable.search($(this).val(), 'manualgeneralSearch');
 		}
 	});
-	
-	
+
+
 	};
 
 	return {
@@ -138,7 +127,7 @@ var KTDatatableRemoteAjaxManual = function() {
 
 jQuery(document).ready(function() {
 	KTDatatableRemoteAjaxManual.init();
-	
-	 
-  
+
+
+
 });
