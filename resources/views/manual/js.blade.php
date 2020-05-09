@@ -72,15 +72,9 @@
       success:function(response){
         skipDetailAjaxCall = false;
         $('.viewLoader-'+manualId).hide();
-        var desc = response.manual_text;
-        if(desc != null) {
-          desc = desc.replace("<p>", "");
-          desc = desc.replace("</p>", "");
-        } else {
-          desc = '';
-        }
-
-        $('#description',container).val(desc);
+        $('#description').summernote('reset');
+        $("#description").summernote("disable");
+        $('#description').summernote('editor.pasteHTML', response.manual_text);
         $("#manual_title",container).val(response.manual_title);
         $("#section_order",container).val(response.section_order);
         $("#manualview_Modal").modal('show');
