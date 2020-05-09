@@ -138,3 +138,11 @@ Route::post('createmanual','ManualController@manualadd')->name('manualadd')->mid
 Route::post('editmanual','ManualController@editmanual')->name('editmanual')->middleware('auth'); 
 Route::post('deletemanual','ManualController@deletemanual')->name('deletemanual')->middleware('auth'); 
 
+
+
+Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
+Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth'); 
+Route::get('ajaxauditslist','AuditController@ajaxauditlist')->name('ajaxauditlist')->middleware('auth'); 
+Route::post('createaudit','AuditController@auditadd')->name('auditadd')->middleware('auth'); 
+Route::post('editaudit','AuditController@editaudit')->name('editaudit')->middleware('auth'); 
+Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->middleware('auth'); 
