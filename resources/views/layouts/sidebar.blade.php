@@ -35,6 +35,13 @@
 									<span class="kt-menu__link-text">Manual</span></a>										
 							</li>
 							
+							
+							<li class="kt-menu__item <?php if($routeName =='auditlist'){ echo 'kt-menu__item--active'; } ?> "  aria-haspopup="true">
+								<a href="{{ route('auditlist') }}"  class="kt-menu__link ">
+									<i class="kt-menu__link-icon flaticon-users-1"></i>
+									<span class="kt-menu__link-text">Audit</span></a>										
+							</li>
+							
 						
 							
 							<li class="kt-menu__item <?php if($routeName =='companylist'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
