@@ -47,17 +47,17 @@
 
   var skipDetailAjaxCall = false;
 
-  function veiwManualDetails(manualId) {
+  function veiwAuditDetails(auditId) {
     if(skipDetailAjaxCall == true){
       return;
     }
     skipDetailAjaxCall = true;
 
-    $('.viewLoader-'+manualId).show();
+    $('.viewLoader-'+auditId).show();
 
-    var container = $("#manualview_Modal");
+    var container = $("#auditview_Modal");
     $('#description',container).val('');
-    $("#manual_title",container).val('');
+    $("#audit_title",container).val('');
 
 
     $.ajaxSetup({
@@ -65,14 +65,14 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    var viewUrl = "{{ url('/') }}/manualdetail/"+manualId;
+    var viewUrl = "{{ url('/') }}/auditdetail/"+auditId;
     $.ajax({
       type:'GET',
       url:viewUrl,
       success:function(response){
         skipDetailAjaxCall = false;
-        $('.viewLoader-'+manualId).hide();
-        var desc = response.manual_text;
+        $('.viewLoader-'+auditId).hide();
+        var desc = response.audit_text;
         if(desc != null) {
           desc = desc.replace("<p>", "");
           desc = desc.replace("</p>", "");
@@ -81,26 +81,26 @@
         }
 
         $('#description',container).val(desc);
-        $("#manual_title",container).val(response.manual_title);
-        $("#manualview_Modal").modal('show');
+        $("#audit_title",container).val(response.audit_title);
+        $("#auditview_Modal").modal('show');
 
       },
       error: function (response, status, error) {
-        $('.viewLoader-'+manualId).hide();
+        $('.viewLoader-'+auditId).hide();
         skipDetailAjaxCall = false;
       }
     });
   }
 
   var skipAddMultiAjaxCall = false;
-  $('#manualadd').on('submit', function(e) {
+  $('#auditadd').on('submit', function(e) {
     e.preventDefault();
     if(skipAddMultiAjaxCall == true){
       return;
     }
     skipAddMultiAjaxCall = true;
 
-    var form_data = $("form#manualadd").serialize();
+    var form_data = $("form#auditadd").serialize();
 
     $.ajaxSetup({
       headers: {
@@ -110,7 +110,7 @@
 
     $.ajax({
       type: "POST",
-      url: './createmanual',
+      url: './createaudit',
       data: form_data,
       cache: false, // To unable request pages to be cached
       processData: false,
@@ -118,8 +118,8 @@
         skipAddMultiAjaxCall = false;
         var status = msg.status;
         if(status =='success'){
-          $('#manualadd_Modal').modal('toggle');
-          $('.kt-manualdatatable').KTDatatable().load();
+          $('#auditadd_Modal').modal('toggle');
+          $('.kt-auditdatatable').KTDatatable().load();
           $('#ajaxmessagediv').show();
           $('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong>  Added Successfully.</div>');
           setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
@@ -130,20 +130,20 @@
               errorString +=  value[l] +'<br/>' ;
             }
           });
-          $("#addmanualmessage").html("<strong>Error!</strong> "+errorString);
-          $("#addmanualmessage").slideDown(function() {
+          $("#addauditmessage").html("<strong>Error!</strong> "+errorString);
+          $("#addauditmessage").slideDown(function() {
             setTimeout(function() {
-              $("#addmanualmessage").slideUp();
+              $("#addauditmessage").slideUp();
             }, 3000);
           });
         }
       },
       error: function (response, status, error) {
         skipAddMultiAjaxCall = false;
-        $("#addmanualmessage").html("<strong>Error!</strong> Something went wrong");
-        $("#addmanualmessage").slideDown(function() {
+        $("#addauditmessage").html("<strong>Error!</strong> Something went wrong");
+        $("#addauditmessage").slideDown(function() {
           setTimeout(function() {
-            $("#addmanualmessage").slideUp();
+            $("#addauditmessage").slideUp();
           }, 3000);
         });
       }
@@ -152,13 +152,13 @@
 
 //Edit Modal Open
 var skipUpdateAjaxCall = false;
-$('#manualedit').on('submit', function(e) {
+$('#auditedit').on('submit', function(e) {
   e.preventDefault();
   if(skipUpdateAjaxCall == true){
     return;
   }
   skipUpdateAjaxCall = true;
-  var form_data = $("form#manualedit").serialize();
+  var form_data = $("form#auditedit").serialize();
   $.ajaxSetup({
     headers: {
       'X-CSRF-Token': $('meta[name=_token]').attr('content')
@@ -167,7 +167,7 @@ $('#manualedit').on('submit', function(e) {
 //EDIT AJAX
   $.ajax({
     type: "POST",
-    url: './editmanual',
+    url: './editaudit',
     data: form_data,
     cache: false, // To unable request pages to be cached
     processData: false,
@@ -175,8 +175,8 @@ $('#manualedit').on('submit', function(e) {
       skipUpdateAjaxCall = false;
       var status = msg.status;
       if(status =='success'){
-        $('#manualedit_modal').modal('toggle');
-        $('.kt-manualdatatable').KTDatatable().load();
+        $('#auditedit_modal').modal('toggle');
+        $('.kt-auditdatatable').KTDatatable().load();
 
         $('#ajaxmessagediv').show();
         $('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Edit Successfully.</div>');
@@ -188,20 +188,20 @@ $('#manualedit').on('submit', function(e) {
             errorString +=  value[l] +'<br/>' ;
           }
         });
-        $("#editmanualmessage").html("<strong>Error!</strong> "+errorString);
-        $("#editmanualmessage").slideDown(function() {
+        $("#editauditmessage").html("<strong>Error!</strong> "+errorString);
+        $("#editauditmessage").slideDown(function() {
           setTimeout(function() {
-            $("#editmanualmessage").slideUp();
+            $("#editauditmessage").slideUp();
           }, 3000);
         });
       }
     },
     error: function (response, status, error) {
       skipUpdateAjaxCall = false;
-      $("#editmanualmessage").html("<strong>Error!</strong> Something went wrong");
-      $("#editmanualmessage").slideDown(function() {
+      $("#editauditmessage").html("<strong>Error!</strong> Something went wrong");
+      $("#editauditmessage").slideDown(function() {
         setTimeout(function() {
-          $("#editmanualmessage").slideUp();
+          $("#editauditmessage").slideUp();
         }, 3000);
       });
     }
@@ -211,25 +211,25 @@ $('#manualedit').on('submit', function(e) {
 
 
 $('#deleteModal').on('show.bs.modal', function(e) {
-  $("#manualIdDelete").val($(e.relatedTarget).data('id'));
+  $("#auditIdDelete").val($(e.relatedTarget).data('id'));
 });
 
-$('#manualdelete').on('submit', function(e) {
+$('#auditdelete').on('submit', function(e) {
   e.preventDefault();
-  var manualIdDelete = $('#manualIdDelete').val();
+  var auditIdDelete = $('#auditIdDelete').val();
   $.ajax({
     type: "POST",
-    url: './deletemanual',
+    url: './deleteaudit',
     data: {
       "_token": "{{ csrf_token() }}",
-      "manualIdDelete": manualIdDelete
+      "auditIdDelete": auditIdDelete
     },
     success: function(msg) {
       if (msg.status == 'fail') {
         alert(JSON.stringify(msg.status, null, 1));
       } else {
         $('#deleteModal').modal('toggle');
-        $('.kt-manualdatatable').KTDatatable().load();
+        $('.kt-auditdatatable').KTDatatable().load();
         $('#ajaxmessagediv').show();
         $('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Delete Successfully.</div>');
         setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
@@ -240,48 +240,48 @@ $('#manualdelete').on('submit', function(e) {
 
 //Edit Modal Open
 var skipEditAjaxCall = false;
-function editManualDetails(manualId) {
+function editAuditDetails(auditId) {
   if(skipEditAjaxCall == true){
     return;
   }
   skipEditAjaxCall = true;
 
-  $('.viewLoader-'+manualId).show();
-  $("#editmanualmessage").hide();
+  $('.viewLoader-'+auditId).show();
+  $("#editauditmessage").hide();
 
-  var container = $("#manualedit_modal");
-  $('#manual_textEdit').val("");
-  $("#manualId",container).val('');
-  $("#manual_titleEdit",container).val('');
+  var container = $("#auditedit_modal");
+  $('#audit_textEdit').val("");
+  $("#auditId",container).val('');
+  $("#audit_titleEdit",container).val('');
 
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  var viewUrl = "{{ url('/') }}/manualdetail/"+manualId;
+  var viewUrl = "{{ url('/') }}/auditdetail/"+auditId;
   $.ajax({
     type:'GET',
     url:viewUrl,
     success:function(response){
       skipEditAjaxCall = false;
-      $('.viewLoader-'+manualId).hide();
-      var desc = response.manual_text;
+      $('.viewLoader-'+auditId).hide();
+      var desc = response.audit_text;
       if(desc != null) {
       } else {
         desc = ' ';
       }
 
-      $('#manual_textEdit').summernote('reset');
-      $('#manual_textEdit').summernote('editor.pasteHTML', desc);
-      $("#manualId",container).val(response.id);
-      $("#manual_titleEdit",container).val(response.manual_title);
+      $('#audit_textEdit').summernote('reset');
+      $('#audit_textEdit').summernote('editor.pasteHTML', desc);
+      $("#auditId",container).val(response.id);
+      $("#audit_titleEdit",container).val(response.audit_title);
      
-      $("#manualedit_modal").modal('show');
+      $("#auditedit_modal").modal('show');
 
     },
     error: function (response, status, error) {
-      $('.viewLoader-'+manualId).hide();
+      $('.viewLoader-'+auditId).hide();
       skipEditAjaxCall = false;
     }
   });

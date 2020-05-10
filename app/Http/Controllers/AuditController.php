@@ -93,6 +93,9 @@ class AuditController extends Controller
     $resultDataTable['meta']['pages'] = ceil($totalRecord/$per_page);
     $resultDataTable['meta']['perpage'] = $per_page;
     $resultDataTable['meta']['total'] = $totalRecord;
+	
+	
+
     return json_encode($resultDataTable);
   }
 

@@ -1,12 +1,12 @@
 "use strict";
 // Class definition
 
-var KTDatatableRemoteAjaxManual = function() {
+var KTDatatableRemoteAjaxAudit = function() {
 	// Private functions
 
 
 	// basic demo
-	var demo = function() {
+	var demoAudit = function() {
 
 		var datatable = $('.kt-auditdatatable').KTDatatable({
 			// datasource definition
@@ -32,6 +32,7 @@ var KTDatatableRemoteAjaxManual = function() {
 				serverPaging: true,
 				serverFiltering: true,
 				serverSorting: true,
+				
 			},
 
 			// layout definition
@@ -53,7 +54,7 @@ var KTDatatableRemoteAjaxManual = function() {
 			columns: [
 				/*{
 					field: 'id',
-					title: 'ManualId',
+					title: 'AuditId',
 					sortable: 'asc',
 					width: 75,
 					type: 'number',
@@ -67,7 +68,7 @@ var KTDatatableRemoteAjaxManual = function() {
 					field: 'audit_title',
 					title: 'Title',
 				},
-        ,
+      
 				{
 					field: 'Actions',
 					title: 'Actions',
@@ -77,10 +78,10 @@ var KTDatatableRemoteAjaxManual = function() {
 					autoHide: false,
 					template: function(row) {
 						return '\
-						<a onclick="veiwManualDetails('+row.id+')" href="javascript:void(0);" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
+						<a onclick="veiwAuditDetails('+row.id+')" href="javascript:void(0);" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
 							<i class="flaticon-eye"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="editManualDetails('+row.id+')" data-toggle="modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+						<a href="javascript:void(0);" onclick="editAuditDetails('+row.id+')" data-toggle="modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
 							<i class="flaticon2-edit"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
@@ -117,13 +118,13 @@ var KTDatatableRemoteAjaxManual = function() {
 	return {
 		// public functions
 		init: function() {
-			demo();
+			demoAudit();
 		},
 	};
 }();
 
-jQuery(document).ready(function() {
-	KTDatatableRemoteAjaxManual.init();
+jQuery(document).ready(function() { 
+	KTDatatableRemoteAjaxAudit.init();
 
 
 
