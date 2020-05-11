@@ -21,7 +21,7 @@
             <div class="kt-subheader  kt-grid__item" id="kt_subheader">
                 <div class="kt-container  kt-container--fluid ">
                     <div class="kt-subheader__main">
-                        <h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-layer"></i> &nbsp; Manage Manuals</h3>
+                        <h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-layer"></i> &nbsp; Manage Audit</h3>
                         <!--	<span class="kt-subheader__separator kt-subheader__separator--v"></span>	-->
 
                         <div class="kt-input-icon kt-input-icon--right kt-subheader__search kt-hidden">
