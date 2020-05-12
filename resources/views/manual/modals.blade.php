@@ -9,16 +9,20 @@
       </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="manual" class="form-control-label">Manual:</label>
-            <input type="text" class="form-control" value="" name="manual_title" id="manual_title" readonly="">
+            <div class="row">
+              <label for="manual" class="col-lg-2 col-xs-12"><h5>Manual:</h5></label>
+              <div id="manual_title" class="col-lg-10 col-xs-12"></div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="manual" class="form-control-label">Order:</label>
-            <input type="number" autocomplete="off" placeholder="0" class="form-control"  id="section_order" readonly="">
+            <div class="row">
+              <label for="manual" class="col-lg-2 col-xs-12"><h5>Order:</h5></label>
+              <div id="section_order" class="col-lg-10 col-xs-12"></div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="option_aEdit" class="form-control-label">Description:</label>
-            <textarea  rows="9" class="form-control" id="description"></textarea>
+              <label for="option_aEdit" class="form-control-label"><h5>Description:</h5></label>
+              <div id="description"></div>
           </div>
         </div>
         <div class="modal-footer">

@@ -56,9 +56,9 @@
     $('.viewLoader-'+manualId).show();
 
     var container = $("#manualview_Modal");
-    $('#description',container).val('');
-    $("#manual_title",container).val('');
-    $("#section_order",container).val('');
+    $('#description',container).html('');
+    $("#manual_title",container).html('');
+    $("#section_order",container).html('');
 
     $.ajaxSetup({
         headers: {
@@ -72,11 +72,9 @@
       success:function(response){
         skipDetailAjaxCall = false;
         $('.viewLoader-'+manualId).hide();
-        $('#description').summernote('reset');
-        $("#description").summernote("disable");
-        $('#description').summernote('editor.pasteHTML', response.manual_text);
-        $("#manual_title",container).val(response.manual_title);
-        $("#section_order",container).val(response.section_order);
+        $('#description').html(response.manual_text);
+        $("#manual_title",container).html(response.manual_title);
+        $("#section_order",container).html(response.section_order);
         $("#manualview_Modal").modal('show');
 
       },
