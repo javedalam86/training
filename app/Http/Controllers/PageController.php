@@ -2,282 +2,124 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Pages; 
+use App\Models\Pages;
+use Illuminate\Validation\ValidationException;
 
 class PageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-       // $pages = Pages::all();	
-        $pages = Pages::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-	
-        return view('pagelist', compact('pages'));
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function index()
+  {
+    $pages = Pages::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
+    return view('page.index', compact('pages'));
+  }
+
+
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function edit(Request $request, $id)
+  {
+    $page = Pages::find($id);
+    return view('page.edit', compact('page'));
+  }
+
+  /**
+  * Update the specified resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function update(Request $request, $id)
+  {
+    $data =$request->all();
+    $requiredFields = [
+      'pagetitle'=>'required',
+      'pagecontent'=>'required'
+    ];
+
+
+    //TRAINING
+    if($id == 1) {
+      $requiredFields['traningImage'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+    } elseif ($id == 2) {
+      //SERVICES
+      $requiredFields['serviceImage1'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+      $requiredFields['serviceImage2'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+    } elseif ($id == 3) {
+      //ABOUT US
+      $requiredFields['aboutUsImage1'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+      $requiredFields['aboutUsImage3'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+      $requiredFields['aboutUsImage2'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {   return view('pageadd');
+    $request->validate($requiredFields);
+
+    $page = Pages::find($id);
+    if(!$page) {
+      throw ValidationException::withMessages(['ID' => 'Invalid Page ID']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    //TRAINING
+    if($id == 1) {
+      if ($request->hasfile('traningImage') ) {
+        $traningImage = $request->traningImage->getClientOriginalName();
+        $traningImage = pathinfo($traningImage,PATHINFO_FILENAME);
+        $traningImage = trim($traningImage).time().'.'.$request->traningImage->getClientOriginalExtension();
+        $request->traningImage->move(public_path('pageimages')."/"."training", $traningImage);
+      }
+    } elseif ($id == 2) {
+      //SERVICES
+      if ($request->hasfile('serviceImage1') ) {
+        $serviceImage1 = $request->serviceImage1->getClientOriginalName();
+        $serviceImage1 = pathinfo($serviceImage1,PATHINFO_FILENAME);
+        $serviceImage1 = trim($serviceImage1).time().'.'.$request->serviceImage1->getClientOriginalExtension();
+        $request->serviceImage1->move(public_path('pageimages')."/"."service", $serviceImage1);
+      }
+
+      if ($request->hasfile('serviceImage2') ) {
+        $serviceImage2 = $request->serviceImage2->getClientOriginalName();
+        $serviceImage2 = pathinfo($serviceImage2,PATHINFO_FILENAME);
+        $serviceImage2 = trim($serviceImage2).time().'.'.$request->serviceImage2->getClientOriginalExtension();
+        $request->serviceImage2->move(public_path('pageimages')."/"."service", $serviceImage2);
+      }
+
+    } elseif ($id == 3) {
+      //ABOUT US
+       if ($request->hasfile('aboutUsImage1') ) {
+        $serviceImage1 = $request->aboutUsImage1->getClientOriginalName();
+        $aboutUsImage1 = pathinfo($aboutUsImage1,PATHINFO_FILENAME);
+        $aboutUsImage1 = trim($aboutUsImage1).time().'.'.$request->aboutUsImage1->getClientOriginalExtension();
+        $request->aboutUsImage1->move(public_path('pageimages')."/"."aboutus", $aboutUsImage1);
+      }
+
+      if ($request->hasfile('aboutUsImage2') ) {
+        $serviceImage2 = $request->aboutUsImage2->getClientOriginalName();
+        $aboutUsImage2 = pathinfo($aboutUsImage2,PATHINFO_FILENAME);
+        $aboutUsImage2 = trim($aboutUsImage2).time().'.'.$request->aboutUsImage2->getClientOriginalExtension();
+        $request->aboutUsImage2->move(public_path('pageimages')."/"."service", $aboutUsImage2);
+      }
+
+      if ($request->hasfile('aboutUsImage3') ) {
+        $serviceImage2 = $request->aboutUsImage3->getClientOriginalName();
+        $aboutUsImage3 = pathinfo($aboutUsImage3,PATHINFO_FILENAME);
+        $aboutUsImage3 = trim($aboutUsImage3).time().'.'.$request->aboutUsImage3->getClientOriginalExtension();
+        $request->aboutUsImage3->move(public_path('pageimages')."/"."service", $aboutUsImage3);
+      }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $id)
-    { 
-	
-	 $page = Pages::find($id);
-        return view('pageedit', compact('page'));        
-	
-		//return view('pageedit', compact('pages'));
-    }
-	
-	/**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function pageadd(Request $request)
-    { 
-		 return view('pageadd');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-		$data =$request->all();		
-		$request->validate([
-            'pagetitle'=>'required'
-        ]);
-
-        $page = Pages::find($id);
-        $page->pagetitle =  $request->get('pagetitle');
-        $page->pagecontent =  $request->get('pagecontent');		
-        $page->metaTitle =  $request->get('metaTitle');
-        $page->metaDesc =  $request->get('metaDesc');
-        $page->metaKeywords =  $request->get('metaKeywords');
-        $page->canonical =  $request->get('canonical');
-        $page->robots =  $request->get('robots');        
-       
-		
-		
-		
-        $page->save();
-
-        return redirect('/pages')->with('success', 'page updated!');
-			
-			
-			
-			
-print_r($data);			
-		print_r('postt');
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function lan_DEL()
-    {   $id =1; 
-        $page = Pages::find($id);
-		
-		return view('lan', compact('page'));        
-    } 
-	
-	
-	
-	
-	public function omos()
-    {   
-		$page = Pages::where('pagekey', '=', 'om-os')->get()->toarray(); 
-		return view('omos', ['page' => $page[0]]);
-	}
-	
-
-	
-	public function vilkaarogansvar() 
-    {   
-		$page = Pages::where('pagekey', '=', 'vilkaar-og-ansvar')->get()->toarray(); 
-		return view('vilkaarogansvar', ['page' => $page[0]]);
-	}
-	
-	public function cookiepolitik()
-    {   
-		$page = Pages::where('pagekey', '=', 'cookiepolitik')->get()->toarray(); 
-		return view('cookiepolitik', ['page' => $page[0]]);
-	}
-	
-	
-	public function oftestilledespoergsmaal()
-    {   
-		$page = Pages::where('pagekey', '=', 'ofte-stillede-spoergsmaal')->get()->toarray(); 
-		return view('oftestilledespoergsmaal', ['page' => $page[0]]);
-	}
-	
-	public function persondatapolitik()
-    {   
-		$page = Pages::where('pagekey', '=', 'persondatapolitik')->get()->toarray(); 
-		return view('persondatapolitik', ['page' => $page[0]]);
-	}
-	
-	public function boliglaan()
-    {   
-		$page = Pages::where('pagekey', '=', 'boliglaan')->get()->toarray(); 
-		return view('boliglaan', ['page' => $page[0]]);
-	}
-	
-	public function huslaan()
-    {   
-		$page = Pages::where('pagekey', '=', 'huslaan')->get()->toarray(); 
-		return view('huslaan', ['page' => $page[0]]);
-	}
-		
-	public function laanifrivaerdi()
-    {   
-		$page = Pages::where('pagekey', '=', 'laan-i-frivaerdi')->get()->toarray(); 
-		return view('laanifrivaerdi', ['page' => $page[0]]);
-	}	
-
-	public function pantebrevslaan()
-    {   
-		$page = Pages::where('pagekey', '=', 'pantebrevslaan')->get()->toarray(); 
-		return view('pantebrevslaan', ['page' => $page[0]]);
-	}
-	
-	public function tvangsauktion()
-    {   
-		$page = Pages::where('pagekey', '=', 'tvangsauktion')->get()->toarray(); 
-		return view('tvangsauktion', ['page' => $page[0]]);
-	}
-	public function haandvaerkertilbud()
-    {   
-		$page = Pages::where('pagekey', '=', 'haandvaerkertilbud')->get()->toarray(); 
-		return view('haandvaerkertilbud', ['page' => $page[0]]);
-	}
-	public function leksikon()
-    {   
-		$page = Pages::where('pagekey', '=', 'leksikon')->get()->toarray(); 
-		return view('leksikon', ['page' => $page[0]]);
-	}
-	
-	public function kontakt()
-    {   
-		$page = Pages::where('pagekey', '=', 'kontakt')->get()->toarray(); 
-		return view('kontakt', ['page' => $page[0]]);
-	}
-	
-	public function saadanfungererdet()
-    {   
-		$page = Pages::where('pagekey', '=', 'saadan-fungerer-det')->get()->toarray(); 
-		return view('saadanfungererdet', ['page' => $page[0]]);
-	}
-	
-	
-	public function nedsparingslaan()
-    {   
-		$page = Pages::where('pagekey', '=', 'nedsparingslaan')->get()->toarray(); 
-		return view('nedsparingslaan', ['page' => $page[0]]);
-	}
-	
-	
-	
-	/*
-
-	public function omos()
-    {   $id =1; 
-        $page = Pages::find($id);
-		
-		return view('omos', compact('page'));        
-    }
-	
-	public function lanerdu()
-    {   $id =2; 
-        $page = Pages::find($id);
-		
-		return view('lanerdu', compact('page'));        
-    }
-	
-	public function stillede()
-    {   $id =3; 	
-        $page = Pages::find($id);
-	
-		return view('stillede', compact('page'));        
-    }
-	
-
-	public function saadanforegaardet()
-    {   $id =4; 
-        $page = Pages::find($id);		
-		return view('saadan-foregaar-det', compact('page'));        
-    }
-	
-	public function cookiepolitikt()
-    {   $id =5; 
-        $page = Pages::find($id);		
-		return view('cookie-politikt', compact('page'));        
-    }
-	
-	public function vilkaarogansvar()
-    {   $id =6; 	
-        $page = Pages::find($id);	
-		return view('vilkaar-og-ansvar', compact('page'));        
-    }
-	
-	*/
-	
-	
-	
+    $page->pagetitle =  $request->get('pagetitle');
+    $page->pagecontent =  $request->get('pagecontent');
+    $page->save();
+    return redirect('/pages')->with('success', 'page updated!');
+  }
 }
