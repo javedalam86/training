@@ -45,11 +45,27 @@
                         <label for="pagetitle">Page Title:</label>
                         <input type="text" class="form-control" name="pagetitle" value="{{ $page->pagetitle }}" />
                       </div>
+
+                      <div class="form-group">
+                        <label for="pagetitle">Image:</label>
+                        <input type="file" class="form-control" name="traningImage" />
+                      </div>
+                      @if(!empty($pageImages->url))
+                      <div class="col-md-4 col-md-offset-3">
+                          <img id="traningImagePreview" src="{{url('/')}}/pageimages/training/{{ $pageImages->url }}" style="max-width: 200px;" />
+                      </div>
+                       @endif
+                       <div class="form-group" style="padding-top: 10px">
+                        <label for="pagetitle">Image Title:</label>
+                        <input type="text" class="form-control" name="imageTitle" value="{{ $pageImages->title }}" />
+                      </div>
+
                       <div class="form-group">
                         <label for="last_name">Page Content:</label>
                 	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent }}</textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Update</button>
+                      <a href="/pages" class="btn btn-default">Cancel</a>
                     </form>
                   </div>
                 </div>

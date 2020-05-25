@@ -1,6 +1,23 @@
 @extends('layouts.admin')
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
+@php
+  if(!$pageImages->isEmpty()) {
+    $imageTitle1 = $pageImages[0]->title;
+    $imageTitle2 = $pageImages[1]->title;
+    $imageTitle3 = $pageImages[2]->title;
+    $imageUrl1 = $pageImages[0]->url;
+    $imageUrl2 = $pageImages[1]->url;
+    $imageUrl3 = $pageImages[2]->url;
+  } else {
+    $imageTitle1 = "";
+    $imageTitle2 = "";
+    $imageTitle3 = "";
+    $imageUrl1 = "";
+    $imageUrl2 = "";
+    $imageUrl3 = "";
+  }
+@endphp
 <!-- end::Head -->
 <!-- begin::Body -->
 <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
@@ -45,11 +62,53 @@
                         <label for="pagetitle">Page Title:</label>
                         <input type="text" class="form-control" name="pagetitle" value="{{ $page->pagetitle }}" />
                       </div>
+
+                      <div class="form-group">
+                        <label for="pagetitle">Image 1:</label>
+                        <input type="file" class="form-control" name="aboutUsImage1" />
+                      </div>
+                      @if(!empty($imageUrl1))
+                      <div class="col-md-4 col-md-offset-3">
+                          <img src="{{url('/')}}/pageimages/aboutus/{{ $imageUrl1 }}" style="max-width: 200px;">
+                      </div>
+                      @endif
+                       <div class="form-group">
+                        <label for="pagetitle">Image Title 1:</label>
+                        <input type="text" class="form-control" name="imageTitle1" value="{{ $imageTitle1 }}" />
+                      </div>
+                       <div class="form-group">
+                        <label for="pagetitle">Image 2:</label>
+                        <input type="file" class="form-control" name="aboutUsImage2" />
+                      </div>
+                     @if(!empty($imageUrl2))
+                      <div class="col-md-4 col-md-offset-3">
+                          <img src="{{url('/')}}/pageimages/aboutus/{{ $imageUrl2 }}" style="max-width: 200px;">
+                      </div>
+                      @endif
+                       <div class="form-group">
+                        <label for="pagetitle">Image Title 2:</label>
+                        <input type="text" class="form-control" name="imageTitle2" value="{{ $imageTitle2 }}" />
+                      </div>
+                       <div class="form-group">
+                        <label for="pagetitle">Image 3:</label>
+                        <input type="file" class="form-control" name="aboutUsImage3" />
+                      </div>
+                       @if(!empty($imageUrl3))
+                      <div class="col-md-4 col-md-offset-3">
+                          <img src="{{url('/')}}/pageimages/aboutus/{{ $imageUrl3 }}" style="max-width: 200px;">
+                      </div>
+                      @endif
+                       <div class="form-group">
+                        <label for="pagetitle">Image Title 3:</label>
+                        <input type="text" class="form-control" name="imageTitle3" value="{{ $imageTitle3 }}" />
+                      </div>
+
                       <div class="form-group">
                         <label for="last_name">Page Content:</label>
                 	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent }}</textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Update</button>
+                      <a href="/pages" class="btn btn-default">Cancel</a>
                     </form>
                   </div>
                 </div>

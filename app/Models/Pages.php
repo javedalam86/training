@@ -15,4 +15,9 @@ class Pages extends Model
   * @var array
   */
   protected $fillable = ['pagekey','pagecontent','pagetitle','metaTitle','metaDesc','metaKeywords','canonical','robots','is_deleted'];
+
+  public function pageImages()
+  {
+      return $this->hasMany('App\Models\PageImage','cmspage_id', 'id');
+  }
 }
