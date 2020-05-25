@@ -50,6 +50,7 @@
                 	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent }}</textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Update</button>
+                       <a href="/pages" class="btn btn-default">Cancel</a>
                     </form>
                   </div>
                 </div>

@@ -119,7 +119,7 @@ class PageController extends Controller
 
     } elseif ($id == 2) {
       //SERVICES
-      $pageImages = $page->pageImages()->where('type','=','image')->get();
+      $pageImages = $page->pageImages()->where('type','=','image')->orderBy('id', 'asc' )->get();
 
       if ($request->hasfile('serviceImage1') ) {
         $serviceImage1 = $request->serviceImage1->getClientOriginalName();
@@ -175,7 +175,7 @@ class PageController extends Controller
 
     } elseif ($id == 3) {
       //ABOUT US
-       $pageImages = $page->pageImages()->where('type','=','image')->get();
+       $pageImages = $page->pageImages()->where('type','=','image')->orderBy('id', 'asc' )->get();
 
        if ($request->hasfile('aboutUsImage1') ) {
         $aboutUsImage1 = $request->aboutUsImage1->getClientOriginalName();
@@ -200,6 +200,7 @@ class PageController extends Controller
       }
 
       if ($request->hasfile('aboutUsImage2') ) {
+
         $aboutUsImage2 = $request->aboutUsImage2->getClientOriginalName();
         $aboutUsImage2 = pathinfo($aboutUsImage2,PATHINFO_FILENAME);
         $aboutUsImage2 = trim($aboutUsImage2).time().'.'.$request->aboutUsImage2->getClientOriginalExtension();
@@ -215,8 +216,8 @@ class PageController extends Controller
           PageImage::create($insertImg);
         } else {
           \File::delete('pageimages/aboutus/'.$pageImages[1]->url);
-          $pageImages[0]->url = $aboutUsImage2;
-          $pageImages[0]->save();
+          $pageImages[1]->url = $aboutUsImage2;
+          $pageImages[1]->save();
         }
       }
 
@@ -235,8 +236,8 @@ class PageController extends Controller
           PageImage::create($insertImg);
         } else {
           \File::delete('pageimages/aboutus/'.$pageImages[2]->url);
-          $pageImages[0]->url = $aboutUsImage3;
-          $pageImages[0]->save();
+          $pageImages[2]->url = $aboutUsImage3;
+          $pageImages[2]->save();
         }
       }
 
@@ -250,9 +251,9 @@ class PageController extends Controller
         $pageImages[1]->save();
       }
 
-      if(!empty($data['imageTitle2']) && isset($pageImages[2])){
-        $pageImages[1]->title = $data['imageTitle3'];
-        $pageImages[1]->save();
+      if(!empty($data['imageTitle3']) && isset($pageImages[2])){
+        $pageImages[2]->title = $data['imageTitle3'];
+        $pageImages[2]->save();
       }
     }
 
