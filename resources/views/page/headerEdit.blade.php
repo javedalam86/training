@@ -1,6 +1,14 @@
 @extends('layouts.admin')
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
+
+@php
+if($page->header_display_type=="0"){
+  $pageImages = $page->pageImages()->where('type','=','image')->first();
+} else {
+  $pageImages = $page->pageImages()->where('type','=','video')->first();
+}
+@endphp
 <!-- end::Head -->
 <!-- begin::Body -->
 <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
@@ -43,13 +51,39 @@
                       @csrf
                       <div class="form-group">
                         <label for="pagetitle">Page Title:</label>
-                        <input type="text" class="form-control" name="pagetitle" value="{{ $page->pagetitle ?? '' }}" />
+                        <input type="text" class="form-control" name="pagetitle" value="{{ $page->pagetitle }}" />
                       </div>
+                       <div class="form-group">
+                        <label for="pagetitle">Display Type:</label>
+                        <input type="radio" name="header_display_type" value="0" {{ ($page->header_display_type=="0")? "checked" : "" }} /> &nbsp;Image&nbsp;
+                        <input type="radio" name="header_display_type" value="1" {{ ($page->header_display_type=="1")? "checked" : "" }}/> &nbsp;Video&nbsp;
+                      </div>
+                      <div class="form-group headerImgDiv" {{ ($page->header_display_type=="0")? "" : "style=display:none" }}>
+                        <label for="pagetitle">Image:</label>
+                        <input type="file" class="form-control" name="headerImage" />
+                      </div>
+                      <div class="form-group headerVidDiv" {{ ($page->header_display_type=="1")? "" : "style=display:none" }}>
+                        @php $pageVideo = $page->pageImages()->where('type','=','video')->first(); @endphp
+                        <label for="pagetitle">video URL:</label>
+                        <input type="text" class="form-control" name="url"  value="{{ $pageVideo->url ?? '' }}" />
+                      </div>
+                      @if(!empty($pageImages->url))
+                      @php $pageImage = $page->pageImages()->where('type','=','image')->first(); @endphp
+                      <div class="col-md-4 col-md-offset-3 headerImgDiv" {{ ($page->header_display_type=="0")? "" : "style=display:none" }}>
+                          <img id="traningImagePreview" src="{{url('/')}}/pageimages/header/{{ $pageImage->url }}" style="max-width: 200px;" />
+                      </div>
+                       @endif
+                       <div class="form-group" style="padding-top: 10px">
+                        <label for="pagetitle">Image/Video Title:</label>
+                        <input type="text" class="form-control" name="imageTitle" value="{{ $pageImages->title ?? '' }}" />
+                      </div>
+
                       <div class="form-group">
                         <label for="last_name">Page Content:</label>
-                	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent ?? '' }}</textarea>
+                	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent }}</textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Update</button>
+                      <a href="/pages" class="btn btn-default">Cancel</a>
                     </form>
                   </div>
                 </div>
@@ -102,6 +136,20 @@
     maxHeight: null,             // set maximum height of editor
     focus: true                  // set focus to editable area after initializing summernote
   });
+
+ $(document).ready(function () {
+  $('input[type=radio][name=header_display_type]').change(function() {
+    if (this.value == '1') {
+      $(".headerImgDiv").hide();
+      $(".headerVidDiv").show();
+    }
+    else {
+      $(".headerVidDiv").hide();
+      $(".headerImgDiv").show();
+    }
+  });
+});
+
   </script>
 
 </body>

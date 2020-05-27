@@ -58,7 +58,7 @@
                       @csrf
                       <div class="form-group">
                         <label for="pagetitle">Page Title:</label>
-                        <input type="text" class="form-control" name="pagetitle" value="{{ $page->pagetitle }}" />
+                        <input type="text" class="form-control" name="pagetitle" value="{{ $page->pagetitle ?? '' }}" />
                       </div>
 
                       <div class="form-group">
@@ -73,7 +73,7 @@
 
                        <div class="form-group">
                         <label for="pagetitle">Image Title 1:</label>
-                        <input type="text" class="form-control" name="imageTitle1" value="{{ $imageTitle1 }}" />
+                        <input type="text" class="form-control" name="imageTitle1" value="{{ $imageTitle1 ?? '' }}" />
                       </div>
 
                        <div class="form-group">
@@ -87,12 +87,12 @@
                        @endif
                        <div class="form-group">
                         <label for="pagetitle">Image Title 2:</label>
-                        <input type="text" class="form-control" name="imageTitle2" value="{{ $imageTitle2 }}" />
+                        <input type="text" class="form-control" name="imageTitle2" value="{{ $imageTitle2 ?? '' }}" />
                       </div>
 
                       <div class="form-group">
                         <label for="last_name">Page Content:</label>
-                	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent }}</textarea>
+                	     <textarea name="pagecontent" class="summernote" rows="18">{{ $page->pagecontent ?? '' }}</textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Update</button>
                       <a href="/pages" class="btn btn-default">Cancel</a>

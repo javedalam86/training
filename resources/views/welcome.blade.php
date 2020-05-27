@@ -21,17 +21,30 @@
       </div>
     </div>
   </div> -->
+@php
+$headerImgUrl = null;
+if((int)$pages[4]->header_display_type === 0){
+  $headerData = $pages[4]->pageImages()->where('type','=','image')->first();
+  $headerImgUrl = url('/')."/pageimages/header/".$headerData->url;
+} else {
+  $headerData = $pages[4]->pageImages()->where('type','=','video')->first();
+}
+@endphp
 
 <div class="mainvedio intro route" id="home">
   <div class="overlay"></div>
-  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="https://ak8.picdn.net/shutterstock/videos/6193928/preview/stock-footage-aerial-view-of-luxury-yacht-navigating-close-to-the-coast.mp4" type="video/mp4">
-  </video>
+  @if($headerData->type == 'video')
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="{{ $headerData->url ?? ''}}" type="video/mp4">
+    </video>
+  @else
+    <div style="width: 100%; text-align: center;"><img src="{{ $headerImgUrl ?? ''}}" /></div>
+  @endif
   <div class="container h-100 intro-content display-table">
     <div class=" table-cell">
       <div class="container">
-       <h1 class="intro-title mb-4">U2 Marine Services Ltd. </h1>
-          <p class="intro-subtitle"><span class="text-slider-items">Asset Management,Audits and Inspections,LNG Specific,Manuals</span><strong class="text-slider"></strong></p>
+       <h1 class="intro-title mb-4">{{ $pages[4]->pagetitle ?? '' }}</h1>
+          <p class="intro-subtitle"><span class="text-slider-items">{!! $pages[4]->pagecontent ?? '' !!}</span><strong class="text-slider"></strong></p>
       </div>
     </div>
   </div>

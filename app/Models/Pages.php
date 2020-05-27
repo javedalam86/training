@@ -14,7 +14,7 @@ class Pages extends Model
   *
   * @var array
   */
-  protected $fillable = ['pagekey','pagecontent','pagetitle','metaTitle','metaDesc','metaKeywords','canonical','robots','is_deleted'];
+  protected $fillable = ['pagekey','pagecontent','pagetitle','metaTitle','metaDesc','metaKeywords','canonical','robots','is_deleted','header_display_type'];
 
   public function pageImages()
   {

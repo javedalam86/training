@@ -48,6 +48,9 @@ class PageController extends Controller
     } elseif ($id == 4) {
       //CONTACT US
       return view('page.contactEdit', compact('page'));
+    } elseif ($id == 5) {
+      //Home Page Header
+      return view('page.headerEdit', compact('page'));
     }
     return view('page.edit', compact('page'));
   }
@@ -255,6 +258,53 @@ class PageController extends Controller
         $pageImages[2]->title = $data['imageTitle3'];
         $pageImages[2]->save();
       }
+    } elseif($id == 5) {
+
+      if((int)$data['header_display_type'] === 0) {
+        $pageImages = $page->pageImages()->where('type','=','image')->first();
+        if ($request->hasfile('headerImage')) {
+          $headerImage = $request->headerImage->getClientOriginalName();
+          $headerImage = pathinfo($headerImage,PATHINFO_FILENAME);
+          $headerImage = trim($headerImage).time().'.'.$request->headerImage->getClientOriginalExtension();
+          $request->headerImage->move(public_path('pageimages')."/"."header", $headerImage);
+          if(!$pageImages) {
+            $insertImg = [
+              'cmspage_id' => $page->id,
+              'url' => $headerImage,
+              'type' => 'image',
+              'title' => $data['imageTitle']
+            ];
+            PageImage::create($insertImg);
+          } else {
+            \File::delete('pageimages/header/'.$pageImages->url);
+            $pageImages->url = $headerImage;
+            $pageImages->save();
+          }
+        }
+      }
+
+      if((int)$data['header_display_type'] === 1) {
+        $pageImages = $page->pageImages()->where('type','=','video')->first();
+         if(!$pageImages) {
+            $insertImg = [
+              'cmspage_id' => $page->id,
+              'url' =>  $data['url'],
+              'type' => 'video',
+              'title' => $data['imageTitle']
+            ];
+            PageImage::create($insertImg);
+          } else {
+            $pageImages->url = $data['url'];
+            $pageImages->save();
+          }
+      }
+
+      if(!empty($data['imageTitle']) && $pageImages){
+        $pageImages->title = $data['imageTitle'];
+        $pageImages->save();
+      }
+
+      $page->header_display_type =  $request->get('header_display_type');
     }
 
     $page->pagetitle =  $request->get('pagetitle');
