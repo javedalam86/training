@@ -8,14 +8,14 @@ var KTDatatableRemoteAjaxCourse = function() {
 	// basic demo
 	var demo = function() {
 
-		var datatable = $('.kt-coursedatatable').KTDatatable({ 
+		var datatable = $('.kt-coursedatatable').KTDatatable({
 			// datasource definition
 			data: {
 				type: 'remote',
 				source: {
 					read: {
 						url: 'ajaxcourseslist',
-						method: 'GET',					
+						method: 'GET',
 						// sample custom headers
 						headers: {'x-my-custokt-header': 'some value', 'x-test-header': 'the value'},
 						map: function(raw) {
@@ -48,7 +48,7 @@ var KTDatatableRemoteAjaxCourse = function() {
 			search: {
 				//input: $('#generalSearch'),
 			},
-				
+
 			// columns definition
 			columns: [
 				/*{
@@ -68,16 +68,16 @@ var KTDatatableRemoteAjaxCourse = function() {
 					title: 'Course',
 				}, {
 					field: 'description',
-					title: 'Description',					
+					title: 'Description',
 				}, {
 					field: 'cost',
-					title: 'Price',	
+					title: 'Price',
 					template: function(row) {
 						return '$ '+row.cost;
-					}	
+					}
 				}, {
 					field: 'course_type',
-					title: 'Type',					
+					title: 'Type',
 				},{
 					field: 'Actions',
 					title: 'Actions',
@@ -86,11 +86,23 @@ var KTDatatableRemoteAjaxCourse = function() {
 					overflow: 'visible',
 					autoHide: false,
 					template: function(row) {
+            var start_date = "";
+            var end_date = ""
+            if(row.start_date) {
+              var res = row.start_date.split(" ");
+              start_date = res[0]
+            }
+
+            if(row.end_date) {
+              let res = row.end_date.split(" ");
+              end_date = res[0]
+            }
+
 						return '\
 						<a href="coursedetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
 							<i class="flaticon-eye"></i>\
 						</a>\
-						<a href="javascript:;" data-id='+row.id+'   data-name="'+row.name+'"   data-cost="'+row.cost+'"   data-course_type="'+row.course_type+'"   data-description="'+row.description+'" data-toggle="modal" data-target="#courseedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+						<a href="javascript:;" data-id='+row.id+'   data-name="'+row.name+'"   data-cost="'+row.cost+'"   data-course_type="'+row.course_type+'"   data-description="'+row.description+'"  data-start_date="'+start_date+'" data-end_date="'+end_date+'"data-toggle="modal" data-target="#courseedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
 							<i class="flaticon2-paper"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
@@ -117,8 +129,8 @@ var KTDatatableRemoteAjaxCourse = function() {
 			datatable.search($(this).val(), 'coursegeneralSearch');
 		}
 	});
-	
-	
+
+
 	};
 
 	return {
@@ -131,7 +143,7 @@ var KTDatatableRemoteAjaxCourse = function() {
 
 jQuery(document).ready(function() {
 	KTDatatableRemoteAjaxCourse.init();
-	
-	 
-  
+
+
+
 });
