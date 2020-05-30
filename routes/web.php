@@ -148,3 +148,12 @@ Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->m
 
 
 Route::post('jquery-ajax-form-submit', 'ContactController@store');
+Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
+Route::get('candidatecoursedetail/{id}','CandidateCourseController@candidatecoursedetail')->name('candidatecoursedetail')->middleware('auth');
+
+Route::get('candidatetest','CandidateCourseController@candidatetest')->name('candidatetest')->middleware('auth');
+
+Route::get('ajaxcandidatecourselist','CandidateCourseController@ajaxcandidatecourselist')->name('ajaxcandidatecourselist')->middleware('auth');
+
+
+
