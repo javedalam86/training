@@ -46,6 +46,25 @@
 						<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 							<div class="row">
 								<div class="col-lg-12">
+									<div class="kt-portlet portlet-fit full-height-content full-height-content-scrollable bordered">
+										<div class="col-lg-12 kt-portlet__head">
+											<div class="col-lg-12 kt-portlet__head-label">								
+												<div class=" col-lg-12 kt-align-center">
+													<button type="reset" id="startQuizBtn" class="btn-lg btn-danger">Start Quize</button>
+												</div>
+											</div>
+										</div>
+										<div class="kt-section__info">Other Quize instructions willl come here.</div>
+										<div class="kt-section__info">Other Quize instructions willl come here.</div>
+									</div>	
+									
+								</div>
+							</div>	
+									
+						
+						
+							<div class="row">
+								<div class="col-lg-12">
 									
 									
 									<!--begin::Portlet-->
@@ -61,75 +80,59 @@
 										<!--begin::Form-->
 										<form class="kt-form kt-form--label-right">
 											<div class="kt-portlet__body">
-												<div class="form-group row">
-													<div class="col-lg-12">
-														<label>QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..</label>
-														
-													</div>
-													
-												</div>
-												
-												
-												
-												
-												
-											<div class="form-group row">
-													<div class="col-lg-6">
-														<div class="kt-radio-inline">
-															<label class="kt-radio kt-radio--solid">
-																<input type="radio" name="example_2" checked value="2"> Option 1
-																<span></span>
-															</label>															
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="kt-radio-inline">
-															<label class="kt-radio kt-radio--solid">
-																	<input type="radio" name="example_2" value="2">  Option 2
-																<span></span>
-															</label>															
-														</div>
-													</div>
-											</div>	
+												@foreach ($Questions as $Question)
+												<div id="question_id" style="display:none">
 											
-											<div class="form-group row">
-													<div class="col-lg-6">
-														<div class="kt-radio-inline">
-															<label class="kt-radio kt-radio--solid">
-																<input type="radio" name="example_2" checked value="2">  Option 3
-																<span></span>
-															</label>															
+													<div class="form-group row">
+														<div class="col-lg-12">
+															<label>QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..</label>
+															
+														</div>													
+													</div>
+													<div class="form-group row">
+														<div class="col-lg-6">
+															<div class="kt-radio-inline">
+																<label class="kt-radio kt-radio--solid">
+																	<input type="radio" name="example_2" checked value="2"> Option 1
+																	<span></span>
+																</label>															
+															</div>
+														</div>
+														<div class="col-lg-6">
+															<div class="kt-radio-inline">
+																<label class="kt-radio kt-radio--solid">
+																		<input type="radio" name="example_2" value="2">  Option 2
+																	<span></span>
+																</label>															
+															</div>
+														</div>
+													</div>	
+												
+													<div class="form-group row">
+														<div class="col-lg-6">
+															<div class="kt-radio-inline">
+																<label class="kt-radio kt-radio--solid">
+																	<input type="radio" name="example_2" checked value="2">  Option 3
+																	<span></span>
+																</label>															
+															</div>
+														</div>
+														<div class="col-lg-6">
+															<div class="kt-radio-inline">
+																<label class="kt-radio kt-radio--solid">
+																		<input type="radio" name="example_2" value="2">  Option 4
+																	<span></span>
+																</label>															
+															</div>
 														</div>
 													</div>
-													<div class="col-lg-6">
-														<div class="kt-radio-inline">
-															<label class="kt-radio kt-radio--solid">
-																	<input type="radio" name="example_2" value="2">  Option 4
-																<span></span>
-															</label>															
-														</div>
-													</div>
+												</div>	
+												@endforeach
+												
 											</div>
-										
-										
-										<!--
-												<div class="form-group row">
-													<div class="col-lg-6">
-														<label>User Group:</label>
-														<div class="kt-radio-inline">
-															<label class="kt-radio kt-radio--solid">
-																<input type="radio" name="example_2" checked value="2"> Sales Person
-																<span></span>
-															</label>
-															<label class="kt-radio kt-radio--solid">
-																<input type="radio" name="example_2" value="2"> Customer
-																<span></span>
-															</label>
-														</div>
-														<span class="form-text text-muted">Please select user group</span>
-													</div>
-												</div>  -->
-											</div>
+											
+											
+											
 											<div class="kt-portlet__foot">
 												<div class="kt-form__actions">
 													<div class="row">

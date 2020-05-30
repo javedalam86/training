@@ -258,7 +258,7 @@
     <!--begin::Page Scripts(used by this page) 
    <script src="{{ asset('assets/js/pages/crud/datatables/data-sources/ajax-server-side1.js') }}" type="text/javascript"></script>-->
 
-    <script src="{{ asset('assetsadmin/js/pages/crud/metronic-datatable/base/mycourses.js?v='.$scriptVer) }}" type="text/javascript"></script>
+    <script src="{{ asset('assetsadmin/js/pages/crud/metronic-datatable/base/candidatecourses1.js?v='.$scriptVer) }}" type="text/javascript"></script>
 
     <script>
         function userdetails(userId) {
