@@ -145,4 +145,8 @@ Route::get('ajaxauditslist','AuditController@ajaxauditlist')->name('ajaxauditlis
 Route::post('createaudit','AuditController@auditadd')->name('auditadd')->middleware('auth');
 Route::post('editaudit','AuditController@editaudit')->name('editaudit')->middleware('auth');
 Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->middleware('auth');
-
+//Calender
+Route::get('course-calender', 'CourseCalenderController@index')->name('course-calender');
+Route::get('all-course', 'CourseCalenderController@getAllCourse')->name('get-all-calender');
+Route::get('course-by-id/{courseId}', 'CourseCalenderController@courseDetail')->name('course-by-id');
+Route::get('buy-course/{courseId}', 'CourseCalenderController@buyCourse')->name('buy-course');
