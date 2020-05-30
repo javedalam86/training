@@ -453,35 +453,41 @@ if(!$abtImages->isEmpty()) {
                     </h5>
                   </div>
                   <div>
-                      <div id="sendmessage">Your message has been sent. Thank you!</div>
+					<form id="contact_us" method="post" action="javascript:void(0)">
+                     <!-- <div id="sendmessage">Your message has been sent. Thank you!</div>
                       <div id="errormessage"></div>
+					  -->
+					    <div class="alert alert-success d-none" id="msg_div">
+							  <span id="res_message"></span>
+						</div>
                       <div class="row">
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
-                            <input type="text" name="name" class="form-control" id="contectname" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                            <div class="validation"></div>
+                            <input type="text" name="contectname" class="form-control" required="required" id="contectname" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                           <div class="validation contact_us_error" id="error_contectname"></div>
+
                           </div>
                         </div>
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
-                            <input type="email" class="form-control" name="email" id="contectemail" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                            <div class="validation"></div>
+                            <input type="email" class="form-control" name="contectemail" id="contectemail" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                            <div class="validation contact_us_error"  id="error_contectemail"></div>
                           </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
                               <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                              <div class="validation"></div>
+                              <div class="validation contact_us_error"  id="error_subject"></div>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
                             <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                            <div class="validation"></div>
+                            <div class="validation contact_us_error"  id="error_message"></div>
                           </div>
                         </div>
                         <div class="col-md-12">
-                          <button class="button button-a button-big button-rouded">Send Message</button>
+                          <button id="send_form" type="submit" class="button button-a button-big button-rouded">Send Message</button>
                         </div>
                       </div>
                     </form>
@@ -837,6 +843,57 @@ function zoominbuttonfun(){
 	 </script>
 
 
+<script>
+//-----------------
+$(document).ready(function(){
+$('#send_form').click(function(e){
+	 
+	 	$(".contact_us_error").hide();						
+   e.preventDefault();
+   /*Ajax Request Header setup*/
+   $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
 
+   $('#send_form').html('Sending..');
+   
+   /* Submit form data using ajax*/
+   $.ajax({
+      url: "{{ url('jquery-ajax-form-submit')}}",
+      method: 'post',
+      data: $('#contact_us').serialize(),
+      success: function(response){
+		              $('#send_form').html('Send Message');
+         //------------------------
+		 if(response.status =='fail'){
+			$.each( response.errors, function( key, value) {
+					for(var l=0;l<value.length; l++){
+						var fieldErrorId =  'error_'+key;
+						//fieldErrorId = fieldErrorId.replace('.','');	
+	
+						$("#"+fieldErrorId).text(value);	
+						$("#"+fieldErrorId).show();						
+					}
+				});
+		 }else{
+
+            $('#res_message').show();
+            $('#res_message').html(response.msg);
+            $('#msg_div').removeClass('d-none');
+
+            document.getElementById("contact_us").reset(); 
+            setTimeout(function(){
+            $('#res_message').hide();
+            $('#msg_div').hide();
+            },10000);
+		 }
+         //--------------------------
+      }});
+   });
+});
+//-----------------
+</script>
 </body>
 @endsection

@@ -146,3 +146,5 @@ Route::post('createaudit','AuditController@auditadd')->name('auditadd')->middlew
 Route::post('editaudit','AuditController@editaudit')->name('editaudit')->middleware('auth');
 Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->middleware('auth');
 
+
+Route::post('jquery-ajax-form-submit', 'ContactController@store');
