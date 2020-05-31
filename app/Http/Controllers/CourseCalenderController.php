@@ -33,12 +33,12 @@ class CourseCalenderController extends Controller
 
     public function courseDetail(Request $request, $courseId)
     {
-      return Courses::where('is_deleted', '=', '0')->where('id', '=', $courseId)->first();
+      return Courses::where('is_deleted', '=', 0)->where('id', '=', $courseId)->first();
     }
 
     public function buyCourse(Request $request, $courseId) {
       $feed_back=array();
-      $course = Courses::where('is_deleted', '=', '0')->where('id', '=', $courseId)->first();
+      $course = Courses::where('is_deleted', '=', 0)->where('id', '=', $courseId)->first();
       //if(\Auth::check()){
       if(!$course){
           $feed_back['type']='alert-danger';
