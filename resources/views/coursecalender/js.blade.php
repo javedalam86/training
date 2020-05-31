@@ -136,13 +136,13 @@ $('body').on('click', '#submitLoginForm', function(){
         }
       }
       if(data.status=='success') {
-        $("#loginsuccess-msg").show()
+        //$("#loginsuccess-msg").show()
         //$('#loginsuccess-msg').html( data.message);
         setInterval(function(){  $('#loginsuccess-msg').show();
           $('#userLoginModal').modal('hide');
           var urlRoute ="{{route('course-calender')}}";
           window.location.href = urlRoute;
-        }, 1000);
+        }, 100);
       }
     },
   });
