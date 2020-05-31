@@ -54,8 +54,13 @@
 												</div>
 											</div>
 										</div>
-										<div class="kt-section__info">Other Quize instructions willl come here.</div>
-										<div class="kt-section__info">Other Quize instructions willl come here.</div>
+										<div class="kt-section__info"> <ul>
+											 <li>Other Quize instructions willl come here.</li>
+											 <li>Other Quize instructions willl come here.</li>
+											 <li>Other Quize instructions willl come here.</li>
+											 <li>Other Quize instructions willl come here.</li>
+										  </ul>
+										</div>									
 									</div>	
 									
 								</div>
@@ -63,71 +68,22 @@
 									
 						
 						
-							<div class="row">
-								<div class="col-lg-12">
-									
-									
+							<div class="row" >
+								<div class="col-lg-12" id="quizeQuestionContainer" style="display:none">		
 									<!--begin::Portlet-->
 									<div class="kt-portlet portlet-fit full-height-content full-height-content-scrollable bordered">
 										<div class="kt-portlet__head">
 											<div class="kt-portlet__head-label">
-												<h3 class="kt-portlet__head-title">
-													Question No 2 of 10:
+												<h3 class="kt-portlet__head-title" id="questionInfo">
+													Question No 1 of 10:
 												</h3>
 											</div>
 										</div>
 
-										<!--begin::Form-->
-										<form class="kt-form kt-form--label-right">
-											<div class="kt-portlet__body">
-												@foreach ($Questions as $Question)
-												<div id="question_id" style="display:none">
+										<!--begin::Form
+										<form class="kt-form kt-form--label-right">-->
+											<div class="kt-portlet__body" id="quizeQuestionsDiv">
 											
-													<div class="form-group row">
-														<div class="col-lg-12">
-															<label>QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..QUESTION WILL COME HERE..</label>
-															
-														</div>													
-													</div>
-													<div class="form-group row">
-														<div class="col-lg-6">
-															<div class="kt-radio-inline">
-																<label class="kt-radio kt-radio--solid">
-																	<input type="radio" name="example_2" checked value="2"> Option 1
-																	<span></span>
-																</label>															
-															</div>
-														</div>
-														<div class="col-lg-6">
-															<div class="kt-radio-inline">
-																<label class="kt-radio kt-radio--solid">
-																		<input type="radio" name="example_2" value="2">  Option 2
-																	<span></span>
-																</label>															
-															</div>
-														</div>
-													</div>	
-												
-													<div class="form-group row">
-														<div class="col-lg-6">
-															<div class="kt-radio-inline">
-																<label class="kt-radio kt-radio--solid">
-																	<input type="radio" name="example_2" checked value="2">  Option 3
-																	<span></span>
-																</label>															
-															</div>
-														</div>
-														<div class="col-lg-6">
-															<div class="kt-radio-inline">
-																<label class="kt-radio kt-radio--solid">
-																		<input type="radio" name="example_2" value="2">  Option 4
-																	<span></span>
-																</label>															
-															</div>
-														</div>
-													</div>
-												</div>	
-												@endforeach
 												
 											</div>
 											
@@ -138,8 +94,8 @@
 													<div class="row">
 														<div class="col-lg-6">
 														
-															<button type="reset" class="btn btn-secondary">Privious</button>
-																<button type="reset" class="btn btn-primary">Continue</button>
+															<button type="button" onclick="showPreviousQuestion()" class="btn btn-secondary">Privious Question</button>
+																<button type="button" onclick="showNextQuestion()" class="btn btn-primary">Next Question</button>
 														</div>
 														<div class="col-lg-6 kt-align-right">
 															<button type="reset" class="btn btn-danger">Submit Quize</button>
@@ -147,17 +103,14 @@
 													</div>
 												</div>
 											</div>
-										</form>
+										<!--</form>
 
-										<!--end::Form-->
+										end::Form-->
 									</div>
 
 									<!--end::Portlet-->
-
-    
-                        </div>
-												
-                    </div>
+								</div>												
+							</div>
                 </div>
    <!-- end:: Content -->
 
@@ -232,10 +185,119 @@
   $('#ajaxmessagediv').fadeOut('fast');
 }, 1200); 
 
+var currentQuestionId =0;
+var totalQuestions=0;
+	$('body').on('click',"#startQuizBtn",function(){	
+ currentQuestionId =0;
+ totalQuestions=0;	
+		/*$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});	*/	
+		var courseId = 31;
+		$.ajax({
+			type: "POST",
+			url: "./ajaxgetquizequestion",
+			 data: {
+                    "_token": "{{ csrf_token() }}", courseId:courseId},
+			success: function(msg){		
+				if(msg.status=='fail'){
+					/*$.each( msg.casedata.errors, function( key, value) {
+						for(var l=0;l<value.length; l++){
+							var fieldErrorId =  'error_'+editloanid+'_'+key;
+							
+							fieldErrorId = fieldErrorId.replace('.','');							
+							$("#"+fieldErrorId).text(value);						
+						}
+					});
+						*/  
+				}else{
+				
+					var questionsList = '';	
+					$.each( msg.data, function( key, value) { totalQuestions++;
+					var question_id = "question_"+key;			
+					questionsList +='<div id='+question_id+' class="questionsList" style="display:none">\
+										<div class="form-group row">\
+											<div class="col-lg-12">\
+												<label>'+value.question+'</label>\
+											</div>\
+										</div>\
+										<div class="form-group row">\
+											<div class="col-lg-6">\
+												<div class="kt-radio-inline">\
+													<label class="kt-radio kt-radio--solid">\
+														<input type="radio" name="example_2" checked value="2"> Option 1<span></span>\
+													</label>\
+												</div>\
+											</div>\
+											<div class="col-lg-6">\
+												<div class="kt-radio-inline">\
+													<label class="kt-radio kt-radio--solid">\
+														<input type="radio" name="example_2" value="2">Option2<span></span>\
+													</label>\
+												</div>\
+											</div>\
+										</div>\
+										<div class="form-group row">\
+											<div class="col-lg-6">\
+												<div class="kt-radio-inline">\
+													<label class="kt-radio kt-radio--solid">\
+														<input type="radio" name="example_2" checked value="2">Option3<span></span>\
+													</label>\
+												</div>\
+											</div>\
+											<div class="col-lg-6">\
+												<div class="kt-radio-inline">\
+													<label class="kt-radio kt-radio--solid">\
+														<input type="radio" name="example_2" value="2">Option4<span></span>\
+													</label>\
+												</div>\
+											</div>\
+										</div>\
+									</div>';
+					
+					}); 
+$("#quizeQuestionsDiv").html(questionsList);
+$("#question_0").show();
+$("#quizeQuestionContainer").show();
+setquestioninfo();
 
+					/*
+					removeblur(editloanid);
+				caseDataObject.casedata = msg.casedata.data;
+				loadLoanstable();	
+				
+				
+				alert("Success..")				
+				setLoanCalcData(editloanid); toReloadTheLoanViewDivContent(editloanid);  */
+				} 
+				//$("#edit-loan-spinner_"+editloanid).hide();
+			}
+		}); 		
+	});
+function showNextQuestion(){  
 
-
+if(currentQuestionId >=(totalQuestions-1)){ return true; }
+		currentQuestionId++; 
+	$(".questionsList").hide();
+	$("#question_"+currentQuestionId).show();	
+	setquestioninfo();
+}
+function showPreviousQuestion(){
+	if(currentQuestionId ==0){ return true; }
+	currentQuestionId--;	
+	$(".questionsList").hide();
+	$("#question_"+currentQuestionId).show();
+	setquestioninfo();	
+}
+function setquestioninfo(){
+	var QuestionInfoHTML ='Question No '+(currentQuestionId+1)+' of '+totalQuestions+':';
+	
+	$("#questionInfo").html(QuestionInfoHTML);
+}
 </script>
+
     <!--end::Global Theme Bundle -->
     <!--begin::Page Vendors(used by this page)
    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script> -->

@@ -23,5 +23,12 @@ class QuizeController extends Controller
         $Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
         return view('onlinequize', ['Questions' => $Questions] );
     }	
+	 
+    public function ajaxgetquizequestion(Request $request){
+		$data = $request->all();
+		
+        $Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
+      	return response()->json(array('status' => 'success', 'data'=>$Questions));
+    }	
 	
 }
