@@ -59,7 +59,10 @@
             <a class="nav-link js-scroll" href="./#policyid">Policy</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link active" href="http://localhost/trainingtesting/public/qms">QMS</a>
+            <a class="nav-link active" href="{{route('qms')}}">QMS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('course-calender')}}">Course</a>
           </li>
         </ul>
       </div>
