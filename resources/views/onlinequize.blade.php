@@ -217,6 +217,7 @@ var totalQuestions=0;
 					var questionsList = '';	
 					$.each( msg.data, function( key, value) { totalQuestions++;
 					var question_id = "question_"+key;			
+					var option_name = "option_"+(key+1);			
 					questionsList +='<div id='+question_id+' class="questionsList" style="display:none">\
 										<div class="form-group row">\
 											<div class="col-lg-12">\
@@ -227,14 +228,14 @@ var totalQuestions=0;
 											<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
-														<input type="radio" name="example_2" checked value="2"> Option 1<span></span>\
+														<input type="radio" name="'+option_name+'"  class="quetsionoptions"  value="1">'+value.option_a+'<span></span>\
 													</label>\
 												</div>\
 											</div>\
 											<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
-														<input type="radio" name="example_2" value="2">Option2<span></span>\
+														<input type="radio" name="'+option_name+'"  class="quetsionoptions" value="2">'+value.option_b+'<span></span>\
 													</label>\
 												</div>\
 											</div>\
@@ -243,14 +244,14 @@ var totalQuestions=0;
 											<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
-														<input type="radio" name="example_2" checked value="2">Option3<span></span>\
+														<input type="radio" name="'+option_name+'" class="quetsionoptions" value="3">'+value.option_c+'<span></span>\
 													</label>\
 												</div>\
 											</div>\
 											<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
-														<input type="radio" name="example_2" value="2">Option4<span></span>\
+														<input type="radio" name="'+option_name+'" class="quetsionoptions"  value="4">'+value.option_d+'<span></span>\
 													</label>\
 												</div>\
 											</div>\
@@ -296,6 +297,14 @@ function setquestioninfo(){
 	
 	$("#questionInfo").html(QuestionInfoHTML);
 }
+
+$(document).on("change", '.quetsionoptions', function(event){
+	
+   // var ElementId 		= $(this).attr("id"); 
+	var ElementName 	= $(this).attr("name");
+	var Elementvalue 	= $(this).attr("value");
+	alert(ElementName+'---'+Elementvalue);
+});
 </script>
 
     <!--end::Global Theme Bundle -->
