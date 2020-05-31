@@ -30,10 +30,10 @@
           <li class="nav-item">
             <a class="nav-link js-scroll" href="#policyid">Policy</a>
           </li>
-
+<!--
           <li class="nav-item">
             <a class="nav-link js-scroll" href="{{ route('qms')}}">QMS</a>
-          </li>
+          </li>  -->
           <li class="nav-item">
             <a class="nav-link" href="{{route('course-calender')}}">Course</a>
           </li>
