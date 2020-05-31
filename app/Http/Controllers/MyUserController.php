@@ -107,8 +107,9 @@ function ajaxmyuserslist(Request $request){
 		}
 		if($page ==1){ $offset = 0; }else{ $offset = $this->recordPerPage*($page-1); }
 		$usersData->where('is_deleted', '=', '0');
+    $usersData->where('user_type', '=', 'candidate');
 		$usersData->offset($offset);
-        $usersData->limit($this->recordPerPage);
+    $usersData->limit($this->recordPerPage);
 		$usersData->orderBy($sortfield, $sortorder);
 		$usersData =	$usersData->get()->toArray();
 
@@ -122,6 +123,7 @@ function ajaxmyuserslist(Request $request){
 		});
 		}
 		$userCount->where('is_deleted', '=', '0');
+    $userCount->where('user_type', '=', 'candidate');
 		$userCount =$userCount->get();
 		$totalRecord =$userCount->count();
 
