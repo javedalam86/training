@@ -208,42 +208,63 @@
                         </select>
                     </div>
 
+					<div class="form-group">
+					    <label for="course" class="form-control-label">Course Section :</label>
+                        <select class="form-control" id="section_id" name="section_id">
+						@foreach($Sections as $section=>$value)
+							 <option value="{{$section}}">{{$value}}</option>
+						@endforeach                           
+                        </select>
+                    </div>
 
+					<div class="form-group ">
+                        <label for="question" class="form-control-label">Question Type:</label>
+                       <div class="kt-radio-inline">
+							<label class="kt-radio">
+								<input type="radio" name="question_type" checked="" value="0" class="questypclass"> Objective
+							<span></span>
+							</label>
+							<label class="kt-radio">
+								<input type="radio" name="question_type"   value="1" class="questypclass" >Subjective 
+								<span></span>
+							</label>
+						</div>
+                    </div>
 
 				   <div class="form-group ">
                         <label for="question" class="form-control-label">Question:</label>
-                        <input type="text" class="form-control" required='required'  id="question" id="question"placeholder="Your Question" data-rule="minlen:6,maxlen:10" data-msg="Please enter at least 6 chars">
+                        <input type="text" class="form-control"  id="question" id="question"placeholder="Your Question" data-rule="minlen:6,maxlen:10" data-msg="Please enter at least 6 chars">
                     </div>
 					
-					 <div class="form-group row">					 
+					 <div class="form-group row  objectivecls">					 
 						 <div class="col-sm-6">
 							<label for="option_aEdit" class="form-control-label">Option A:</label>
-							<input type="text" required='required' class="form-control" id="option_a" name="option_a"placeholder="Option A" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
+							<input type="text"  class="form-control" id="option_a" name="option_a"placeholder="Option A" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
 						</div> 
 						
 						<div class="col-sm-6">
 							 <label for="option_b" class="form-control-label">Option B:</label>
-                        <input type="text" required='required' class="form-control" id="option_b" name="option_b"placeholder="Option B" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
+                        <input type="text"  class="form-control" id="option_b" name="option_b"placeholder="Option B" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
 						</div>
 					
 					</div>
 				
-					 <div class="form-group row">
+					 <div class="form-group row  objectivecls">
 					 <div class="col-sm-6">
                         <label for="option_c" class="form-control-label">Option C:</label>
-                        <input type="text" required='required' class="form-control" id="option_c" name="option_c"placeholder="Option C" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
+                        <input type="text"  class="form-control" id="option_c" name="option_c"placeholder="Option C" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
 						</div>
 						
 						<div class="col-sm-6">
 						   <label for="option_d" class="form-control-label">Option D:</label>
-                        <input type="text" required='required' class="form-control" id="option_d" name="option_d"placeholder="Option d" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
+                        <input type="text"  class="form-control" id="option_d" name="option_d"placeholder="Option d" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
                     </div>
                     </div>
 					
 					
-					<div class="form-group">
+					<div class="form-group  objectivecls">
                         <label for="correct_option" class="form-control-label">Correct Option:</label>
-                        <input type="text" required='required' class="form-control" id="correct_option" name="correct_option" placeholder="Correct Option" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
+                        <input type="text"  class="form-control" id="correct_option" name="correct_option" placeholder="Correct Option" data-rule="minlen:6" data-msg="Please enter at least 6 chars">
                     </div>
                    
 
@@ -284,7 +305,28 @@
 							@endforeach
                         </select>
                     </div>					
-										
+					<div class="form-group">
+					    <label for="course" class="form-control-label">Course Section :</label>
+                        <select class="form-control" id="section_idEdit" name="section_idEdit">
+						@foreach($Sections as $section=>$value)
+							 <option value="{{$section}}">{{$value}}</option>
+						@endforeach                           
+                        </select>
+                    </div>
+
+					<div class="form-group ">
+                        <label for="question" class="form-control-label">Question Type:</label>
+                       <div class="kt-radio-inline">
+							<label class="kt-radio">
+								<input type="radio" name="question_typeEdit" checked="" value="0" class="questypclass"> Objective
+							<span></span>
+							</label>
+							<label class="kt-radio">
+								<input type="radio" name="question_typeEdit"   value="1" class="questypclass" >Subjective 
+								<span></span>
+							</label>
+						</div>
+                    </div>					
 										
 											
                     <div class="form-group">
@@ -294,23 +336,23 @@
                     </div>
 					
 					
-					 <div class="form-group row">
+					 <div class="form-group row  objectivecls">
 					 
 					 <div class="col-sm-6">
                         <label for="option_aEdit" class="form-control-label">Option A:</label>
-                        <input type="text" required='required' class="form-control" id="option_aEdit" name="option_aEdit">
+                        <input type="text" class="form-control" id="option_aEdit" name="option_aEdit">
 						 </div>
 						
 						<div class="col-sm-6">  
 						<label for="option_bEdit" class="form-control-label">Option B:</label>
-                        <input type="text" required='required' class="form-control" id="option_bEdit" name="option_bEdit">   
+                        <input type="text" class="form-control" id="option_bEdit" name="option_bEdit">   
                     </div></div>
 					
-					 <div class="form-group row">
+					 <div class="form-group row objectivecls">
 					 
 					 <div class="col-sm-6">
                         <label for="option_cEdit" class="form-control-label">Option C:</label>
-                        <input type="text" required='required' class="form-control" id="option_cEdit" name="option_cEdit">
+                        <input type="text"  class="form-control" id="option_cEdit" name="option_cEdit">
 						</div>
 						
 						 <div class="col-sm-6"> <label for="option_dEdit" class="form-control-label">Option D:</label>
@@ -320,9 +362,9 @@
                     </div>
 					 
                        
-					<div class="form-group">
+					<div class="form-group objectivecls">
                         <label for="correct_optionEdit" class="form-control-label">Correct Option:</label>
-                        <input type="text" required='required' class="form-control" id="correct_optionEdit" name="correct_optionEdit">
+                        <input type="text" class="form-control" id="correct_optionEdit" name="correct_optionEdit">
                     </div>
 					
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -481,6 +523,8 @@
             var option_d = $('#option_d').val();
             var course_id = $('#course_id').val();
 			
+            var section_id = $('#section_id').val();			
+            var question_type =    $("input[name='question_type']:checked").val()
 			
 			var correctOption = $('#correct_option').val();	        
             $.ajax({
@@ -495,6 +539,8 @@
 					"option_d": option_d,
                     "correct_option": correctOption,
                     "course_id": course_id,
+					 "question_type": question_type,
+                    "section_id": section_id,
                 },
                 success: function(msg) {  
 				var status = msg.status;
@@ -535,7 +581,12 @@
             var option_cEdit = $('#option_cEdit').val();
             var option_dEdit = $('#option_dEdit').val();
             var course_idEdit = $('#course_idEdit').val();
-			var correct_optionEdit = $('#correct_optionEdit').val();	
+			var correct_optionEdit = $('#correct_optionEdit').val();
+
+			var section_idEdit = $('#section_idEdit').val();			
+            var question_typeEdit =    $("input[name='question_typeEdit']:checked").val()
+
+			
             $.ajax({
                 type: "POST",
                 url: './editquestion',
@@ -548,7 +599,9 @@
 					"option_c": option_cEdit,
 					"option_d": option_dEdit,
                     "correct_option": correct_optionEdit,	
-                    "course_id": course_idEdit,				
+                    "course_id": course_idEdit,
+                    "question_type": question_typeEdit,
+                    "section_id": section_idEdit,	
                 },
                 success: function(msg) {					
 					var status = msg.status;
@@ -633,6 +686,14 @@
                 }
             });
         });
+		
+		$("input[name='question_type']").change(function(){ 
+			if($(this).val() ==0){ $('.objectivecls').show();     }else{  $('.objectivecls').hide();    }
+		});	
+		$("input[name='question_typeEdit']").change(function(){ 
+			if($(this).val() ==0){ $('.objectivecls').show();     }else{  $('.objectivecls').hide();    }
+		});	
+		
     </script>
    </body>
 <!-- end::Body -->

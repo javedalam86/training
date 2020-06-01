@@ -29,9 +29,9 @@ class QuestionController extends Controller
        // $pages = Pages::all();	
         $Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
 	 $Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
+	$Sections = array('1'=>'Section 1', '2'=>'Section 2', '3'=>'Section 3', '4'=>'Section 4');	
 	
-	
-        return view('questionlist', compact('Questions', 'Courses'));
+        return view('questionlist', compact('Questions', 'Courses', 'Sections'));
     }
 	
 	public function questiondetail(Request $request, $id)
@@ -122,11 +122,13 @@ class QuestionController extends Controller
     {		$data = $request->all();
 			$validator = Validator::make($request->all(), [ 
 				'question' => 'required|min:5', 
-				'correct_option' => "required|string|min:1|max:1|in:". implode(',', array('A','B','C','D')),
+				'correct_option' => "nullable|string|in:". implode(',', array('A','B','C','D')),
 			]);					
 		if ($validator->fails()) { 
 			return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
 		}else{
+			$input['question_type'] =$data['question_type'];	
+			$input['section_id'] =$data['section_id'];	
 			$input['question'] =$data['question'];				
 			$input['option_a'] =$data['option_a'];
 			$input['option_b'] =$data['option_b'];
