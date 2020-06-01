@@ -120,6 +120,7 @@ Route::get('policy-download/{policypath}', 'PolicyController@policydownload')->m
 
 
 Route::get('quize','QuizeController@quize')->name('quize')->middleware('auth');
+Route::post('ajaxgetquizequestion','QuizeController@ajaxgetquizequestion')->name('ajaxgetquizequestion')->middleware('auth');
 
 
 
