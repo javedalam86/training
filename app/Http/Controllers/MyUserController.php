@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Verified;
 
@@ -108,6 +106,7 @@ function ajaxmyuserslist(Request $request){
 		if($page ==1){ $offset = 0; }else{ $offset = $this->recordPerPage*($page-1); }
 		$usersData->where('is_deleted', '=', '0');
     $usersData->where('user_type', '=', 'candidate');
+    $usersData->where('parent_company', '=', Auth::id());
 		$usersData->offset($offset);
     $usersData->limit($this->recordPerPage);
 		$usersData->orderBy($sortfield, $sortorder);
@@ -124,6 +123,7 @@ function ajaxmyuserslist(Request $request){
 		}
 		$userCount->where('is_deleted', '=', '0');
     $userCount->where('user_type', '=', 'candidate');
+    $userCount->where('parent_company', '=', Auth::id());
 		$userCount =$userCount->get();
 		$totalRecord =$userCount->count();
 
@@ -156,7 +156,8 @@ function ajaxmyuserslist(Request $request){
      * @return \App\User
      */
     public function createmyuser(Request $request)
-    {		$data = $request->all();
+    {
+      $data = $request->all();
 			$validator = Validator::make($request->all(), [
 				'userName' => 'required|min:5',
 				'userEmail' => 'required|email|unique:users,email,0,id,is_deleted,0',
@@ -169,6 +170,7 @@ function ajaxmyuserslist(Request $request){
 				$input['name'] =$data['userName'];
 				$input['email'] =$data['userEmail'];
         $input['user_type'] = 'candidate';
+        $input['parent_company'] = Auth::id();
 				$user = User::create($input);
 
 				return response(array("status"=>"success", "code"=>400,"data" => $data));

@@ -1,4 +1,4 @@
-`@extends('layouts.admin') 
+`@extends('layouts.admin')
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
 <!-- end::Head -->
@@ -7,27 +7,27 @@
 <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 		<!-- begin:: Page -->
 		<!-- begin:: Header Mobile -->
-		   @include('layouts.adminmobileheader')	
+		   @include('layouts.adminmobileheader')
 
 		<!-- end:: Header Mobile -->
 		<div class="kt-grid kt-grid--hor kt-grid--root">
 			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
-				@include('layouts.sidebar')	
+				@include('layouts.sidebar')
 
 				<!-- end:: Aside -->
 				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
-				@include('layouts.adminheader')	
-				
+				@include('layouts.adminheader')
+
 					<!-- end:: Header -->
-					
-			<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">	
+
+			<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 					<!-- begin:: Content Head -->
 						<div class="kt-subheader  kt-grid__item" id="kt_subheader">
 							<div class="kt-container  kt-container--fluid ">
 								<div class="kt-subheader__main">
-									<h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-users-1"></i> &nbsp; Manage My Candidate</h3> 
+									<h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-users-1"></i> &nbsp; Manage My Candidate</h3>
 									<!--	<span class="kt-subheader__separator kt-subheader__separator--v"></span>	-->
-									
+
 									<div class="kt-input-icon kt-input-icon--right kt-subheader__search kt-hidden">
 										<input type="text" class="form-control" placeholder="Search order..." id="generalSearch">
 										<span class="kt-input-icon__icon kt-input-icon__icon--right">
@@ -36,10 +36,10 @@
 									</div>
 								</div>
 								<div class="kt-subheader__toolbar">
-									<div class="kt-subheader__wrapper">										
+									<div class="kt-subheader__wrapper">
 										 <button type="button" class="btn btn-brand btn-icon-sm" data-toggle="modal" data-target="#addUserModal">
                                         <i class="flaticon2-plus"></i> Add Candidate
-                                    </button>									
+                                    </button>
 									</div>
 								</div>
 							</div>
@@ -51,7 +51,7 @@
                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 				<div id='ajaxmessagediv'></div>
                     <div class="kt-portlet kt-portlet--mobile">
-                       
+
                         <div class="kt-portlet__body">
 
                             <!--begin: Search Form -->
@@ -116,7 +116,7 @@
 
                 {{ Form::open(array('method'=>'post','url' => 'useradd', 'id'=>'useradd')) }}
                 <div class="modal-body">
-				
+
 								<div class="alert alert-danger"  style="display:none"  id='addusermessage'> </div>
 
                     <div class="form-group">
@@ -155,11 +155,11 @@
     <div class="modal fade" id="useredit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-			
-												
+
+
 
                 <div class="modal-header">
-				
+
 
                     <h5 class="modal-title" id="exampleModalLabel">Edit Candidate</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -167,7 +167,7 @@
                 </div>
                 {{ Form::open(array('method'=>'post','url' => 'myuseredit', 'id'=>'myuseredit')) }}
                 <div class="modal-body">
-				
+
 							<div class="alert alert-danger" id='edituseremessage'> </div>
                     <div class="form-group">
                         <label for="user-name" class="form-control-label">Name:</label>
@@ -257,7 +257,7 @@
     <!--begin::Page Vendors(used by this page)
    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script> -->
     <!--end::Page Vendors -->
-    <!--begin::Page Scripts(used by this page) 
+    <!--begin::Page Scripts(used by this page)
    <script src="{{ asset('assets/js/pages/crud/datatables/data-sources/ajax-server-side1.js') }}" type="text/javascript"></script>-->
 
     <script src="{{ asset('assetsadmin/js/pages/crud/metronic-datatable/base/companyusers.js?v='.$scriptVer) }}" type="text/javascript"></script>
@@ -288,12 +288,12 @@
                 },
                 success: function(msg) {
 					var status = msg.status;
-					if(status =='success'){				
+					if(status =='success'){
 							$('#addUserModal').modal('toggle');
 							$('.kt-userdatatable').KTDatatable().load();
-							
-							$('#ajaxmessagediv').show(); 
-							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Added Successfully.</div>');	
+
+							$('#ajaxmessagediv').show();
+							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Added Successfully.</div>');
 							setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
 					}else{
 						errorString='';
@@ -311,7 +311,7 @@
 					}
 					/*
 					 var obj = JSON.parse(msg);
-					
+
                     if (obj.status == 'fail') {
                         alert(JSON.stringify(obj.message, null, 1));
                     } else {
@@ -343,16 +343,16 @@
                 success: function(msg) {   // 			  $("#edituseremessage").hide();
 
 				var status = msg.status;
-					if(status =='success'){		
+					if(status =='success'){
 							$('#useredit_modal').modal('toggle');
 							$('.kt-userdatatable').KTDatatable().load();
-							
-							$('#ajaxmessagediv').show(); 
-							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Edit Successfully.</div>');	
+
+							$('#ajaxmessagediv').show();
+							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Edit Successfully.</div>');
 							setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
-							
+
 					}else{
-							
+
 					errorString='';
 						$.each( msg.message, function( key, value) {
 							for(var l=0;l<value.length; l++){
@@ -365,7 +365,7 @@
 								$("#edituseremessage").slideUp();
 							}, 3000);
 						});
-					}                
+					}
                 }
             });
 
@@ -377,11 +377,11 @@
             var userId = $(e.relatedTarget).data('id');
             var userNameEdit = $(e.relatedTarget).data('name');
             var userEmailEdit = $(e.relatedTarget).data('email');
-           /* var roles = $(e.relatedTarget).data('roles');				 
+           /* var roles = $(e.relatedTarget).data('roles');
 			var rolesArray = roles.split(",");
 			 $('#userRoleEdit option[value=admin]').attr('selected',false);
 			 $('#userRoleEdit option[value=agent]').attr('selected',false);
-			 
+
 			rolesArray.forEach(function(item){
 			if(item=='Admin'){
 			 $('#userRoleEdit option[value=admin]').attr('selected','selected');
@@ -412,38 +412,38 @@
                 },
                 success: function(msg) {    // 			  $("#edituseremessage").hide();
 
-					
+
 					//var msg = JSON.parse(msg);
-					
+
                     if (msg.status == 'fail') {
                        // alert(JSON.stringify(msg.message, null, 1));
                     } else {
                         //alert('User deleted ' + msg.status);
                         $('#deleteModal').modal('toggle');
                         $('.kt-userdatatable').KTDatatable().load();
-						
-						$('#ajaxmessagediv').show(); 
-							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Delete Successfully.</div>');	
-							setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000); 
-                    }          
-					
-                    
+
+						$('#ajaxmessagediv').show();
+							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Delete Successfully.</div>');
+							setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
+                    }
+
+
                 }
             });
         });
 
         /*
- $("#btnConfirm").on("click", function(){  	
+ $("#btnConfirm").on("click", function(){
    alert('code to delete user');
   });    */
     </script>
     <!-- end::Global Config -->
-    <!--begin::Global Theme Bundle(used by all pages) 
+    <!--begin::Global Theme Bundle(used by all pages)
       <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}" type="text/javascript"></script>
       <script src="{{ asset('assets/js/scripts.bundle.js') }}" type="text/javascript"></script>
       -->
     <!--end::Global Theme Bundle -->
-    <!--begin::Page Scripts(used by this page) 
+    <!--begin::Page Scripts(used by this page)
       <script src="{{ asset('assets/js/data-ajax1.js') }}" type="text/javascript"></script>-->
     <!--end::Page Scripts -->
 </body>

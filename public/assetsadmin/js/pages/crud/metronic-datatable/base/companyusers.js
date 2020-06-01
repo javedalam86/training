@@ -14,9 +14,9 @@ var KTDatatableRemoteAjaxUser = function() {
 				type: 'remote',
 				source: {
 					read: {
-						url: 'ajaxuserslist',
+						url: 'ajaxmyuserslist',
 						method: 'GET',
-						
+
 						// sample custom headers
 						headers: {'x-my-custokt-header': 'some value', 'x-test-header': 'the value'},
 						map: function(raw) {
@@ -49,7 +49,7 @@ var KTDatatableRemoteAjaxUser = function() {
 			search: {
 				//input: $('#generalSearch'),
 			},
-				
+
 			// columns definition
 			columns: [
 				/*{
@@ -58,14 +58,14 @@ var KTDatatableRemoteAjaxUser = function() {
 					sortable: 'asc',
 					width: 75,
 					type: 'number',
-					
+
 					selector: false,
 					textAlign: 'center',
 					template: function(row) {
 						return '<a href="javascript:;" onclick=userdetails('+row.id+')>'+row.id+'</a>';
 					}
 				}, */
-				
+
 				{
 					field: 'name',
 					title: 'Name',
@@ -80,12 +80,12 @@ var KTDatatableRemoteAjaxUser = function() {
 						//return '--';
 						//}
 					//},
-										
-				//}, 
-				
+
+				//},
+
 				{
 					field: 'email',
-					title: 'Email',					
+					title: 'Email',
 				},{
 					field: 'Actions',
 					title: 'Actions',
@@ -125,8 +125,8 @@ var KTDatatableRemoteAjaxUser = function() {
 			datatable.search($(this).val(), 'usergeneralSearch');
 		}
 	});
-	
-	
+
+
 	};
 
 	return {
@@ -139,7 +139,7 @@ var KTDatatableRemoteAjaxUser = function() {
 
 jQuery(document).ready(function() {
 	KTDatatableRemoteAjaxUser.init();
-	
-	 
-  
+
+
+
 });
