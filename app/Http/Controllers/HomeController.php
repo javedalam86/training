@@ -23,7 +23,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {  die('xxxx');
+    { 
         return view('home');
     }
 }
