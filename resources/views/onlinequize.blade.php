@@ -1,6 +1,7 @@
 @extends('layouts.admin') 
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
+@php $ROOT_PATH =  Config::get('constants.ROOT_PATH'); @endphp
 <!-- end::Head -->
 <!-- begin::Body -->
  <meta name="_token" content="{{ csrf_token() }}" />
@@ -184,6 +185,8 @@
 	setTimeout(function() {
   $('#ajaxmessagediv').fadeOut('fast');
 }, 1200); 
+var ROOT_PATH = '{{$ROOT_PATH}}';
+var QuizeId = '{{$QuizeId}}';
 
 var currentQuestionId =0;
 var totalQuestions=0;
@@ -198,9 +201,9 @@ var totalQuestions=0;
 		var courseId = 31;
 		$.ajax({
 			type: "POST",
-			url: "./ajaxgetquizequestion",
+			url: ROOT_PATH+"/ajaxgetquizequestion",
 			 data: {
-                    "_token": "{{ csrf_token() }}", courseId:courseId},
+                    "_token": "{{ csrf_token() }}", QuizeId:QuizeId},
 			success: function(msg){		
 				if(msg.status=='fail'){
 					/*$.each( msg.casedata.errors, function( key, value) {

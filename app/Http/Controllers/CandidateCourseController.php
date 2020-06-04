@@ -13,8 +13,9 @@ use App\Models\CandidateCourses;
 use App\Imports\UsersImport;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-
-
+use App\Models\Courses;
+use App\Models\Books; 
+use App\Models\CourseQuize; 
 
 class CandidateCourseController extends Controller
 {
@@ -35,9 +36,22 @@ class CandidateCourseController extends Controller
 	
 	public function candidatecoursedetail(Request $request, $id)
     {
-        $MyCourseData = User::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
-		$MyCourse =  $MyCourseData[0];
-        return view('mycoursedetail', compact('MyCourse'));
+        $CourseData = courses::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
+		$Course =  $CourseData[0];
+		
+		$BookData = Books::select('course_books.id as id','courses.name as cname','course_books.description','type','course_books.name','course_id','bookpath');		  
+		$BookData->leftJoin('courses', function ($join) {
+            $join->on('courses.id', '=', 'course_books.course_id');
+			});
+		$BookData->where('course_books.course_id', '=', $id);
+		$BookData =	$BookData->get()->toArray();	
+	
+		$CourseQuizeData = CourseQuize::where('course_quize_status', '=', '1')->where('course_id', '=', $id)->get()->toArray();
+		
+		
+		
+		
+        return view('candidatecoursedetail', compact('Course','BookData','CourseQuizeData'));
     }
 	
 	
@@ -59,7 +73,7 @@ class CandidateCourseController extends Controller
 		$searchArray['page']	=$page;
 		$candidateId = Auth::user()->id;
 	
-		$CourseData = CandidateCourses::select('courses.name as cname','courses.description as description');	
+		$CourseData = CandidateCourses::select('courses.id as id','courses.name as cname','courses.description as description');	
 	  
 		$CourseData->leftJoin('courses', function ($join) {
             $join->on('courses.id', '=', 'candidate_courses.course_id');
@@ -95,7 +109,7 @@ class CandidateCourseController extends Controller
 		
 		
 		//$userCount = CandidateCourses::select('*');
-		$AllCourseData = CandidateCourses::select('courses.name as cname','courses.description as description');		  
+		$AllCourseData = CandidateCourses::select('courses.id as id','courses.name as cname','courses.description as description');		  
 		$AllCourseData->leftJoin('courses', function ($join) {
             $join->on('courses.id', '=', 'candidate_courses.course_id');
 		});

@@ -119,7 +119,7 @@ Route::get('file-download/{bookpath}', 'BookController@bookdownload')->middlewar
 Route::get('policy-download/{policypath}', 'PolicyController@policydownload')->middleware('auth');
 
 
-Route::get('quize','QuizeController@quize')->name('quize')->middleware('auth');
+Route::get('quize/{id}','QuizeController@quize')->name('quize')->middleware('auth');
 Route::post('ajaxgetquizequestion','QuizeController@ajaxgetquizequestion')->name('ajaxgetquizequestion')->middleware('auth');
 
 

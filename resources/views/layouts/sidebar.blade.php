@@ -103,11 +103,7 @@
 									<span class="kt-menu__link-text"> Courses</span></a>										
 							</li>
 
-							<li class="kt-menu__item <?php if($routeName =='quize'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
-								<a href="{{ route('quize') }}"  class="kt-menu__link ">
-									<i class="kt-menu__link-icon flaticon2-list"></i>
-									<span class="kt-menu__link-text"> Quize</span></a>										
-							</li>
+							
 
 							<li class="kt-menu__item <?php if($routeName =='candidatecourselist'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
 								<a href="{{ route('candidatecourselist') }}"  class="kt-menu__link ">

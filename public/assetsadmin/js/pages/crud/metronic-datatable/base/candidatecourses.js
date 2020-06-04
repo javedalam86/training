@@ -88,7 +88,7 @@ var KTDatatableRemoteAjaxCourse = function() {
 					template: function(row) {
 						return '\
 						<a href="coursedetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
-							<i class="flaticon2-shopping-cart-1"></i>\
+							<i class="flaticon2-magnifier-tool"></i>\
 						</a>\
 					';
 					},
