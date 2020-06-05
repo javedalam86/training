@@ -119,7 +119,7 @@ Route::get('file-download/{bookpath}', 'BookController@bookdownload')->middlewar
 Route::get('policy-download/{policypath}', 'PolicyController@policydownload')->middleware('auth');
 
 
-Route::get('quize/{id}','QuizeController@quize')->name('quize')->middleware('auth');
+Route::get('quiz/{id}','QuizeController@quize')->name('quiz')->middleware('auth');
 Route::post('ajaxgetquizequestion','QuizeController@ajaxgetquizequestion')->name('ajaxgetquizequestion')->middleware('auth');
 
 
@@ -156,7 +156,7 @@ Route::get('candidatetest','CandidateCourseController@candidatetest')->name('can
 Route::get('ajaxcandidatecourselist','CandidateCourseController@ajaxcandidatecourselist')->name('ajaxcandidatecourselist')->middleware('auth');
 
 //Calender
-Route::get('course-calendar', 'CourseCalenderController@index')->name('course-calender');
-Route::get('all-course', 'CourseCalenderController@getAllCourse')->name('get-all-calender');
+Route::get('course-calendar', 'CourseCalenderController@index')->name('course-calendar');
+Route::get('all-course', 'CourseCalenderController@getAllCourse')->name('get-all-calendar');
 Route::get('course-by-id/{courseId}', 'CourseCalenderController@courseDetail')->name('course-by-id');
 Route::get('book-course/{courseId}', 'CourseCalenderController@buyCourse')->name('buy-course');

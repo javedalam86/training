@@ -22,7 +22,7 @@
 						<div class="kt-subheader  kt-grid__item" id="kt_subheader">
 							<div class="kt-container  kt-container--fluid ">
 								<div class="kt-subheader__main">
-									<h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-layer"></i> &nbsp; Quize:</h3> 
+									<h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-layer"></i> &nbsp; Quiz:</h3> 
 									<!--	<span class="kt-subheader__separator kt-subheader__separator--v"></span>	-->
 									<div class="kt-input-icon kt-input-icon--right kt-subheader__search kt-hidden">
 										<input type="text" class="form-control" placeholder="Search order..." id="generalSearch">
@@ -56,10 +56,10 @@
 											</div>
 										</div>
 										<div class="kt-section__info"> <ul>
-											 <li>Other Quize instructions willl come here.</li>
-											 <li>Other Quize instructions willl come here.</li>
-											 <li>Other Quize instructions willl come here.</li>
-											 <li>Other Quize instructions willl come here.</li>
+											 <li>Other Quiz instructions willl come here.</li>
+											 <li>Other Quiz instructions willl come here.</li>
+											 <li>Other Quiz instructions willl come here.</li>
+											 <li>Other Quiz instructions willl come here.</li>
 										  </ul>
 										</div>									
 									</div>	

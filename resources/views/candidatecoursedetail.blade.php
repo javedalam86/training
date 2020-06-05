@@ -163,7 +163,7 @@
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title">
-							Course Quizes
+							Course Quiz
 						</h3>
 					</div>
 				</div>
@@ -171,8 +171,8 @@
 					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 						<thead>
 							<tr>
-								<th>Quize Name</th>
-								<th>Quize Date</th>
+								<th>Quiz Name</th>
+								<th>Quiz Date</th>
 								<th></th>
 							
 								
@@ -180,11 +180,11 @@
 						</thead>
 						<tbody>
 							@foreach ($CourseQuizeData as $CourseQuizeDataObj)
-								<?php $quizeLink = $ROOT_PATH.'/quize/'.$CourseQuizeDataObj['id'] ?>
+								<?php $quizeLink = $ROOT_PATH.'/quiz/'.$CourseQuizeDataObj['id'] ?>
 							<tr>
 								<td>{{$CourseQuizeDataObj['quize_name']}}</td>
 								<td>{{$CourseQuizeDataObj['start_date']}}</td>
-								<td> <a href='<?php echo $quizeLink;?>' ><button type="reset" id="startQuizBtn" class="btn btn-success"> Quize</button></a></td>
+								<td> <a href='<?php echo $quizeLink;?>' ><button type="reset" id="startQuizBtn" class="btn btn-success"> Quiz</button></a></td>
 								
 								
 							</tr>
