@@ -54,10 +54,10 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('qms')}}">QMS</a>
-          </li>
+          </li><!--
           <li class="nav-item">
-            <a class="nav-link active" href="{{route('course-calender')}}">Course</a>
-          </li>
+            <a class="nav-link active" href="{{route('course-calendar')}}">Course</a>
+          </li> -->
         </ul>
       </div>
     </div>

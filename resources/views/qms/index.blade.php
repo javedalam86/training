@@ -62,7 +62,7 @@
             <a class="nav-link active" href="{{route('qms')}}">QMS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('course-calender')}}">Course</a>
+            <a class="nav-link" href="{{route('course-calendar')}}">Course</a>
           </li>
         </ul>
       </div>

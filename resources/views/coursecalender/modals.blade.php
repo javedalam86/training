@@ -61,7 +61,7 @@
         </form>
       </div>
       <div class="modal-footer">
-         <button type="button" id="edit_event_btn"  class="btn btn-primary">Buy</button>
+         <button type="button" id="edit_event_btn"  class="btn btn-primary">Book Course</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>

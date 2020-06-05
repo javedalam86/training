@@ -156,7 +156,7 @@ Route::get('candidatetest','CandidateCourseController@candidatetest')->name('can
 Route::get('ajaxcandidatecourselist','CandidateCourseController@ajaxcandidatecourselist')->name('ajaxcandidatecourselist')->middleware('auth');
 
 //Calender
-Route::get('course-calender', 'CourseCalenderController@index')->name('course-calender');
+Route::get('course-calendar', 'CourseCalenderController@index')->name('course-calender');
 Route::get('all-course', 'CourseCalenderController@getAllCourse')->name('get-all-calender');
 Route::get('course-by-id/{courseId}', 'CourseCalenderController@courseDetail')->name('course-by-id');
-Route::get('buy-course/{courseId}', 'CourseCalenderController@buyCourse')->name('buy-course');
+Route::get('book-course/{courseId}', 'CourseCalenderController@buyCourse')->name('buy-course');
