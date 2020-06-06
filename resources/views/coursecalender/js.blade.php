@@ -1,6 +1,6 @@
 <script>
  var loader='<img class="loader" src="<?php echo asset('vendor/event/image/ajax-loader.gif')?>"/>';
- var calender_data_url = "{{route('get-all-calender')}}";
+ var calender_data_url = "{{route('get-all-calendar')}}";
 
   $( document ).ready(function() {
      $(function() {
@@ -78,7 +78,7 @@ $("#edit_event_btn").click(function(){
 
   if($('#edit_event_frm').parsley().validate()==true ){
     $('#edit_event_alert').show().html(loader);
-    var action = "{{url('buy-course/')}}/" + $('#edit_event_id').val();
+    var action = "{{url('book-course/')}}/" + $('#edit_event_id').val();
 
     $.get(action, function (feedback) {
        var jd = $.parseJSON(feedback);
@@ -140,7 +140,7 @@ $('body').on('click', '#submitLoginForm', function(){
         $('#loginsuccess-msg').html( data.message);
         setInterval(function(){  $('#loginsuccess-msg').show();
           $('#userLoginModal').modal('hide');
-          var urlRoute ="{{route('course-calender')}}";
+          var urlRoute ="{{route('course-calendar')}}";
           window.location.href = urlRoute;
         }, 3000);
       }
