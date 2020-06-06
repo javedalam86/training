@@ -14,6 +14,6 @@ class CourseQuize extends Model
   *
   * @var array
   */
-  protected $fillable = ['quize_name','course_id','start_date','end_date','course_quize_status'];
+  protected $fillable = ['quize_name','quize_desc','course_id','start_date','end_date','course_quize_status'];
 }
 

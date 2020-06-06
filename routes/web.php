@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Auth::routes(['verify' => true]);
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/qms', 'QmsController@qms')->name('qms');
 
@@ -33,7 +35,7 @@ Route::get('dashboard','DashboardController@dashboard')->name('dashboard')->midd
 
 Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
 
-
+// Admin
 Route::get('userslist', [ 'as' => 'userslist', 'uses' => 'UserController@index']);
 Route::get('ajaxuserslist', [ 'as' => 'ajaxuserslist', 'uses' => 'UserController@ajaxuserslist']);
 Route::post('createuser', [ 'as' => 'createuser', 'uses' => 'UserController@createuser']);
@@ -70,6 +72,24 @@ Route::post('deletetrainer', [ 'as' => 'deletetrainer', 'uses' => 'TrainerContro
 Route::get('candidatecourses','CourseController@candidatecourses')->name('candidatecourses')->middleware('auth');
 
 Route::get('coursedetail/{id}','CourseController@coursedetail')->name('coursedetail')->middleware('auth');
+
+
+
+
+
+Route::post('createcoursesection','CourseController@createcoursesection')->name('createcoursesection')->middleware('auth');
+
+
+Route::post('createcoursequiz','CourseController@createcoursequiz')->name('createcoursequiz')->middleware('auth');
+
+
+
+
+
+
+
+
+
 
 
 Route::get('courselist','CourseController@courselist')->name('courselist')->middleware('auth');

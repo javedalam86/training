@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CourseQuizeSections extends Model
+class CourseSections extends Model
 {
-	protected $table = 'course_quize_sections';
+	protected $table = 'course_sections';
 	public $timestamps = false;
    
     /**
@@ -14,5 +14,5 @@ class CourseQuizeSections extends Model
     * 
     * @var array   
     */
-    protected $fillable = ['course_quize_id','section_id','questions','sub_questions','question_type'];
+    protected $fillable = ['course_id','section_name','is_deleted'];
 }
