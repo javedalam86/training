@@ -49,6 +49,7 @@
 
   function edit_event(event_id){
 
+    $("#edit_event_btn").attr("disabled",true);
     $('#edit_event_modal').modal({
       show: 'true'
     });
@@ -62,6 +63,7 @@
     $.get(single_event_url, function (r) {
         var edata = r;
         if(edata.id>0){
+          $("#edit_event_btn").attr("disabled",false);
           $('#edit_event_alert').html('');
           $('#edit_event_id').val(edata.id);
           $('#edit_event_title').html(edata.name);
@@ -85,7 +87,9 @@ $("#edit_event_btn").click(function(){
        $('#edit_event_alert').html('');
 
        if(jd.type=='alert-success'){
-          alert('redirect to buy page soon...')
+          alert('Course Booked Successfully!');
+          $('#edit_event_modal').modal('hide');
+          //alert('redirect to buy page soon...')
        } else {
           var msg = "";
           $.each(jd.error, function( key, value ){

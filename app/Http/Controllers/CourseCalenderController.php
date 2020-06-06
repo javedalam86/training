@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Courses;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CandidateCourses;
 
 class CourseCalenderController extends Controller
 {
@@ -53,6 +54,21 @@ class CourseCalenderController extends Controller
         $feed_back['type_error']='2';
         $feed_back['error'][]= 'Please login first to buy cours';
          return json_encode($feed_back);
+          exit();
+      }
+
+      $cc = [
+        'course_id' => $courseId,
+        'candidate_id' => Auth::user()->id
+      ];
+
+      $ccRes = CandidateCourses::create($cc);
+
+      if(!$ccRes) {
+          $feed_back['type']='alert-danger';
+          $feed_back['type_error']='1';
+          $feed_back['error'][] = 'Coorse booking failed';
+          return json_encode($feed_back);
           exit();
       }
 

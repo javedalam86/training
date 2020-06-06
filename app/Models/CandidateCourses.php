@@ -8,11 +8,11 @@ class CandidateCourses extends Model
 {
 	protected $table = 'candidate_courses';
 	public $timestamps = false;
-   
+
     /**
     * The attributes that are mass assignable.
-    * 
-    * @var array   
+    *
+    * @var array
     */
     protected $fillable = ['candidate_id','course_id','is_deleted'];
 }
