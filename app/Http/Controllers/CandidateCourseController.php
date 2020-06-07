@@ -46,7 +46,7 @@ class CandidateCourseController extends Controller
 		$BookData->where('course_books.course_id', '=', $id);
 		$BookData =	$BookData->get()->toArray();
 
-		$CourseQuizeData = CourseQuize::where('course_quize_status', '=', '2')->where('course_id', '=', $id)->get()->toArray();
+		$CourseQuizeData = CourseQuize::where('course_quize_status', '=', '1')->where('course_id', '=', $id)->get()->toArray();
 
 
 
