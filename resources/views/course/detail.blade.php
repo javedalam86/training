@@ -99,8 +99,31 @@
 					</div>
 				</div>
 				<div class="kt-portlet__body">
+				<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
+						<thead>
+							<tr>
+								<th>Quiz Name</th>
+								<th>Quiz Description</th>
+								<th>Status</th>
+							
+								
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($CourseQuize as $CourseQuizeObj)
+								
+							<tr>
+								<td>{{$CourseQuizeObj['quize_name']}}</td>
+								<td>{{$CourseQuizeObj['quize_desc']}}</td>
+								<td>{{$CourseQuizeObj['course_quize_status']}}</td>
+								
+								
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
 				
-				
+	<!--			
 					@foreach ($CourseQuize as $CourseQuizeObj)
 				
 					<div class="form-group form-group-xs row">
@@ -110,7 +133,9 @@
 						</div>
 					</div>
 					
-					@endforeach			  
+					@endforeach		
+
+-->			
 					
 				
 				</div>
