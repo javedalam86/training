@@ -141,6 +141,7 @@ Route::get('policy-download/{policypath}', 'PolicyController@policydownload')->m
 
 Route::get('quiz/{id}','QuizeController@quize')->name('quiz')->middleware('auth');
 Route::post('ajaxgetquizequestion','QuizeController@ajaxgetquizequestion')->name('ajaxgetquizequestion')->middleware('auth');
+Route::post('candidate-submit-quize', 'QuizeController@submitQuize')->name('candidate-submit-quize')->middleware('auth');
 
 
 
@@ -170,6 +171,7 @@ Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->m
 Route::post('jquery-ajax-form-submit', 'ContactController@store');
 Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
 Route::get('candidatecoursedetail/{id}','CandidateCourseController@candidatecoursedetail')->name('candidatecoursedetail')->middleware('auth');
+
 
 Route::get('candidatetest','CandidateCourseController@candidatetest')->name('candidatetest')->middleware('auth');
 

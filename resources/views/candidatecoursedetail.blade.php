@@ -37,38 +37,41 @@
               </div>
             </div>
           </div>
+
+
           <!-- begin:: Content -->
           <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-		  
+
+
 		  <!--
             <div id='ajaxmessagediv'></div>
             <div class="kt-portlet kt-portlet--mobile">
               <div class="kt-portlet__body">
-            
+
                 <div class="kt-portlet__body">
                   <div class="form-group form-group-xs row">
-                
+
                     <label class="col-2 col-form-label">Course Name:</label>
                     <div class="col-8">
                       <span class="form-control-plaintext kt-font-bolder">{{$Course['name']}}	</span>
                     </div>
                   </div>
                   <div class="form-group form-group-xs row">
-         
+
                     <label class="col-2 col-form-label">Description:</label>
                     <div class="col-8">
                       <span class="form-control-plaintext kt-font-bolder">{{$Course['description']}}</span>
                     </div>
                   </div>
                   <div class="form-group form-group-xs row">
-                  
+
                     <label class="col-2 col-form-label">Course Type:</label>
                     <div class="col-8">
                       <span class="form-control-plaintext kt-font-bolder">{{$Course['course_type']}}</span>
                     </div>
                   </div>
                   <div class="form-group form-group-xs row">
-         
+
                     <label class="col-2 col-form-label">Price:</label>
                     <div class="col-8">
                       <span class="form-control-plaintext kt-font-bolder">{{$Course['cost']}}</span>
@@ -78,8 +81,38 @@
               </div>
             </div>
 			-->
-			
-			
+
+       @if ($message = Session::get('success'))
+          <div class="col-md-12">
+            <div class="alert alert-success in">
+              <div class="col-md-11">
+                <i class="fa fa-check faa-pulse animated"></i>
+                <strong>Success: </strong>
+                {{ $message }}
+              </div>
+               <div class="col-md-1">
+                <button type="button" class="close pull-right" data-dismiss="alert">&times;</button>
+               </div>
+            </div>
+          </div>
+       @endif
+
+      @if ($message = Session::get('error'))
+        <div class="col-md-12">
+          <div class="alert alert alert-danger in">
+            <div class="col-md-11">
+              <i class="fa fa-exclamation-circle faa-pulse animated"></i>
+             <strong>Error: </strong>
+             {{ $message }}
+            </div>
+             <div class="col-md-1">
+              <button type="button" class="close pull-right" data-dismiss="alert">&times;</button>
+             </div>
+          </div>
+        </div>
+      @endif
+
+
 			<div class="kt-portlet kt-portlet--mobile">
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
@@ -115,8 +148,8 @@
 					</div>
 				</div>
 			</div>
-			
-				
+
+
 			<div class="kt-portlet kt-portlet--mobile">
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
@@ -132,7 +165,7 @@
 								<th>Name</th>
 								<th>Description</th>
 								<th>Download</th>
-								
+
 							</tr>
 						</thead>
 						<tbody>
@@ -146,19 +179,19 @@
 									<i class="flaticon-download"></i>
 									</a>
 								</td>
-								
+
 							</tr>
 							@endforeach
 						</tbody>
-					</table>			
-				</div>	
+					</table>
+				</div>
 			</div>
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 			<div class="kt-portlet kt-portlet--mobile">
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
@@ -174,8 +207,8 @@
 								<th>Quiz Name</th>
 								<th>Quiz Date</th>
 								<th></th>
-							
-								
+
+
 							</tr>
 						</thead>
 						<tbody>
@@ -185,30 +218,30 @@
 								<td>{{$CourseQuizeDataObj['quize_name']}}</td>
 								<td>{{$CourseQuizeDataObj['start_date']}}</td>
 								<td> <a href='<?php echo $quizeLink;?>' ><button type="reset" id="startQuizBtn" class="btn btn-success"> Quiz</button></a></td>
-								
-								
+
+
 							</tr>
 							@endforeach
 						</tbody>
-					</table>			
-				</div>	
+					</table>
+				</div>
 			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
         <!-- end:: Content -->
         </div>
