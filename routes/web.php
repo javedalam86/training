@@ -83,6 +83,9 @@ Route::post('createcoursesection','CourseController@createcoursesection')->name(
 Route::post('createcoursequiz','CourseController@createcoursequiz')->name('createcoursequiz')->middleware('auth');
 
 
+Route::post('toggleQuizStatus','QuizeController@toggleQuizStatus')->name('toggleQuizStatus')->middleware('auth');
+
+
 
 
 

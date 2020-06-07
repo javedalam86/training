@@ -56,7 +56,7 @@ class CourseController extends Controller
     $Course =  $CourseData[0]; 
 	$CourseId = $id;
 	$sectionsData = CourseSections::where('is_deleted', '=', '0')->where('course_id', '=', $id)->get()->toArray();
-	$CourseQuize = CourseQuize::where('course_quize_status', '=', '1')->where('course_id', '=', $id)->get()->toArray();
+	$CourseQuize = CourseQuize::where('is_deleted', '=', '0')->where('course_id', '=', $id)->get()->toArray();
 	
 	
 	

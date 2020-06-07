@@ -105,19 +105,24 @@
 								<th>Quiz Name</th>
 								<th>Quiz Description</th>
 								<th>Status</th>
+								<th>Status</th>
 							
 								
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($CourseQuize as $CourseQuizeObj)
-								
+								<?php if($CourseQuizeObj['course_quize_status'] ==1){ $ActiveClass = 'flaticon2-arrow-up'; }else{ $ActiveClass = 'flaticon2-arrow-down';} ?>
 							<tr>
 								<td>{{$CourseQuizeObj['quize_name']}}</td>
 								<td>{{$CourseQuizeObj['quize_desc']}}</td>
 								<td>{{$CourseQuizeObj['course_quize_status']}}</td>
-								
-								
+								<td>
+									<a href="javascript:void(0);" class='toggleQuizStatus' data-id="{{$CourseQuizeObj['id']}}" class="btn btn-sm btn-clean btn-icon btn-icon-sm" ><i class="<?php echo $ActiveClass?>"></i>	
+									</a>
+								</td>
+
+							
 							</tr>
 							@endforeach
 						</tbody>
@@ -283,6 +288,53 @@
   
   var ROOT_PATH = '{{$ROOT_PATH}}';
   var CourseId = '{{$CourseId}}';
+  
+  
+  
+  $( ".toggleQuizStatus" ).click(function(e) {
+ 	var quizeId = $(this).data('id');
+	 e.preventDefault();
+     
+
+    
+      $.ajax({
+        type: "POST",
+        url: ROOT_PATH+"/toggleQuizStatus",
+        data: {
+          "_token": "{{ csrf_token() }}",
+          "quizeId": quizeId,
+        },
+        success: function(msg) {
+          var status = msg.status;
+          if(status =='success'){
+           // $('#courseadd_Modal').modal('toggle');
+/*
+            $('#addcoursemessage').show();
+            $('#addcoursemessage').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Add Successfully.</div>');
+            setTimeout(function() {  $('#addcoursemessage').fadeOut('fast');}, 3000); */
+			
+				window.location.reload();
+          }else{
+            errorString='';
+            $.each( msg.message, function( key, value) {
+              for(var l=0;l<value.length; l++){
+                errorString +=  value[l] +'<br/>' ;
+              }
+            });
+            $("#addcoursemessage").show();
+            $("#addcoursemessage").html("<strong>Error!</strong> "+errorString);
+            $("#addcoursemessage").slideDown(function() {
+              setTimeout(function() {
+                $("#addcoursemessage").slideUp();
+              }, 3000);
+              //$("#addCompanyModal").trigger('reset');
+            });
+          }
+        }
+      });
+});
+  
+  
   
     $('#coursesectionadd').on('submit', function(e) {
       e.preventDefault();
