@@ -63,17 +63,30 @@ class QuizeController extends Controller
                 'question_type' => $data['question_type_'.$i],
             ];
             if(isset($data['option_'.$i])) {
-              $insert['selected_option'] = $data['option_'.$i];
+               $insert['selected_option'] = $data['option_'.$i];
             } else {
               $insert['selected_option'] = null;
             }
             $insert['attempt_date'] = $attemptDate;
+
+            //Check answer is correct
+            if($data['question_type_'.$i] == '0'){
+              if(isset($data['option_'.$i]) && ($data['option_'.$i] == $data['correct_option_'.$i])){
+                $insert['marks'] = 1;
+              } else {
+                 $insert['marks'] = 0;
+              }
+            } else {
+               $insert['marks'] = null;
+            }
+
             QuizeResult::create($insert);
           }
           //Update Status
-          $courseQuize = CourseQuize::where('id', '=',$data['quize_id'])->first();
+          /*$courseQuize = CourseQuize::where('id', '=',$data['quize_id'])->first();
           $courseQuize->course_quize_status = 2;
           $courseQuize->save();
+          */
 
         } else {
           \Session::flash('error', 'Invalid Request');

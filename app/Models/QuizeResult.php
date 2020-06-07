@@ -15,5 +15,13 @@ class QuizeResult extends Model
   * @var array
   */
   protected $fillable = ['quize_id','section_id','question_id','selected_option','question_type','marks','attempt_date','is_evaluated'];
+
+  /**
+     * Get the post that owns the comment.
+     */
+    public function courseQuize()
+    {
+        return $this->belongsTo('App\Models\CourseQuize','quize_id','id');
+    }
 }
 

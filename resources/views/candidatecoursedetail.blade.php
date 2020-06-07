@@ -191,7 +191,7 @@
 
 
 
-
+@if(!$CourseQuizeData->isEmpty())
 			<div class="kt-portlet kt-portlet--mobile">
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
@@ -213,33 +213,76 @@
 						</thead>
 						<tbody>
 							@foreach ($CourseQuizeData as $CourseQuizeDataObj)
-								<?php $quizeLink = $ROOT_PATH.'/quiz/'.$CourseQuizeDataObj['id'] ?>
+								<?php $quizeLink = $ROOT_PATH.'/quiz/'.$CourseQuizeDataObj->id ?>
 							<tr>
-								<td>{{$CourseQuizeDataObj['quize_name']}}</td>
-								<td>{{$CourseQuizeDataObj['start_date']}}</td>
+								<td>{{$CourseQuizeDataObj->quize_name}}</td>
+								<td>{{$CourseQuizeDataObj->start_date}}</td>
 								<td> <a href='<?php echo $quizeLink;?>' ><button type="reset" id="startQuizBtn" class="btn btn-success"> Quiz</button></a></td>
-
-
 							</tr>
 							@endforeach
 						</tbody>
 					</table>
 				</div>
 			</div>
+    @endif
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @if(!$CourseQuizeData->isEmpty())
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Course Quiz Report
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
+            <thead>
+              <tr>
+                <th>Quiz Name</th>
+                <th>Quiz Attempt Date</th>
+                <th>Total % </th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($CourseQuizeData as $CourseQuizeDataObj)
+                @php
+                  $quizeResult = $CourseQuizeDataObj->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
+                  $latest = current($quizeResult);
+                  if(empty($latest)){
+                    continue;
+                  }
+                  $totalMarks = 0;
+                @endphp
+                @if(!empty($latest))
+                  @foreach ($latest as $objs)
+                    @foreach ($objs as $obj)
+                      @php
+                      //echo "<pre>";print_r($obj);
+                      if(!empty($obj->marks)) {
+                        $totalMarks = $totalMarks + (int)$obj->marks;
+                      }
+                      @endphp
+                    @endforeach
+                    @php
+                      $totalMarks = $totalMarks*10;
+                    @endphp
+                    <tr>
+                      <td>{{$CourseQuizeDataObj['quize_name']}}</td>
+                      <td>{{$objs[0]->attempt_date}}</td>
+                      <td>{{$totalMarks}}%</td>
+                    </tr>
+                    @php
+                      break;
+                    @endphp
+                  @endforeach
+                @endif
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    @endif
 
 
         </div>

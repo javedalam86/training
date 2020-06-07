@@ -15,5 +15,14 @@ class CourseQuize extends Model
   * @var array
   */
   protected $fillable = ['quize_name','quize_desc','course_id','start_date','end_date','course_quize_status'];
+
+   /**
+     * Get the comments for the blog post.
+     */
+    public function quizeResults()
+    {
+        return $this->hasMany('App\Models\QuizeResult','quize_id','id');
+    }
+
 }
 
