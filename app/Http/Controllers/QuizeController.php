@@ -54,6 +54,7 @@ class QuizeController extends Controller
         $data = $request->all();
         $quizeRec = [];
         if(!empty($data) && (int)$data['totalQuestions']>0) {
+          $attemptDate = date('Y-m-d H:i:s');
           for ($i=1; $i <= (int)$data['totalQuestions']; $i++) {
             $insert = [
                 'quize_id' => $data['quize_id'],
@@ -66,6 +67,7 @@ class QuizeController extends Controller
             } else {
               $insert['selected_option'] = null;
             }
+            $insert['attempt_date'] = $attemptDate;
             QuizeResult::create($insert);
           }
           //Update Status
