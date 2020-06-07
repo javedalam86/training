@@ -86,8 +86,8 @@ function ajaxmyuserslist(Request $request){
 
 	//$pageNo = 1;
 		$usersData = User::select('*');
-		if(@isset($data['query']['generalSearch'])){
-			$searchKey =$data['query']['generalSearch'];
+		if(@isset($data['query']['usergeneralSearch'])){
+			$searchKey =$data['query']['usergeneralSearch'];
 			$usersData = $usersData->where(function($q) use ($searchKey){
 				$q->where('name', 'LIKE', '%' . $searchKey . '%')
 				->orWhere('email', 'LIKE', '%' . $searchKey . '%');
@@ -111,11 +111,12 @@ function ajaxmyuserslist(Request $request){
     $usersData->limit($this->recordPerPage);
 		$usersData->orderBy($sortfield, $sortorder);
 		$usersData =	$usersData->get()->toArray();
+		
 
 
 		$userCount = User::select('*');
-		if(@isset($data['query']['generalSearch'])){
-			$searchKey =$data['query']['generalSearch'];
+		if(@isset($data['query']['usergeneralSearch'])){
+			$searchKey =$data['query']['usergeneralSearch'];
 			$userCount = $userCount->where(function($q) use ($searchKey){
 				$q->where('name', 'LIKE', '%' . $searchKey . '%')
 				->orWhere('email', 'LIKE', '%' . $searchKey . '%');

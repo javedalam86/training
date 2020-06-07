@@ -37,11 +37,12 @@ class CandidateCourseController extends Controller
     public function candidatecoursedetail(Request $request, $id)
     {
         $CourseData = courses::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
+
         $Course =  $CourseData[0];
 
         $BookData = Books::select('course_books.id as id','courses.name as cname','course_books.description','type','course_books.name','course_id','bookpath');
         $BookData->leftJoin('courses', function ($join) {
-        $join->on('courses.id', '=', 'course_books.course_id');
+            $join->on('courses.id', '=', 'course_books.course_id');
         });
         $BookData->where('course_books.course_id', '=', $id);
         $BookData =	$BookData->get()->toArray();

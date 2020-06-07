@@ -97,5 +97,25 @@ class QuizeController extends Controller
 
         return redirect()->route('candidatecoursedetail',['id'=>$data['course_id']]);
     }
+	
+	
+	
+    public function toggleQuizStatus(Request $request){
+        $data = $request->all();     
+        if(!empty($data)) {
+          
+          $courseQuize = CourseQuize::where('id', '=',$data['quizeId'])->first();
+		  if($courseQuize->course_quize_status == 1){ 
+			$courseQuize->course_quize_status =0;
+		  }else{ 	$courseQuize->course_quize_status =1;}
+          $courseQuize->save();
+
+        } else {
+           return response()->json(array('status' => 'fail', 'data'=>$courseQuize));
+        }
+
+         return response()->json(array('status' => 'success', 'data'=>$courseQuize));
+    }
+
 
 }

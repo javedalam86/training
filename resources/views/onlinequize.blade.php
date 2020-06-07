@@ -82,9 +82,9 @@
 											<div class="col-lg-12 kt-portlet__head-label">
 												<div class=" col-lg-12 kt-align-center">
                           @if(!empty($CourseQuize))
-                            <button type="reset" id="startQuizBtn" class="btn-lg btn-danger">Start Quize</button>
+                            <button type="reset" id="startQuizBtn" class="btn-lg btn-danger">Start Quiz</button>
                           @else
-                              In valid Quize
+                              In valid Quiz
                           @endif
 
 												</div>
@@ -130,7 +130,7 @@
 																<button type="button" onclick="showNextQuestion()" class="btn btn-primary">Next Question</button>
 														</div>
 														<div class="col-lg-6 kt-align-right">
-															<button type="submit" class="btn btn-danger">Submit Quize</button>
+															<button type="submit" class="btn btn-danger">Submit Quiz</button>
 														</div>
 													</div>
 												</div>
