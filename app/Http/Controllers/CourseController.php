@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\Pages;
 use App\Models\Courses;
+use App\Models\CourseQuize;
+use App\Models\CourseSections;
+use App\Models\CourseQuizeSections;
 use App\Imports\UsersImport;
 
 
@@ -50,8 +53,14 @@ class CourseController extends Controller
   public function coursedetail(Request $request, $id)
   {
     $CourseData = courses::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
-    $Course =  $CourseData[0];
-    return view('course.detail', compact('Course'));
+    $Course =  $CourseData[0]; 
+	$CourseId = $id;
+	$sectionsData = CourseSections::where('is_deleted', '=', '0')->where('course_id', '=', $id)->get()->toArray();
+	$CourseQuize = CourseQuize::where('course_quize_status', '=', '1')->where('course_id', '=', $id)->get()->toArray();
+	
+	
+	
+    return view('course.detail', compact('Course','sectionsData','CourseId','CourseQuize'));
   }
 
   function ajaxcourselist(Request $request){
@@ -141,6 +150,71 @@ class CourseController extends Controller
       $input['start_date'] =$data['start_date'];
       $input['end_date'] =$data['end_date'];
       $course = Courses::create($input);
+      return response(array("status"=>"success", "code"=>200,"data" => $data));
+    }
+  }
+  
+  
+  /**
+  * Create a new user instance after a valid registration.
+  *
+  * @param  array  $data
+  * @return \App\User
+  */
+  public function createcoursesection(Request $request)
+  {
+    $data = $request->all();
+    $validator = Validator::make($request->all(), [
+      'coursesectionname'=> 'required|min:5|max:256',     
+    ]);
+    if ($validator->fails()) {
+      return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
+    }else{
+      $input['section_name'] =$data['coursesectionname'];
+      $input['course_id'] =$data['CourseId'];
+    
+      $course = CourseSections::create($input);
+      return response(array("status"=>"success", "code"=>200,"data" => $data));
+    }
+  }
+  
+  /**
+  * Create a new user instance after a valid registration.
+  *
+  * @param  array  $data
+  * @return \App\User
+  */
+  public function createcoursequiz(Request $request)
+  {
+    $data = $request->all();
+    $validator = Validator::make($request->all(), [
+      'quize_name'=> 'required|min:5|max:256',    
+      'quize_desc'=> 'required|min:5|max:256',     
+    ]);
+	
+	
+	
+    if ($validator->fails()) {
+      return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
+    }else{
+      $inputQuiz['quize_name'] =$data['quize_name'];
+      $inputQuiz['quize_desc'] =$data['quize_desc'];	
+	$inputQuiz['course_id'] =$data['CourseId'];	  
+		
+	  $course = CourseQuize::create($inputQuiz);
+	 $course->id;
+	$i=0;	
+	  foreach($data['sub_question'] as $questionsObj ){
+		  
+      $inputQuizSection['sub_questions'] =$data['sub_question'][$i];
+      $inputQuizSection['questions'] =$data['obj_question'][$i];
+      $inputQuizSection['section_id'] =$data['section'][$i];
+      $inputQuizSection['course_id'] =$data['CourseId'];
+      $inputQuizSection['course_quize_id'] = $course->id;
+      $course = CourseQuizeSections::create($inputQuizSection);
+	  $i++;
+	  }
+	  
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
   }
