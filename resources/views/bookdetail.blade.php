@@ -70,40 +70,36 @@
                             <!--begin: Search Form kt-portlet__body  -->
                     	<div class="kt-portlet__body">
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Book Name:</label>
+													<label class="col-2 col-form-label kt-font-bolder kt-font-bolder">Book Name:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Book['name']}}	</span>
+														<span class="form-control-plaintext">{{$Book['name']}}	</span>
 													</div>
 												</div>
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Course:</label>
+													<label class="col-2 col-form-label kt-font-bolder">Course:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Book['cname']}}	</span>
+														<span class="form-control-plaintext ">{{$Book['cname']}}	</span>
 													</div>
 												</div>
 												
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Description:</label>
+													<label class="col-2 col-form-label kt-font-bolder">Description:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Book['description']}}</span>
+														<span class="form-control-plaintext ">{{$Book['description']}}</span>
 													</div>
-												</div>
+												</div> <!--
 												<div class="form-group form-group-xs row">
 													<label class="col-2 col-form-label"></label>
 													<label class="col-2 col-form-label">Book Type:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Book['type']}}</span>
 													</div>
-												</div>
+												</div> -->
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Book Download:</label>
+													<label class="col-2 col-form-label kt-font-bolder">Book Download:</label>
 													<div class="col-8">
 														<?php  $bookpath = 'file-download/'.$Book['bookpath']; ?>
-														<span class="form-control-plaintext kt-font-bolder">
+														<span class="form-control-plaintext ">
 														<a href="{{ url($bookpath) }}" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Download">
 							<i class="flaticon-download"></i>		</a>	</span>
 													</div>
