@@ -99,7 +99,7 @@ var KTDatatableRemoteAjaxUser = function() {
 							<i class="flaticon-eye"></i>\
 						</a>\
 						<a href="javascript:;" data-id='+row.id+'  data-name='+row.name+'  data-email='+row.email+'  data-toggle="modal" data-target="#useredit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
-							<i class="flaticon2-paper"></i>\
+							<i class="flaticon2-edit"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
 							<i class="flaticon2-trash"></i>\

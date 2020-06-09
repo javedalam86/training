@@ -101,7 +101,7 @@ var KTDatatableRemoteAjaxPolicy = function() {
 							<i class="flaticon-eye"></i>\
 						</a>\
 						<a href="javascript:;" data-id='+row.id+'   data-title="'+row.title+'"      data-description="'+row.qmsdesc+'" data-toggle="modal" data-target="#policyedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
-							<i class="flaticon2-paper"></i>\
+							<i class="flaticon2-edit"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
 							<i class="flaticon2-trash"></i>\
