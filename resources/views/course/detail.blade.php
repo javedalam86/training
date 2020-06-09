@@ -105,7 +105,6 @@
 								<th>Quiz Name</th>
 								<th>Quiz Description</th>
 								<th>Status</th>
-								<th>Status</th>
 							
 								
 							</tr>
@@ -115,8 +114,7 @@
 								<?php if($CourseQuizeObj['course_quize_status'] ==1){ $ActiveClass = 'flaticon2-arrow-up'; }else{ $ActiveClass = 'flaticon2-arrow-down';} ?>
 							<tr>
 								<td>{{$CourseQuizeObj['quize_name']}}</td>
-								<td>{{$CourseQuizeObj['quize_desc']}}</td>
-								<td>{{$CourseQuizeObj['course_quize_status']}}</td>
+								<td>{{$CourseQuizeObj['quize_desc']}}</td>							
 								<td>
 									<a href="javascript:void(0);" class='toggleQuizStatus' data-id="{{$CourseQuizeObj['id']}}" class="btn btn-sm btn-clean btn-icon btn-icon-sm" ><i class="<?php echo $ActiveClass?>"></i>	
 									</a>
@@ -415,7 +413,7 @@
             $('#addquizmessage').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Add Successfully.</div>');
             setTimeout(function() {  $('#addquizmessage').fadeOut('fast');}, 3000);
 			
-				//window.location.reload();
+				window.location.reload();
           }else{
             errorString='';
             $.each( msg.message, function( key, value) {

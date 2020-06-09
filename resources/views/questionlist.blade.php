@@ -211,8 +211,8 @@
 					<div class="form-group">
 					    <label for="course" class="form-control-label">Course Section :</label>
                         <select class="form-control" id="section_id" name="section_id">
-						@foreach($Sections as $section=>$value)
-							 <option value="{{$section}}">{{$value}}</option>
+						@foreach($Sections as $sectionObject)
+							 <option value="{{$sectionObject['id']}}">{{$sectionObject['section_name']}}</option>
 						@endforeach                           
                         </select>
                     </div>

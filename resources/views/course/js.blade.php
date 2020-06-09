@@ -88,6 +88,7 @@
       var courseId = $('#courseId').val();
       var courseEdit = $('#courseEdit').val();
       var descriptionEdit = $('#descriptionEdit').val();
+      var nameEdit = $('#nameEdit').val();
       var course_typeEdit = $('#course_typeEdit').val();
       var costEdit = $('#costEdit').val();
       var startdateEdit = $('#startDateEdit').val();
@@ -101,6 +102,7 @@
           "courseId": courseId,
           "name": courseEdit,
           "description": descriptionEdit,
+          "name": nameEdit,
           "course_type": course_typeEdit,
           "cost": costEdit,
           "start_date": startdateEdit,
@@ -137,12 +139,14 @@
       var courseId = $(e.relatedTarget).data('id');
       var courseEdit = $(e.relatedTarget).data('name');
       var descriptionEdit = $(e.relatedTarget).data('description');
+      var nameEdit = $(e.relatedTarget).data('name');
       var course_typeEdit = $(e.relatedTarget).data('course_type');
       var costEdit = $(e.relatedTarget).data('cost');
       var startdateEdit = $(e.relatedTarget).data('start_date');
       var enddateEdit = $(e.relatedTarget).data('end_date');
       $("#courseId").val(courseId);
       $("#courseEdit").val(courseEdit);
+      $("#nameEdit").val(nameEdit);
       $("#descriptionEdit").val(descriptionEdit);
       $("#course_typeEdit").val(course_typeEdit);
       $("#costEdit").val(costEdit);

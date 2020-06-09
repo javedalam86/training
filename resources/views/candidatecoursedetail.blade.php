@@ -162,7 +162,7 @@
 					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 						<thead>
 							<tr>
-								<th>Name</th>
+								<th>Document Name</th>
 								<th>Description</th>
 								<th>Download</th>
 

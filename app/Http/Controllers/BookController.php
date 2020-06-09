@@ -126,7 +126,7 @@ class BookController extends Controller
     {		$data = $request->all();
 			$validator = Validator::make($request->all(), [ 
 				'name'=> 'required|min:5', 
-				'file' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+				'file' => 'sometimes|mimes:jpeg,png,doc,docx,pptx,pps,ppt,PPT,PDF,pdf,jpg,gif,svg|max:2048',
 			]);	
 			
 			

@@ -11,6 +11,7 @@ use App\Models\Pages;
 use App\Models\Questions; 
 use App\Imports\UsersImport;
 use App\Models\Courses; 
+use App\Models\CourseSections; 
 
 
 
@@ -29,7 +30,10 @@ class QuestionController extends Controller
        // $pages = Pages::all();	
         $Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
 	 $Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-	$Sections = array('1'=>'Section 1', '2'=>'Section 2', '3'=>'Section 3', '4'=>'Section 4');	
+	 $Sections = CourseSections::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
+	 
+	  
+	//$Sections = array('1'=>'Section 1', '2'=>'Section 2', '3'=>'Section 3', '4'=>'Section 4');	
 	
         return view('questionlist', compact('Questions', 'Courses', 'Sections'));
     }

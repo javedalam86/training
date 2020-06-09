@@ -211,7 +211,7 @@ class CourseController extends Controller
       $inputQuizSection['section_id'] =$data['section'][$i];
       $inputQuizSection['course_id'] =$data['CourseId'];
       $inputQuizSection['course_quize_id'] = $course->id;
-      $course = CourseQuizeSections::create($inputQuizSection);
+      $CourseQuizeSections = CourseQuizeSections::create($inputQuizSection);
 	  $i++;
 	  }
 	  

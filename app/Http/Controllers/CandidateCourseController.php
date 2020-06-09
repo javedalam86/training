@@ -40,7 +40,7 @@ class CandidateCourseController extends Controller
 
         $Course =  $CourseData[0];
 
-        $BookData = Books::select('course_books.id as id','courses.name as cname','course_books.description','type','course_books.name','course_id','bookpath');
+        $BookData = Books::select('course_books.id as id','course_books.name as cname','course_books.description','type','course_books.name','course_id','bookpath');
         $BookData->leftJoin('courses', function ($join) {
             $join->on('courses.id', '=', 'course_books.course_id');
         });
