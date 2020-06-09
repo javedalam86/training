@@ -308,8 +308,8 @@
 					<div class="form-group">
 					    <label for="course" class="form-control-label">Course Section :</label>
                         <select class="form-control" id="section_idEdit" name="section_idEdit">
-						@foreach($Sections as $section=>$value)
-							 <option value="{{$section}}">{{$value}}</option>
+						@foreach($Sections as $sectionObject)
+							  <option value="{{$sectionObject['id']}}">{{$sectionObject['section_name']}}</option>
 						@endforeach                           
                         </select>
                     </div>
@@ -641,8 +641,9 @@
             var option_cEdit = $(e.relatedTarget).data('option_c');
             var option_dEdit = $(e.relatedTarget).data('option_d');	
 			var course_idEdit = $(e.relatedTarget).data('course_id');	
+			var section_idEdit = $(e.relatedTarget).data('section_id');	
   
-			
+		
             $("#questionId").val(questionId);
             $("#questionEdit").val(questionEdit);
             $("#correct_optionEdit").val(correct_optionEdit);			
@@ -651,6 +652,7 @@
             $("#option_cEdit").val(option_cEdit);
             $("#option_dEdit").val(option_dEdit);
             $("#course_idEdit").val(course_idEdit);
+            $("#section_idEdit").val(section_idEdit);
         });
 
         $('#deleteModal').on('show.bs.modal', function(e) {

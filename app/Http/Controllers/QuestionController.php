@@ -40,8 +40,22 @@ class QuestionController extends Controller
 	
 	public function questiondetail(Request $request, $id)
     {
-       $QuestionData = questions::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
+      // $QuestionData = questions::where('is_deleted', '=', '0')->where('id', '=', $id);
+	  	$QuestionData = Questions::select('questions.id as id','question','option_a','option_b','option_c','option_d','correct_option','name as cname','course_id','section_id','question_type');
+	  $QuestionData->where('questions.is_deleted', '=', '0')->where('questions.id', '=', $id);
+		$QuestionData->leftJoin('courses', function ($join) {
+            $join->on('courses.id', '=', 'questions.course_id');
+			});
+			
+		$QuestionData = $QuestionData->get()->toArray();
+		//print_r(  $QuestionData); die;	
+		
+		
 		$Question =  $QuestionData[0];
+		
+		
+		
+		
         return view('questiondetail', compact('Question'));
     }
 	
@@ -59,7 +73,7 @@ class QuestionController extends Controller
 	
 	
 	
-		$questiosData = Questions::select('questions.id as id','question','option_a','option_b','option_c','option_d','correct_option','name','course_id');			
+		$questiosData = Questions::select('questions.id as id','question','option_a','option_b','option_c','option_d','correct_option','name','course_id','section_id');			
 		if(@isset($data['query']['questiongeneralSearch'])){
 			$searchKey =$data['query']['questiongeneralSearch'];	
 			$questiosData = $questiosData->where(function($q) use ($searchKey){

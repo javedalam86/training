@@ -70,58 +70,61 @@
                             <!--begin: Search Form kt-portlet__body  -->
                     	<div class="kt-portlet__body">
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Question:</label>
+													
+													<label class="col-2 col-form-label  kt-font-bolder">Question:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Question['question']}}	</span>
+														<span class="form-control-plaintext">{{$Question['question']}}	</span>
 													</div>
 												</div>
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Course:</label>
+										
+													<label class="col-2 col-form-label  kt-font-bolder">Course:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Question['course_id']}}	</span>
+														<span class="form-control-plaintext ">{{$Question['cname']}}	</span>
 													</div>
 												</div>
+												@if($Question['question_type'] ==0)
+												
 											<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Option A:</label>
+											
+													<label class="col-2 col-form-label  kt-font-bolder">Option A:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Question['option_a']}}	</span>
+														<span class="form-control-plaintext ">{{$Question['option_a']}}	</span>
 													</div>
 												</div>
 												
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Option B:</label>
+							
+													<label class="col-2 col-form-label  kt-font-bolder">Option B:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Question['option_b']}}	</span>
+														<span class="form-control-plaintext ">{{$Question['option_b']}}	</span>
 													</div>
 												</div>
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Option C:</label>
+									
+													<label class="col-2 col-form-label  kt-font-bolder">Option C:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Question['option_c']}}	</span>
+														<span class="form-control-plaintext">{{$Question['option_c']}}	</span>
 													</div>
 												</div>
 												
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Option D:</label>
+					
+													<label class="col-2 col-form-label  kt-font-bolder">Option D:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Question['option_d']}}	</span>
+														<span class="form-control-plaintext">{{$Question['option_d']}}	</span>
 													</div>
 												</div>
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Correct Option:</label>
+										
+													<label class="col-2 col-form-label kt-font-bolder">Correct Option:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">
-															<a href="#">{{$Question['correct_option']}}</a>
+														<span class="form-control-plaintext ">
+														{{$Question['correct_option']}}
 														</span>
 													</div>
 												</div>
+												     @endif
 												<!--<div class="form-group form-group-xs row">
 													<label class="col-2 col-form-label"></label>
 													<label class="col-2 col-form-label">Website:</label>
