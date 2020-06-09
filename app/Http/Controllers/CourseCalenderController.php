@@ -16,7 +16,7 @@ class CourseCalenderController extends Controller
     }
 
     public function getAllCourse(){
-        $all_event = Courses::all()->toArray();
+        $all_event = Courses::where('is_deleted','=',0)->get()->toArray();
         $event_data=array();
         foreach ($all_event as $key => $event_val) {
           $event_data[$key]['title'] =$event_val['name'];

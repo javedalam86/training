@@ -214,6 +214,18 @@
 						<tbody>
 							@foreach ($CourseQuizeData as $CourseQuizeDataObj)
 								<?php $quizeLink = $ROOT_PATH.'/quiz/'.$CourseQuizeDataObj->id ?>
+                @php
+                  $cqResult = $CourseQuizeDataObj->candidateQuize()
+                  ->where('candidate_id','=',Auth::user()->id)
+                  ->where('is_deleted','=',0)
+                  ->first();
+                  if($cqResult) {
+                    if(!empty($cqResult->end_date_time)){
+                      continue;
+                    }
+                  }
+
+                @endphp
 							<tr>
 								<td>{{$CourseQuizeDataObj->quize_name}}</td>
 								<td>{{$CourseQuizeDataObj->start_date}}</td>
@@ -245,6 +257,9 @@
               </tr>
             </thead>
             <tbody>
+              @php
+                $isQuizeReport = false;
+              @endphp
               @foreach ($CourseQuizeData as $CourseQuizeDataObj)
                 @php
                   $quizeResult = $CourseQuizeDataObj->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
@@ -257,6 +272,7 @@
                 @if(!empty($latest))
                   @foreach ($latest as $objs)
                     @php
+                    $isQuizeReport = true;;
                     $totalQues = count($objs);
                     @endphp
                     @foreach ($objs as $obj)
@@ -281,6 +297,10 @@
                   @endforeach
                 @endif
               @endforeach
+
+              @if(!$isQuizeReport)
+                <tr><td colspan="3" align="center">No Quize report available</td> </tr>
+              @endif
             </tbody>
           </table>
         </div>
