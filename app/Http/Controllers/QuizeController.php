@@ -72,7 +72,7 @@ class QuizeController extends Controller
             //Check answer is correct
             if($data['question_type_'.$i] == '0'){
               if(isset($data['option_'.$i]) && ($data['option_'.$i] == $data['correct_option_'.$i])){
-                $insert['marks'] = 1;
+                $insert['marks'] = 10;
               } else {
                  $insert['marks'] = 0;
               }
@@ -97,15 +97,15 @@ class QuizeController extends Controller
 
         return redirect()->route('candidatecoursedetail',['id'=>$data['course_id']]);
     }
-	
-	
-	
+
+
+
     public function toggleQuizStatus(Request $request){
-        $data = $request->all();     
+        $data = $request->all();
         if(!empty($data)) {
-          
+
           $courseQuize = CourseQuize::where('id', '=',$data['quizeId'])->first();
-		  if($courseQuize->course_quize_status == 1){ 
+		  if($courseQuize->course_quize_status == 1){
 			$courseQuize->course_quize_status =0;
 		  }else{ 	$courseQuize->course_quize_status =1;}
           $courseQuize->save();

@@ -256,6 +256,9 @@
                 @endphp
                 @if(!empty($latest))
                   @foreach ($latest as $objs)
+                    @php
+                    $totalQues = count($objs);
+                    @endphp
                     @foreach ($objs as $obj)
                       @php
                       //echo "<pre>";print_r($obj);
@@ -265,12 +268,12 @@
                       @endphp
                     @endforeach
                     @php
-                      $totalMarks = $totalMarks*10;
+                      $totalMarks = ($totalMarks / ($totalQues*10)) *100;
                     @endphp
                     <tr>
                       <td>{{$CourseQuizeDataObj['quize_name']}}</td>
                       <td>{{$objs[0]->attempt_date}}</td>
-                      <td>{{$totalMarks}}%</td>
+                      <td><b>{{ number_format($totalMarks, 2) }}% </b></td>
                     </tr>
                     @php
                       break;
