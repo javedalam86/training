@@ -90,13 +90,12 @@
 												</div>
 											</div>
 										</div>
-										<div class="kt-section__info"> <ul>
-											 <li>Other Quiz instructions willl come here.</li>
-											 <li>Other Quiz instructions willl come here.</li>
-											 <li>Other Quiz instructions willl come here.</li>
-											 <li>Other Quiz instructions willl come here.</li>
-										  </ul>
+										 @if(!empty($CourseQuize))
+										<div class="kt-section__info"> 
+										{!!$CourseQuize[0]['quize_desc']!!}
+										
 										</div>
+										 @endif
 									</div>
 
 								</div>
