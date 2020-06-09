@@ -384,7 +384,7 @@ if(!$abtImages->isEmpty()) {
     <div class="overlay-mf"></div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-3 col-lg-3">
+        <div class="col-sm-4 col-lg-4">
           <div class="counter-box counter-box pt-4 pt-md-0">
             <div class="counter-ico">
               <span class="ico-circle"><i class="ion-checkmark-round"></i></span>
@@ -395,7 +395,7 @@ if(!$abtImages->isEmpty()) {
             </div>
           </div>
         </div>
-        <div class="col-sm-3 col-lg-3">
+        <div class="col-sm-4 col-lg-4">
           <div class="counter-box pt-4 pt-md-0">
             <div class="counter-ico">
               <span class="ico-circle"><i class="ion-ios-calendar-outline"></i></span>
@@ -406,7 +406,7 @@ if(!$abtImages->isEmpty()) {
             </div>
           </div>
         </div>
-        <div class="col-sm-3 col-lg-3">
+        <div class="col-sm-4 col-lg-4">
           <div class="counter-box pt-4 pt-md-0">
             <div class="counter-ico">
               <span class="ico-circle"><i class="ion-ios-people"></i></span>
@@ -416,7 +416,7 @@ if(!$abtImages->isEmpty()) {
               <span class="counter-text">TOTAL CLIENTS</span>
             </div>
           </div>
-        </div>
+        </div> <!--
         <div class="col-sm-3 col-lg-3">
           <div class="counter-box pt-4 pt-md-0">
             <div class="counter-ico">
@@ -427,7 +427,7 @@ if(!$abtImages->isEmpty()) {
               <span class="counter-text">AWARD WON</span>
             </div>
           </div>
-        </div>
+        </div>  -->
       </div>
     </div>
   </div>

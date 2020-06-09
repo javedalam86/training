@@ -73,6 +73,7 @@ Route::get('candidatecourses','CourseController@candidatecourses')->name('candid
 
 Route::get('coursedetail/{id}','CourseController@coursedetail')->name('coursedetail')->middleware('auth');
 
+Route::get('sitesetting','SettingController@sitesetting')->name('sitesetting')->middleware('auth');
 
 
 
