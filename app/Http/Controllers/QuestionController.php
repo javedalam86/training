@@ -30,7 +30,7 @@ class QuestionController extends Controller
        // $pages = Pages::all();	
         $Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
 	 $Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-	 $Sections = CourseSections::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
+	 $Sections = CourseSections::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
 	 
 	  
 	//$Sections = array('1'=>'Section 1', '2'=>'Section 2', '3'=>'Section 3', '4'=>'Section 4');	
@@ -73,7 +73,7 @@ class QuestionController extends Controller
 	
 	
 	
-		$questiosData = Questions::select('questions.id as id','question','option_a','option_b','option_c','option_d','correct_option','name','course_id','section_id');			
+		$questiosData = Questions::select('questions.id as id','question','option_a','option_b','option_c','option_d','correct_option','name','course_id','section_id','question_type');			
 		if(@isset($data['query']['questiongeneralSearch'])){
 			$searchKey =$data['query']['questiongeneralSearch'];	
 			$questiosData = $questiosData->where(function($q) use ($searchKey){
@@ -138,10 +138,17 @@ class QuestionController extends Controller
      */
     public function questionadd(Request $request)
     {		$data = $request->all();
+			if($data['question_type']==0){
 			$validator = Validator::make($request->all(), [ 
 				'question' => 'required|min:5', 
 				'correct_option' => "nullable|string|in:". implode(',', array('A','B','C','D')),
-			]);					
+			]);		
+			}else{
+				$validator = Validator::make($request->all(), [ 
+				'question' => 'required|min:5', 
+			]);		
+			
+			}
 		if ($validator->fails()) { 
 			return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
 		}else{
@@ -170,12 +177,29 @@ class QuestionController extends Controller
      */
     public function editquestion(Request $request)
     {     
-		$data = $request->all();
+		$data = $request->all(); /*
 		$validator = Validator::make($request->all(), [ 
 				'questionId' => 'required', 
 				'question' => 'required|min:5', 
 				'correct_option' => "required|string|min:1|max:1|in:". implode(',', array('A','B','C','D')),
-			]);					
+			]); */	
+
+if($data['question_type']==0){
+			$validator = Validator::make($request->all(), [ 
+				'question' => 'required|min:5', 
+				'correct_option' => "nullable|string|in:". implode(',', array('A','B','C','D')),
+			]);		
+			}else{
+				$validator = Validator::make($request->all(), [ 
+				'question' => 'required|min:5', 
+			]);		
+			
+			}
+
+
+
+
+			
 		if ($validator->fails()) { 
 			return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
 		}else{
@@ -187,6 +211,8 @@ class QuestionController extends Controller
         $Question->option_b 		=  $request->get('option_b');
         $Question->option_c 		=  $request->get('option_c');
         $Question->option_d		 	=  $request->get('option_d');
+        $Question->question_type		 	=  $request->get('question_type');
+        $Question->section_id		 	=  $request->get('section_id');
         $Question->course_id		 	=  $request->get('course_id');
         $Question->correct_option	=  $request->get('correct_option');
         $Question->save();

@@ -127,6 +127,7 @@
 					<div class="form-group">
 					    <label for="course" class="form-control-label">Course :</label>
                         <select class="form-control" id="course_idParse" name="course_idParse">
+							
                             @foreach($Courses as $Course)
 								<option value="{{$Course['id']}}">{{$Course['name']}}</option>
 							@endforeach
@@ -201,7 +202,9 @@
 
 					<div class="form-group">
 					    <label for="course" class="form-control-label">Course :</label>
-                        <select class="form-control" id="course_id" name="course_id">
+                        <select class="form-control" id="course_id" required name="course_id">
+						
+						<option value="">Select Course</option>
 						@foreach($Courses as $Course)
 							 <option value="{{$Course['id']}}">{{$Course['name']}}</option>
 						@endforeach                           
@@ -211,9 +214,10 @@
 					<div class="form-group">
 					    <label for="course" class="form-control-label">Course Section :</label>
                         <select class="form-control" id="section_id" name="section_id">
+						<!--
 						@foreach($Sections as $sectionObject)
 							 <option value="{{$sectionObject['id']}}">{{$sectionObject['section_name']}}</option>
-						@endforeach                           
+						@endforeach      -->                       
                         </select>
                     </div>
 
@@ -318,11 +322,11 @@
                         <label for="question" class="form-control-label">Question Type:</label>
                        <div class="kt-radio-inline">
 							<label class="kt-radio">
-								<input type="radio" name="question_typeEdit" checked="" value="0" class="questypclass"> Objective
+								<input type="radio" name="question_typeEdit" id="question_typeEdit_0" checked="" value="0" class="questypclass"> Objective
 							<span></span>
 							</label>
 							<label class="kt-radio">
-								<input type="radio" name="question_typeEdit"   value="1" class="questypclass" >Subjective 
+								<input type="radio" name="question_typeEdit"  id="question_typeEdit_1"   value="1" class="questypclass" >Subjective 
 								<span></span>
 							</label>
 						</div>
@@ -356,7 +360,7 @@
 						</div>
 						
 						 <div class="col-sm-6"> <label for="option_dEdit" class="form-control-label">Option D:</label>
-                        <input type="text" required='required' class="form-control" id="option_dEdit" name="option_dEdit">
+                        <input type="text"  class="form-control" id="option_dEdit" name="option_dEdit">
                     </div>
 					
                     </div>
@@ -447,67 +451,120 @@
         }
     </script>
     <script>
+	var sectionsArr = <?php echo json_encode($Sections); ?>;
+	function setSectionOptions(setElmId, selectedcourseId){
+		$('#'+setElmId).find('option').remove().end();
+		for(var x=0; x<sectionsArr.length;x++){
+			var sectionObj = sectionsArr[x];
+			var course_id = sectionObj.course_id;
+			if(selectedcourseId == course_id){
+				var optVal= sectionObj['id']; 
+				var optTxt= sectionObj['section_name']; 
+				$('#'+setElmId).append($('<option>', { value: optVal,text : optTxt}));
+			}
+		}
+	}	
+	function setSectionOptionsWithSelect(setElmId, selectedcourseId,selectedOption){
+		$('#'+setElmId).find('option').remove().end();
+		
+		for(var x=0; x<sectionsArr.length;x++){
+			var sectionObj = sectionsArr[x];
+			var course_id = sectionObj.course_id;
+			if(selectedcourseId == course_id){
+				var optVal= sectionObj['id']; 
+				var optTxt= sectionObj['section_name']; 
+				if(optVal == selectedOption){				
+					$('#'+setElmId).append($('<option>', { value: optVal,text : optTxt, selected : 'selected'}));
+					selection =1;
+				}else{
+					$('#'+setElmId).append($('<option>', { value: optVal,text : optTxt}));
+				}
+			}
+		}
+	}
+	
+	
+	
+		$('#course_id').on('change', function (e) {
+			var optionSelected = $("option:selected", this);
+			var valueSelected = this.value;
+			setSectionOptions('section_id',valueSelected);
+		});
+			
+	
+	
+	
+	
+		$('#course_idEdit').on('change', function (e) {
+			var optionSelected = $("option:selected", this);
+			var valueSelected = this.value;
+			setSectionOptions('section_idEdit',valueSelected);
+		});
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
         $('#importquestionfrom').on('submit', function(e) {
             e.preventDefault();
      		var file_data = $('#result_file').prop('files')[0];
-        var header_added =  $('#header_added').is(":checked") ;
-	var  course_idParse = $('#course_idParse').val();
-	
-	
-        var form_data = new FormData();
-        form_data.append('file', file_data);
-		form_data.append('header_added', header_added);
-		form_data.append('course_id', course_idParse);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name=_token]').attr('content')
-            }
-        });
-	
-	
+			var header_added =  $('#header_added').is(":checked") ;
+			var  course_idParse = $('#course_idParse').val();
+			var form_data = new FormData();
+			form_data.append('file', file_data);
+			form_data.append('header_added', header_added);
+			form_data.append('course_id', course_idParse);
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-Token': $('meta[name=_token]').attr('content')
+				}
+			});
             $.ajax({
                 type: "POST",
                 url: './import_parse',
                 data: form_data,
-            type: 'POST',
-            contentType: false, // The content type used when sending data to the server.
-            cache: false, // To unable request pages to be cached
-            processData: false,				  
+				type: 'POST',
+				contentType: false, // The content type used when sending data to the server.
+				cache: false, // To unable request pages to be cached
+				processData: false,				  
                 success: function(msg) {  
-				var status = msg.status;
-				if(status =='success'){				
-                        $('#questionaddcsv_Modal').modal('toggle');
-                        $('.kt-questiondatatable').KTDatatable().load();
-				}else{ 
-
-				//
-				var errortype = msg.type; 
-					if(errortype == 'duplicate'){
-					errorString='';
-						$.each( msg.data, function( key, value) {
+					var status = msg.status;
+					if(status =='success'){				
+							$('#questionaddcsv_Modal').modal('toggle');
+							$('.kt-questiondatatable').KTDatatable().load();
+					}else{ 
+						var errortype = msg.type; 
+						if(errortype == 'duplicate'){
+						errorString='';
+							$.each( msg.data, function( key, value) {						
+									errorString +=  value +'<br/>' ;
+							});
+							$("#importquestionmessage").html("<strong>Duplicare Questions!  </strong> "+errorString);
+							$("#importquestionmessage").slideDown(function() {
+								setTimeout(function() {
+									$("#importquestionmessage").slideUp();
+								}, 8000);
+							});
+						}else if(errortype == 'answerlength'){
+						errorString='Please check correct option length';
 							
-								errorString +=  value +'<br/>' ;
-							
-						});
-						$("#importquestionmessage").html("<strong>Duplicare Questions!  </strong> "+errorString);
-						$("#importquestionmessage").slideDown(function() {
-							setTimeout(function() {
-								$("#importquestionmessage").slideUp();
-							}, 8000);
-						});
-					}else if(errortype == 'answerlength'){
-					errorString='Please check correct option length';
-						
-						$("#importquestionmessage").html("<strong>Error!  </strong> "+errorString);
-						$("#importquestionmessage").slideDown(function() {
-							setTimeout(function() {
-								$("#importquestionmessage").slideUp();
-							}, 8000);
-						});
-					}else{
-						alert(JSON.stringify(msg, null, 1));
-					}
-				}				
+							$("#importquestionmessage").html("<strong>Error!  </strong> "+errorString);
+							$("#importquestionmessage").slideDown(function() {
+								setTimeout(function() {
+									$("#importquestionmessage").slideUp();
+								}, 8000);
+							});
+						}else{
+							alert(JSON.stringify(msg, null, 1));
+						}
+					}				
                 }
             });
         });   
@@ -521,11 +578,9 @@
             var option_b = $('#option_b').val();
             var option_c = $('#option_c').val();
             var option_d = $('#option_d').val();
-            var course_id = $('#course_id').val();
-			
+            var course_id = $('#course_id').val();			
             var section_id = $('#section_id').val();			
-            var question_type =    $("input[name='question_type']:checked").val()
-			
+            var question_type =    $("input[name='question_type']:checked").val()			
 			var correctOption = $('#correct_option').val();	        
             $.ajax({
                 type: "POST",
@@ -551,9 +606,7 @@
 						$('#ajaxmessagediv').show(); 
 							$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Added Successfully.</div>');	
 							setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000); 
-				}else{
-					
-					
+				}else{					
 					errorString='';
 						$.each( msg.message, function( key, value) {
 							for(var l=0;l<value.length; l++){
@@ -566,13 +619,11 @@
 								$("#addquestionmessage").slideUp();
 							}, 5000);
 						});
-					
-				}				
+					}				
                 }
             });
         });
-        $('#questionedit').on('submit', function(e) {
-			
+        $('#questionedit').on('submit', function(e) {			
             e.preventDefault();
             var questionId = $('#questionId').val();
             var questionEdit = $('#questionEdit').val();			
@@ -582,11 +633,8 @@
             var option_dEdit = $('#option_dEdit').val();
             var course_idEdit = $('#course_idEdit').val();
 			var correct_optionEdit = $('#correct_optionEdit').val();
-
 			var section_idEdit = $('#section_idEdit').val();			
-            var question_typeEdit =    $("input[name='question_typeEdit']:checked").val()
-
-			
+            var question_typeEdit =    $("input[name='question_typeEdit']:checked").val()			
             $.ajax({
                 type: "POST",
                 url: './editquestion',
@@ -628,7 +676,6 @@
 					}				
                 }
             });
-
         });
 
         $('#questionedit_modal').on('show.bs.modal', function(e) {
@@ -641,9 +688,17 @@
             var option_cEdit = $(e.relatedTarget).data('option_c');
             var option_dEdit = $(e.relatedTarget).data('option_d');	
 			var course_idEdit = $(e.relatedTarget).data('course_id');	
-			var section_idEdit = $(e.relatedTarget).data('section_id');	
-  
-		
+			var section_idEdit = $(e.relatedTarget).data('section_id');
+			var question_typeEdit = $(e.relatedTarget).data('question_type');	 
+			//alert(question_typeEdit);  // $('#test2.test1').prop('checked', true); question_typeEdit_1
+			if(question_typeEdit==0 ){
+				$( '#question_typeEdit_0' ).trigger( "click" );
+				//$('#question_typeEdit_0').prop('checked', true);
+			}else{
+					$( '#question_typeEdit_1' ).trigger( "click" );
+				//$('#question_typeEdit_1').prop('checked', true);
+			}
+			setSectionOptionsWithSelect('section_idEdit',course_idEdit,section_idEdit);
             $("#questionId").val(questionId);
             $("#questionEdit").val(questionEdit);
             $("#correct_optionEdit").val(correct_optionEdit);			
@@ -653,6 +708,7 @@
             $("#option_dEdit").val(option_dEdit);
             $("#course_idEdit").val(course_idEdit);
             $("#section_idEdit").val(section_idEdit);
+            $("#question_typeEdit").val(question_typeEdit);
         });
 
         $('#deleteModal').on('show.bs.modal', function(e) {
@@ -669,10 +725,7 @@
                     "_token": "{{ csrf_token() }}",
                     "questionIdDelete": questionIdDelete
                 },
-                success: function(msg) {
-					
-				
-					
+                success: function(msg) {					
                     if (msg.status == 'fail') {
                         alert(JSON.stringify(msg.status, null, 1));
                     } else {

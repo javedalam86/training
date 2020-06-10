@@ -318,6 +318,30 @@ public function deletecourse(Request $request)
 
 
 
+public function deletesection(Request $request)
+{	$data = $request->all();
+	$id = $data['sectionIdDelete'];
+	$Question = CourseSections::find($id);
+    $Question->is_deleted 		=  1;
+    $Question->save();
+    return response(array("status"=>"success", "code"=>200,"data" => $Question));
+}
+
+
+
+
+public function updatesection(Request $request)
+{	$data = $request->all();
+	$id = $data['sectionIdUpdate'];
+	$sectionName = $data['sectionNameUpdate'];
+	$Question = CourseSections::find($id);
+    $Question->section_name 		=  $sectionName;
+    $Question->save();
+    return response(array("status"=>"success", "code"=>200,"data" => $Question));
+}
+
+
+
 
 
 

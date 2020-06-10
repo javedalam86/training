@@ -73,7 +73,7 @@ var KTDatatableRemoteAjaxQuestion = function() {
 						<a href="questiondetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
 							<i class="flaticon-eye"></i>\
 						</a>\
-						<a href="javascript:;" data-id='+row.id+'   data-section_id="'+row.section_id+'"   data-course_id="'+row.course_id+'"  data-option_a="'+row.option_a+'"   data-option_b="'+row.option_b+'"   data-option_c="'+row.option_c+'"  data-option_d="'+row.option_d+'"   data-question="'+row.question+'"  data-correct_option="'+row.correct_option+'" data-toggle="modal" data-target="#questionedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+						<a href="javascript:;" data-id='+row.id+'   data-question_type="'+row.question_type+'"    data-section_id="'+row.section_id+'"   data-course_id="'+row.course_id+'"  data-option_a="'+row.option_a+'"   data-option_b="'+row.option_b+'"   data-option_c="'+row.option_c+'"  data-option_d="'+row.option_d+'"   data-question="'+row.question+'"  data-correct_option="'+row.correct_option+'" data-toggle="modal" data-target="#questionedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
 							<i class="flaticon2-edit"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
@@ -85,7 +85,7 @@ var KTDatatableRemoteAjaxQuestion = function() {
 
 		});
 /*
-    $('#kt_form_status').on('change', function() {
+    $('#kt_form_status').on('change', function() {  question_type
       datatable.search($(this).val().toLowerCase(), 'caseStatus');
     });
 
