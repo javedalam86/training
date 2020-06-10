@@ -79,6 +79,8 @@ Route::get('sitesetting','SettingController@sitesetting')->name('sitesetting')->
 
 
 Route::post('createcoursesection','CourseController@createcoursesection')->name('createcoursesection')->middleware('auth');
+Route::post('deletesection','CourseController@deletesection')->name('deletesection')->middleware('auth');
+Route::post('updatesection','CourseController@updatesection')->name('updatesection')->middleware('auth');
 
 
 Route::post('createcoursequiz','CourseController@createcoursequiz')->name('createcoursequiz')->middleware('auth');

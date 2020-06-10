@@ -73,7 +73,7 @@
 						  <span class="form-control-plaintext ">{{$Course['cost']}}</span>
 						</div>
 					</div>
-					
+					<!--
 					<div class="form-group form-group-xs row">
 						<label class="col-2 col-form-label kt-font-bolder">Sections:&nbsp;&nbsp;<button type="button" class="btn btn-brand btn-icon-sm" data-toggle="modal" data-target="#coursesectionadd_Modal" style=" height: 32px;padding-top:0px;padding-bottom:0px;"> <i class="flaticon2-plus"></i> Add</button></label>
 						<div class="col-8">
@@ -85,9 +85,51 @@
 							<?php echo  trim($strSections,', ');		?>
 						  </span>
 						</div>
-					</div>
+					</div>  -->
 				</div>
 			</div>
+			
+			
+			
+				<div class="kt-portlet kt-portlet--mobile">
+				<div class="kt-portlet__head">
+					<div class="kt-portlet__head-label">
+						<h3 class="kt-portlet__head-title">
+							Course Sections&nbsp;&nbsp;<button type="button" class="btn btn-brand btn-icon-sm" data-toggle="modal" data-target="#coursesectionadd_Modal" style=" height: 32px;padding-top:0px;padding-bottom:0px;"> <i class="flaticon2-plus"></i> Add Sections</button>
+						</h3>
+					</div>
+				</div>
+				<div class="kt-portlet__body">
+				<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
+						<thead>
+							<tr>
+								<th>Section Name</th>							
+								<th>Action</th>								
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($sectionsData as $sectionsDataObj)							
+							<tr>
+								<td>{{$sectionsDataObj['section_name']}}</td>
+										
+								<td>
+									<a href="javascript:;" data-id="{{$sectionsDataObj['id']}}" data-name="{{$sectionsDataObj['section_name']}}" data-toggle="modal" data-target="#editsectionModal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">							<i class="flaticon2-edit"></i>						</a>
+									
+									
+									<a href="javascript:;" data-id="{{$sectionsDataObj['id']}}" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">							<i class="flaticon2-trash"></i>						</a>
+								</td>						
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
 			
 			
 			<div class="kt-portlet kt-portlet--mobile">
@@ -246,7 +288,54 @@
   <!--end::Modal Add Section-->
   
   
+     <!-- Confirm Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Section</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{ Form::open(array('method'=>'post','url' => 'sectiondelete', 'id'=>'sectiondelete')) }}
+                <div class="modal-body">
+                    Are you sure you want to delete this section?
+                    <input type='hidden' name='sectionIdDelete' id='sectionIdDelete'>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
   
+     <!-- Confirm Modal -->
+    <div class="modal fade" id="editsectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Section</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{ Form::open(array('method'=>'post','url' => 'editsection', 'id'=>'editsection')) }}
+                <div class="modal-body">
+                    Are you sure you want to delete this section?
+					<input type='text'  class="form-control"  name='sectionNameUpdate' id='sectionNameUpdate'>
+                    <input type='hidden' name='sectionIdUpdate' id='sectionIdUpdate'>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
   
   
   
@@ -291,10 +380,7 @@
   
   $( ".toggleQuizStatus" ).click(function(e) {
  	var quizeId = $(this).data('id');
-	 e.preventDefault();
-     
-
-    
+	 e.preventDefault();   
       $.ajax({
         type: "POST",
         url: ROOT_PATH+"/toggleQuizStatus",
@@ -304,13 +390,7 @@
         },
         success: function(msg) {
           var status = msg.status;
-          if(status =='success'){
-           // $('#courseadd_Modal').modal('toggle');
-/*
-            $('#addcoursemessage').show();
-            $('#addcoursemessage').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Add Successfully.</div>');
-            setTimeout(function() {  $('#addcoursemessage').fadeOut('fast');}, 3000); */
-			
+          if(status =='success'){			
 				window.location.reload();
           }else{
             errorString='';
@@ -378,6 +458,80 @@
     });  
 	
 	
+	   $('#editsectionModal').on('show.bs.modal', function(e) {
+            $("#sectionIdUpdate").val($(e.relatedTarget).data('id'));	
+            $("#sectionNameUpdate").val($(e.relatedTarget).data('name'));			
+        });
+
+	     $('#editsection').on('submit', function(e) {
+            e.preventDefault();
+            var sectionIdUpdate = $('#sectionIdUpdate').val();
+            var sectionNameUpdate = $('#sectionNameUpdate').val();
+            $.ajax({
+                type: "POST",
+                url: ROOT_PATH+"/updatesection",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "sectionIdUpdate": sectionIdUpdate,
+                    "sectionNameUpdate": sectionNameUpdate
+                },
+                success: function(msg) {    // 			  $("#editcompanyemessage").hide();										
+                    if (msg.status == 'fail') {
+                        //alert(JSON.stringify(obj.message, null, 1));
+                    } else {
+                       // alert('Company deleted ' + obj.status);
+                        $('#deleteModal').modal('toggle');
+						location.reload()
+						
+						
+                      ////  $('.kt-companydatatable').KTDatatable().load();
+					//	$('#ajaxmessagediv').show(); 
+						//	$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Delete Successfully.</div>');	
+						//	setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
+                    }          
+					
+                    
+                }
+            });
+        });
+		
+		
+	
+	   $('#deleteModal').on('show.bs.modal', function(e) {
+            $("#sectionIdDelete").val($(e.relatedTarget).data('id'));			
+        });
+
+	     $('#sectiondelete').on('submit', function(e) {
+            e.preventDefault();
+            var sectionIdDelete = $('#sectionIdDelete').val();
+            $.ajax({
+                type: "POST",
+                url: ROOT_PATH+"/deletesection",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "sectionIdDelete": sectionIdDelete
+                },
+                success: function(msg) {    // 			  $("#editcompanyemessage").hide();										
+                    if (msg.status == 'fail') {
+                        //alert(JSON.stringify(obj.message, null, 1));
+                    } else {
+                       // alert('Company deleted ' + obj.status);
+                        $('#deleteModal').modal('toggle');
+						location.reload()
+						
+						
+                      ////  $('.kt-companydatatable').KTDatatable().load();
+					//	$('#ajaxmessagediv').show(); 
+						//	$('#ajaxmessagediv').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Delete Successfully.</div>');	
+						//	setTimeout(function() {  $('#ajaxmessagediv').fadeOut('fast');}, 3000);
+                    }          
+					
+                    
+                }
+            });
+        });
+		
+	
     $('#coursequizadd').on('submit', function(e) {
       e.preventDefault();
       //$("#addcoursemessage").hide();    quize_desc  sub_question obj_question  quize_name
@@ -398,6 +552,10 @@
 		  
 		  
         });
+	 
+	 	
+     
+	 
 	 
       $.ajax({
         type: "POST",
