@@ -14,7 +14,10 @@ use App\Models\Questions;
 use App\Models\CourseQuize;
 use App\Models\CourseQuizeSections;
 use App\Models\QuizeResult;
- use Redirect;
+use App\Models\CandidateQuize;
+use Redirect;
+use Auth;
+use Carbon\Carbon;
 
 class QuizeController extends Controller
 {
@@ -46,7 +49,21 @@ class QuizeController extends Controller
             $resultsQuestion = (array_merge($resultsQuestion,$Questions));
         }
 
-        $Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
+        //Insert quize strat date
+        $candQuizeCount = CandidateQuize::where('quiz_id', '=',$QuizeId)
+          ->where('candidate_id', '=',Auth::user()->id)
+          ->where('is_deleted', '=',0)
+          ->count();
+
+        if($candQuizeCount == 0) {
+          $cq = [
+            'candidate_id' => Auth::user()->id,
+            'quiz_id' => $QuizeId,
+            'start_date_time' =>Carbon::now()
+          ];
+          CandidateQuize::create($cq);
+        }
+
         return response()->json(array('status' => 'success', 'data'=>$resultsQuestion));
     }
 
@@ -82,6 +99,14 @@ class QuizeController extends Controller
 
             QuizeResult::create($insert);
           }
+
+           //Insert quize strat date
+        $candQuize = CandidateQuize::where('quiz_id', '=',$data['quize_id'])
+          ->where('candidate_id', '=',Auth::user()->id)
+          ->where('is_deleted', '=',0)
+          ->first();
+        $candQuize->end_date_time = Carbon::now();
+        $candQuize->save();
           //Update Status
           /*$courseQuize = CourseQuize::where('id', '=',$data['quize_id'])->first();
           $courseQuize->course_quize_status = 2;

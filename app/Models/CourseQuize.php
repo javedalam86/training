@@ -24,5 +24,13 @@ class CourseQuize extends Model
         return $this->hasMany('App\Models\QuizeResult','quize_id','id');
     }
 
+    /**
+     * Get the comments for the blog post.
+     */
+    public function candidateQuize()
+    {
+        return $this->hasMany('App\Models\CandidateQuize','quiz_id','id');
+    }
+
 }
 
