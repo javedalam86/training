@@ -71,6 +71,11 @@ class QuizeController extends Controller
         $data = $request->all();
         $quizeRec = [];
         if(!empty($data) && (int)$data['totalQuestions']>0) {
+          $candQuize = CandidateQuize::where('quiz_id', '=',$data['quize_id'])
+          ->where('candidate_id', '=',Auth::user()->id)
+          ->where('is_deleted', '=',0)
+          ->first();
+
           $attemptDate = date('Y-m-d H:i:s');
           for ($i=1; $i <= (int)$data['totalQuestions']; $i++) {
             $insert = [
@@ -78,6 +83,7 @@ class QuizeController extends Controller
                 'section_id' => $data['question_section_id_'.$i],
                 'question_id' => $data['question_id_'.$i],
                 'question_type' => $data['question_type_'.$i],
+                'candidate_quize_id' => $candQuize->id
             ];
             if(isset($data['option_'.$i])) {
                $insert['selected_option'] = $data['option_'.$i];
@@ -101,12 +107,8 @@ class QuizeController extends Controller
           }
 
            //Insert quize strat date
-        $candQuize = CandidateQuize::where('quiz_id', '=',$data['quize_id'])
-          ->where('candidate_id', '=',Auth::user()->id)
-          ->where('is_deleted', '=',0)
-          ->first();
-        $candQuize->end_date_time = Carbon::now();
-        $candQuize->save();
+          $candQuize->end_date_time = Carbon::now();
+          $candQuize->save();
           //Update Status
           /*$courseQuize = CourseQuize::where('id', '=',$data['quize_id'])->first();
           $courseQuize->course_quize_status = 2;
