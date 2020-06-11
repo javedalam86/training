@@ -28,13 +28,15 @@
 									<h3 class="kt-subheader__title"><i class="kt-font-brand flaticon-layer"></i> &nbsp; Settings</h3> 
 									<!--	<span class="kt-subheader__separator kt-subheader__separator--v"></span>	-->
 									
+								
+									
 									<div class="kt-input-icon kt-input-icon--right kt-subheader__search kt-hidden">
 										<input type="text" class="form-control" placeholder="Search order." id="generalSearch">
 										<span class="kt-input-icon__icon kt-input-icon__icon--right">
 											<span><i class="flaticon2-search-1"></i></span>
 										</span>
 									</div>
-								</div>
+								</div>	<div style="text-align: center"><?php       echo session()->get('success'); ?></div>
 								<div class="kt-subheader__toolbar">
 									<div class="kt-subheader__wrapper">										
 										 
@@ -79,7 +81,8 @@
 										</div>
 
 										<!--begin::Form-->
-										<form class="kt-form">
+												<form class="kt-form kt-form--label-right" method="POST" id="updatesettingForm" action="{{route('updatesetting')}}">
+												{{ csrf_field() }}
 											<div class="kt-portlet__body">
 												<div class="kt-section kt-section--first">
 													
@@ -89,19 +92,11 @@
 														<div class="form-group row">
 															<label class="col-lg-3 col-form-label">{{$SiteSettingObj['display_key_title']}}:</label>
 															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter full name" value="{{$SiteSettingObj['setting_value']}}">
+																<input type="text" name="{{$SiteSettingObj['setting_key']}}" class="form-control" placeholder="Enter full name" value="{{$SiteSettingObj['setting_value']}}">
 															</div>
 														</div>
-													@endforeach										
-														
-														
-														
+													@endforeach															
 													</div>
-													
-													
-													
-													
-												
 												</div>
 											</div>
 											<div class="kt-portlet__foot">
@@ -109,7 +104,7 @@
 													<div class="row">
 														<div class="col-lg-3"></div>
 														<div class="col-lg-6">
-															<button type="reset" class="btn btn-success">Submit</button>
+															<button type="submit" class="btn btn-success">Submit</button>
 															<button type="reset" class="btn btn-secondary">Cancel</button>
 														</div>
 													</div>

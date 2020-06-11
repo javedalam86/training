@@ -74,6 +74,11 @@ Route::get('candidatecourses','CourseController@candidatecourses')->name('candid
 Route::get('coursedetail/{id}','CourseController@coursedetail')->name('coursedetail')->middleware('auth');
 
 Route::get('sitesetting','SettingController@sitesetting')->name('sitesetting')->middleware('auth');
+Route::get('quizresult','QuizresultController@quizresult')->name('quizresult')->middleware('auth');
+
+
+
+Route::post('updatesetting','SettingController@updatesetting')->name('updatesetting')->middleware('auth');
 
 
 

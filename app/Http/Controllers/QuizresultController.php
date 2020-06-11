@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use App\Models\Pages;
 use App\Models\Books;
 use App\Models\Courses;
@@ -14,15 +15,44 @@ use App\Models\Questions;
 use App\Models\CourseQuize;
 use App\Models\CourseQuizeSections;
 use App\Models\Setting;
+use App\Models\CandidateQuize;
+
  use Redirect;
 
-class SettingController extends Controller
+class QuizresultController extends Controller
 {
-    public function sitesetting(Request $request)
+    public function quizresult(Request $request)
     {
-       $SiteSetting = Setting::where('is_deleted', '=',0)->orderBy('id', 'ASC' )->get()->toArray();
-        return view('sitesetting', ['SiteSetting' => $SiteSetting] );
+        //$CandidateQuize = CandidateQuize::where('is_deleted', '=',0)->orderBy('id', 'ASC' )->get()->toArray();
+	    $CandidateQuize =   \DB::table('candidate_quizes')
+		->select('*')
+		->join('users','candidate_quizes.candidate_id','=','users.id')
+		->join('course_quize','candidate_quizes.quiz_id','=','course_quize.id')
+		//->where(['something' => 'something', 'otherThing' => 'otherThing'])
+		->get()->toArray();
+
+	
+        return view('quizresult.list', compact('CandidateQuize'));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function updatesetting(Request $request){
 		$data = $request->all();      
