@@ -96,6 +96,20 @@
 									<span class="kt-menu__link-text">Pages</span></a>										
 							</li>
 							
+							
+							<li class="kt-menu__item <?php if($routeName =='quizresult'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
+								<a href="{{ route('quizresult') }}"  class="kt-menu__link ">
+									<i class="kt-menu__link-icon flaticon-doc"></i>
+									<span class="kt-menu__link-text">Quiz Result</span></a>										
+							</li>
+							
+							
+							<li class="kt-menu__item <?php if($routeName =='sitesetting'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
+								<a href="{{ route('sitesetting') }}"  class="kt-menu__link ">
+									<i class="kt-menu__link-icon flaticon-doc"></i>
+									<span class="kt-menu__link-text">Setting</span></a>										
+							</li>
+							
 							<?php }elseif(strtoupper($userType) == 'CANDIDATE'){ ?>
 								<li class="kt-menu__item <?php if($routeName =='candidatecourses'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
 								<a href="{{ route('candidatecourses') }}"  class="kt-menu__link ">

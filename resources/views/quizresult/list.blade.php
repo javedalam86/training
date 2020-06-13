@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
+@php $ROOT_PATH =  Config::get('constants.ROOT_PATH'); @endphp
 <!-- end::Head -->
 <!-- begin::Body -->
 <meta name="_token" content="{{ csrf_token() }}" />
@@ -84,8 +85,8 @@
   </div>
     <!-- end:: Page -->
   @include('layouts.adminotherpanels')
-  @include('course.modals')
-  @include('quizresultadminlist.js')
+  @include('quizresult.modals')
+ @include('quizresult.js')
 </body>
 <!-- end::Body -->
 @endsection

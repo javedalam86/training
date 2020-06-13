@@ -75,7 +75,11 @@ Route::get('coursedetail/{id}','CourseController@coursedetail')->name('coursedet
 
 Route::get('sitesetting','SettingController@sitesetting')->name('sitesetting')->middleware('auth');
 Route::get('quizresult','QuizresultController@quizresult')->name('quizresult')->middleware('auth');
+Route::get('ajaxquizeresultlist','QuizresultController@ajaxquizeresultlist')->name('ajaxquizeresultlist')->middleware('auth');
+Route::get('ajaxquizeanswers','QuizresultController@ajaxquizeanswers')->name('ajaxquizeanswers')->middleware('auth');
+Route::post('ajaxquizmarksupdate','QuizresultController@ajaxquizmarksupdate')->name('ajaxquizmarksupdate')->middleware('auth');
 
+// ajaxquizeresultlist
 
 
 Route::post('updatesetting','SettingController@updatesetting')->name('updatesetting')->middleware('auth');

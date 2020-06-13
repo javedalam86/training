@@ -23,9 +23,109 @@
   <!--begin::Global Theme Bundle(used by all pages) -->
   <script src="{{ asset('assetsadmin/plugins/global/plugins.bundle.js?v='.$scriptVer) }}" type="text/javascript"></script>
   <script src="{{ asset('assetsadmin/js/scripts.bundle.js?v='.$scriptVer) }}" type="text/javascript"></script>
-  <script src="{{ asset('assetsadmin/js/pages/crud/metronic-datatable/base/courses.js?v='.$scriptVer) }}" type="text/javascript"></script>
+  <script src="{{ asset('assetsadmin/js/pages/crud/metronic-datatable/base/quizresultadminlist.js?v='.$scriptVer) }}" type="text/javascript"></script>
 
   <script>
+var ROOT_PATH = '{{$ROOT_PATH}}';
+
+
+
+
+$("#submitquizevaluation").submit(function(e) {
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+    var form = $(this);
+   
+    $.ajax({
+           type: "POST",
+           url: ROOT_PATH+"/ajaxquizmarksupdate",
+           data: $(e.target).serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               alert(data); // show response from the php script.
+           }
+         });
+
+
+});
+
+
+
+
+
+
+
+function showevaluationmodal(candidate_quiz_id){
+	
+	$('#quize_result_Modal').modal('toggle');
+	
+	
+	
+    $.ajax({
+        url: ROOT_PATH+"/ajaxquizeanswers",
+       data: {
+          "_token": "{{ csrf_token() }}",
+          "candidate_quiz_id": candidate_quiz_id,
+        },
+		   dataType: 'json',
+        success: function(result) {			
+            // get the ajax response data  resultData
+			var QuestionListHTML='';
+           // var QuestionList = res.resultData; alert(QuestionList);alert(res.resultData);alert(res.status);
+		   var Qcount =1;
+			$.each( result.resultData, function( key, value) { 
+				QuestionListHTML+='<div class="form-group row">\
+                      <div class="col-lg-10">\
+                          <label class="col-form-label kt-font-bolder">Question&nbsp;'+Qcount+' :&nbsp;</label><label>'+value.question+'</label>\
+                      </div>\
+					  <div class="col-lg-1">\
+                         <label  class="col-form-label kt-font-bolder"><input type="hidden" name="quizresultId[]"  value="'+value.quize_result_id+'"><input type="number" name="marks[]"  id="marks" style="width:65px;" class="form-control" value="'+value.marks+'"></label>\
+                      </div>\
+					  <div class="col-lg-12">\
+						<label>Answer&nbsp;:&nbsp;</label><label>'+value.selected_option+'</label>\
+                      </div>\
+                    </div>';			
+					Qcount++;
+				});
+          $('#quizquestionList').html(QuestionListHTML);
+
+            // show modal
+            //$('#myModal').modal('show');
+
+        },
+        error:function(request, status, error) {
+            console.log("ajax call went wrong:" + request.responseText);
+        }
+    });
+
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
