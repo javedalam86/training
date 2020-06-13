@@ -215,21 +215,20 @@
 							@foreach ($CourseQuizeData as $CourseQuizeDataObj)
 								<?php $quizeLink = $ROOT_PATH.'/quiz/'.$CourseQuizeDataObj->id ?>
                 @php
-                  $cqResult = $CourseQuizeDataObj->candidateQuize()
-                  ->where('candidate_id','=',Auth::user()->id)
+                  $cqResult = $CourseQuizeDataObj->candidateQuize() ->where('candidate_id','=',Auth::user()->id)
                   ->where('is_deleted','=',0)
                   ->first();
+
                   if($cqResult) {
-                    if(!empty($cqResult->end_date_time)){
+                    if((int)$cqResult->quiz_re_enabled === 1){
                       continue;
                     }
                   }
-
                 @endphp
 							<tr>
 								<td>{{$CourseQuizeDataObj->quize_name}}</td>
 								<td>{{$CourseQuizeDataObj->start_date}}</td>
-								<td> <a href='<?php echo $quizeLink;?>' ><button type="reset" id="startQuizBtn" class="btn btn-success"> Quiz</button></a></td>
+								<td> <a href="{{ $quizeLink }}"><button type="reset" id="startQuizBtn" class="btn btn-success"> Quiz</button></a></td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -254,6 +253,7 @@
                 <th>Quiz Name</th>
                 <th>Quiz Attempt Date</th>
                 <th>Total % </th>
+                <th>Status </th>
               </tr>
             </thead>
             <tbody>
@@ -262,6 +262,11 @@
               @endphp
               @foreach ($CourseQuizeData as $CourseQuizeDataObj)
                 @php
+
+                  $cqResult = $CourseQuizeDataObj->candidateQuize() ->where('candidate_id','=',Auth::user()->id)
+                  ->where('is_deleted','=',0)
+                  ->first();
+
                   $quizeResult = $CourseQuizeDataObj->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
                   $latest = current($quizeResult);
                   if(empty($latest)){
@@ -289,7 +294,8 @@
                     <tr>
                       <td>{{$CourseQuizeDataObj['quize_name']}}</td>
                       <td>{{$objs[0]->attempt_date}}</td>
-                      <td><b>{{ number_format($totalMarks, 2) }}% </b></td>
+                      <td><b>{{ ($cqResult->is_evaluated == 1) ? number_format($totalMarks, 2) : '--'}}</b></td>
+                      <td><b>{{$cqResult->quiz_result}}</b></td>
                     </tr>
                     @php
                       break;
@@ -299,7 +305,7 @@
               @endforeach
 
               @if(!$isQuizeReport)
-                <tr><td colspan="3" align="center">No Quize report available</td> </tr>
+                <tr><td colspan="4" align="center">No Quize report available</td> </tr>
               @endif
             </tbody>
           </table>
