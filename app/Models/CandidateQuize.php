@@ -14,7 +14,7 @@ class CandidateQuize extends Model
   *
   * @var array
   */
-  protected $fillable = ['candidate_id','quiz_id','start_date_time','end_date_time',' is_evaluated',' is_deleted'];
+  protected $fillable = ['candidate_id','quiz_id','start_date_time','end_date_time',' is_evaluated','attempt_counter','quiz_re_enabled','quiz_result','is_deleted'];
 
  /**
    * Get the post that owns the comment.

@@ -59,6 +59,7 @@ class QuizeController extends Controller
           $cq = [
             'candidate_id' => Auth::user()->id,
             'quiz_id' => $QuizeId,
+            'attempt_counter' => 0,
             'start_date_time' =>Carbon::now()
           ];
           CandidateQuize::create($cq);
@@ -75,7 +76,7 @@ class QuizeController extends Controller
           ->where('candidate_id', '=',Auth::user()->id)
           ->where('is_deleted', '=',0)
           ->first();
-
+          $attemptCount = (int)$candQuize->attempt_counter + 1;
           $attemptDate = date('Y-m-d H:i:s');
           for ($i=1; $i <= (int)$data['totalQuestions']; $i++) {
             $insert = [
@@ -83,7 +84,8 @@ class QuizeController extends Controller
                 'section_id' => $data['question_section_id_'.$i],
                 'question_id' => $data['question_id_'.$i],
                 'question_type' => $data['question_type_'.$i],
-                'candidate_quize_id' => $candQuize->id
+                'candidate_quize_id' => $candQuize->id,
+                'quiz_attempt_counter' => $attemptCount
             ];
             if(isset($data['option_'.$i])) {
                $insert['selected_option'] = $data['option_'.$i];
@@ -108,6 +110,9 @@ class QuizeController extends Controller
 
            //Insert quize strat date
           $candQuize->end_date_time = Carbon::now();
+          $candQuize->attempt_counter = $attemptCount;
+          $candQuize->is_evaluated = 0;
+          $candQuize->quiz_re_enabled = 1;
           $candQuize->save();
           //Update Status
           /*$courseQuize = CourseQuize::where('id', '=',$data['quize_id'])->first();
