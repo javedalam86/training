@@ -94,9 +94,9 @@ var KTDatatableRemoteAjaxCourse = function() {
 					field: 'quiz_result',
 					title: 'Result',width: 50,
 					template: function(row) { 
-						if(row.quiz_result == 'PASS'){
+						if(row.quiz_result == 'PASS'){ 
 							//return '<a href="javascript:;" onclick=showcandidateresultmodal('+row.candidate_quiz_id+')>Pass</a>';
-							return 'PASS';
+							return 'PASS &nbsp'+'<a href="javascript:;" onclick=downloadCetificate('+row.candidate_quiz_id+')>Download</a>';
 						}else if(row.quiz_result == 'FAIL'){ return 'FAIL';
 							//return '<a href="javascript:;" onclick=showcandidateresultmodal('+row.candidate_quiz_id+')>Fail</a>';
 						}else{

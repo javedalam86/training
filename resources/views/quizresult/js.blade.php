@@ -60,11 +60,25 @@ function reEnableQuizBtn(candidate_quiz_id){
            {    location.reload();
                //alert(data); // show response from the php script.
            }
-     });
+     });	
+}
+
+function downloadCetificate(candidate_quiz_id){
 	
-	
-	
-	
+    var form = $(this);   
+    $.ajax({
+           type: "POST",
+           url: ROOT_PATH+"/ajaxhtmltopdfview",
+            data: {
+			  "_token": "{{ csrf_token() }}",
+			  "candidate_quiz_id": candidate_quiz_id,
+			},
+		   dataType: 'json',
+           success: function(data)
+           {    location.reload();
+               //alert(data); // show response from the php script.
+           }
+     });	
 }
 
 

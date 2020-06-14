@@ -17,6 +17,7 @@ use App\Models\CourseQuizeSections;
 use App\Models\Setting;
 use App\Models\CandidateQuize;
 use App\Models\QuizeResult;
+use PDF;
 
  use Redirect;
 
@@ -175,7 +176,22 @@ class QuizresultController extends Controller
 		return json_encode($resultData);
     }
 
+	public function ajaxhtmltopdfview(Request $request)
+    {
+       $CandidateQuize = CandidateQuize::where('is_deleted', '=',0)->orderBy('id', 'ASC' )->get()->toArray();
+        view()->share('products',$CandidateQuize);
+     
+	 
+	 $headers = ['Content-Type: application/pdf'];
+    
 
+    
+	 
+            $pdf = PDF::loadView('htmltopdfview');
+            return $pdf->download('htmltopdfview',$headers);
+       
+       // return view('htmltopdfview');
+    }
 
 
 
