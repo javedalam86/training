@@ -78,6 +78,7 @@ Route::get('quizresult','QuizresultController@quizresult')->name('quizresult')->
 Route::get('ajaxquizeresultlist','QuizresultController@ajaxquizeresultlist')->name('ajaxquizeresultlist')->middleware('auth');
 Route::get('ajaxquizeanswers','QuizresultController@ajaxquizeanswers')->name('ajaxquizeanswers')->middleware('auth');
 Route::post('ajaxquizmarksupdate','QuizresultController@ajaxquizmarksupdate')->name('ajaxquizmarksupdate')->middleware('auth');
+Route::post('ajaxreenablequizbtn','QuizresultController@ajaxreenablequizbtn')->name('ajaxreenablequizbtn')->middleware('auth');
 
 // ajaxquizeresultlist
 

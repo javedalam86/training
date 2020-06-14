@@ -75,57 +75,34 @@ var KTDatatableRemoteAjaxCourse = function() {
 				},{
 					field: 'is_evaluated',
 					title: 'Evaluation',
+					
 					template: function(row) { 
+						var showEnableQuizBtn ='';
+						
+						
+						if(row.quiz_result == 'FAIL' && ( row.quiz_re_enabled!=0)){  showEnableQuizBtn = '<button type="button" class="btn btn-brand btn-icon-sm"  onclick=reEnableQuizBtn('+row.candidate_quiz_id+') style=" height: 32px;padding-top:0px;padding-bottom:0px;"> Re-Enable Quiz</button>';
+						}
+						
 						if(row.is_evaluated == 1){
-							return '<a href="javascript:;" onclick=userdetails('+row.candidate_quiz_id+')>Evaluation Done</a>';
+							//return '<a href="javascript:;" onclick=userdetails('+row.candidate_quiz_id+')>Evaluation Done</a>';
+							return ' <a href="javascript:;" onclick=showevaluationmodal('+row.candidate_quiz_id+')>Evaluation Done</a>' +showEnableQuizBtn;
 						}else{
 							return '<a href="javascript:;" onclick=showevaluationmodal('+row.candidate_quiz_id+')>Evaluate now</a>';
 						}
 					}					
 				},{
 					field: 'quiz_result',
-					title: 'Result',
+					title: 'Result',width: 50,
 					template: function(row) { 
 						if(row.quiz_result == 'PASS'){
-							return '<a href="javascript:;" onclick=showcandidateresultmodal('+row.candidate_quiz_id+')>Pass</a>';
-						}else if(row.quiz_result == 'Fail'){
-							return '<a href="javascript:;" onclick=showcandidateresultmodal('+row.candidate_quiz_id+')>Fail</a>';
+							//return '<a href="javascript:;" onclick=showcandidateresultmodal('+row.candidate_quiz_id+')>Pass</a>';
+							return 'PASS';
+						}else if(row.quiz_result == 'FAIL'){ return 'FAIL';
+							//return '<a href="javascript:;" onclick=showcandidateresultmodal('+row.candidate_quiz_id+')>Fail</a>';
 						}else{
 							return '--';
 						}
 					}					
-				},{
-					field: 'Actions',
-					title: 'Actions',
-					sortable: false,
-					width: 110,
-					overflow: 'visible',
-					autoHide: false,
-					template: function(row) {
-            var start_date = "";
-            var end_date = ""
-            if(row.start_date) {
-              var res = row.start_date.split(" ");
-              start_date = res[0]
-            }
-
-            if(row.end_date) {
-              let res = row.end_date.split(" ");
-              end_date = res[0]
-            }
-
-						return '\
-						<a href="coursedetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
-							<i class="flaticon-eye"></i>\
-						</a>\
-						<a href="javascript:;" data-id='+row.id+'   data-name="'+row.name+'"   data-cost="'+row.cost+'"   data-course_type="'+row.course_type+'"   data-description="'+row.description+'"  data-start_date="'+start_date+'" data-end_date="'+end_date+'"data-toggle="modal" data-target="#courseedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
-							<i class="flaticon2-edit"></i>\
-						</a>\
-						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\
-							<i class="flaticon2-trash"></i>\
-						</a>\
-					';
-					},
 				}],
 
 		});

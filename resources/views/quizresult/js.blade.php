@@ -33,33 +33,47 @@ var ROOT_PATH = '{{$ROOT_PATH}}';
 
 $("#submitquizevaluation").submit(function(e) {
     e.preventDefault(); // avoid to execute the actual submit of the form.
-    var form = $(this);
-   
+    var form = $(this);   
     $.ajax({
            type: "POST",
            url: ROOT_PATH+"/ajaxquizmarksupdate",
            data: $(e.target).serialize(), // serializes the form's elements.
            success: function(data)
-           {
-               alert(data); // show response from the php script.
+           {   location.reload();
+               //alert(data); // show response from the php script.
            }
-         });
-
-
+     });
 });
 
-
-
-
-
-
-
-function showevaluationmodal(candidate_quiz_id){
+function reEnableQuizBtn(candidate_quiz_id){
 	
-	$('#quize_result_Modal').modal('toggle');
+    var form = $(this);   
+    $.ajax({
+           type: "POST",
+           url: ROOT_PATH+"/ajaxreenablequizbtn",
+            data: {
+			  "_token": "{{ csrf_token() }}",
+			  "candidate_quiz_id": candidate_quiz_id,
+			},
+		   dataType: 'json',
+           success: function(data)
+           {    location.reload();
+               //alert(data); // show response from the php script.
+           }
+     });
 	
 	
 	
+	
+}
+
+
+
+
+
+
+function showevaluationmodal(candidate_quiz_id){	
+	$('#quize_result_Modal').modal('toggle');	
     $.ajax({
         url: ROOT_PATH+"/ajaxquizeanswers",
        data: {
@@ -127,7 +141,7 @@ function showevaluationmodal(candidate_quiz_id){
 
 
 
-
+/*
 
     function coursedetail(userId) {
       var urlRoute = 'coursedetail/' + courseId;
@@ -296,5 +310,5 @@ function showevaluationmodal(candidate_quiz_id){
       $('#endDateEdit').datepicker({
         format: 'yyyy-mm-dd'
       });
-    });
+    }); */
 </script>

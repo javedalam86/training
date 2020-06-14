@@ -87,8 +87,6 @@ class QuizresultController extends Controller
 		->select('*')
 		->join('users','candidate_quizes.candidate_id','=','users.id')
 		->join('course_quize','candidate_quizes.quiz_id','=','course_quize.id');
-
-		
 		$totalRecord =$allCandidateQuize->count();
 		$resultDataTable['data'] = $CandidateQuize;
 		$resultDataTable['meta']['page'] = $page;
@@ -132,6 +130,7 @@ class QuizresultController extends Controller
 		$quizresultId = $data['quizresultId'];
 		$marks = $data['marks'];
 		$counter =0;
+		$candidateMarks= 0;
 		foreach($quizresultId as $quizresult){
 			$Qmarkes = $marks[$counter];
 			$QuizeResult = QuizeResult::where('id', '=',$quizresult)
@@ -140,11 +139,38 @@ class QuizresultController extends Controller
 			$QuizeResult->save();		
 			$counter++;
 			$candidate_quize_id = $QuizeResult->candidate_quize_id; 
+			$candidateMarks+=$Qmarkes;
 		}		
+		$totalMarks = 10*$counter;
+		$candidatePercent =  ($candidateMarks/$totalMarks)*100;
+		if($candidatePercent >=60){ $quiz_result = 'PASS'; }else{  $quiz_result = 'FAIL'; }
 		$CandidateQuize = CandidateQuize::where('id', '=',$candidate_quize_id)
 		->first();
 		$CandidateQuize->is_evaluated =1;
-		$CandidateQuize->save();			
+		$CandidateQuize->quiz_result =$quiz_result;  
+		if($quiz_result =='PASS'){
+			$CandidateQuize->quiz_re_enabled =1;  
+		}else{
+			//$CandidateQuize->quiz_re_enabled =$quiz_result;  
+		}
+		$CandidateQuize->save();
+		$resultData['status'] ='success';		
+		return json_encode($resultData);
+    }
+
+
+
+
+
+
+  public function ajaxreenablequizbtn(Request $request)
+    {      
+		$data = $request->all();
+		$candidate_quiz_id = $data['candidate_quiz_id'];	 
+		$CandidateQuize = CandidateQuize::where('id', '=',$candidate_quiz_id)
+		->first();
+		$CandidateQuize->quiz_re_enabled =0;	
+		$CandidateQuize->save();
 		$resultData['status'] ='success';		
 		return json_encode($resultData);
     }
