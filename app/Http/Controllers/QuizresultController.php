@@ -18,8 +18,7 @@ use App\Models\Setting;
 use App\Models\CandidateQuize;
 use App\Models\QuizeResult;
 use PDF;
-
- use Redirect;
+use Redirect;
 
 class QuizresultController extends Controller
 {   var $recordPerPage =20;
@@ -41,7 +40,7 @@ class QuizresultController extends Controller
 
 
   public function ajaxquizeresultlist(Request $request)
-    {      
+    {
 		$data = $request->all();
 		$page =$data['pagination']['page'];
 		$per_page = $data['pagination']['perpage'];
@@ -50,7 +49,7 @@ class QuizresultController extends Controller
 		}
 		$searchArray['per_page']=$per_page;
 		$searchArray['page']	=$page;
-		
+
         //$CandidateQuize = CandidateQuize::where('is_deleted', '=',0)->orderBy('id', 'ASC' )->get()->toArray();
 	    $CandidateQuize =   \DB::table('candidate_quizes')
 		->select('candidate_quizes.id as candidate_quiz_id','users.name as username','users.email as email','candidate_id', 'quiz_id',  'is_evaluated',  'attempt_counter','quiz_re_enabled', 'quiz_result', 'candidate_id', 'courses.name as course_name', 'course_type','quize_name')
@@ -59,8 +58,8 @@ class QuizresultController extends Controller
 		->join('courses','course_quize.course_id','=','courses.id');
 		//->where(['something' => 'something', 'otherThing' => 'otherThing'])   offset sortfield
 		//->get()->toArray();
-		
-		
+
+
 		$sortfield ='candidate_quizes.id';
 		if(@isset($data['sort']['field']) ){
 		  if(in_array($data['sort']['field'], array('course','id','cost','course_type','description'))){
@@ -73,17 +72,17 @@ class QuizresultController extends Controller
 		if(@isset($data['sort']['sort'])){
 		  $sortorder =$data['sort']['sort'];
 		}
-	
+
 		if($page ==1){ $offset = 0; }else{ $offset = $this->recordPerPage*($page-1); }
         $CandidateQuize->offset($offset);
 		$CandidateQuize->limit($this->recordPerPage);
 		$CandidateQuize->orderBy($sortfield, $sortorder);
 		$CandidateQuize =	$CandidateQuize->get()->toArray();
-		 
-		 
-		 
-		 
-		 
+
+
+
+
+
 		$allCandidateQuize =   \DB::table('candidate_quizes')
 		->select('*')
 		->join('users','candidate_quizes.candidate_id','=','users.id')
@@ -100,7 +99,7 @@ class QuizresultController extends Controller
 
 
   public function ajaxquizeanswers(Request $request)
-    {      
+    {
 		$data = $request->all();
 		$candidate_quiz_id = $data['candidate_quiz_id'];
 		$CandidateQuize = CandidateQuize::where('is_deleted', '=',0)->where('id', '=',$candidate_quiz_id)->orderBy('id', 'ASC' )->get()->toArray();
@@ -108,9 +107,9 @@ class QuizresultController extends Controller
 		$candidate_id	=$CandidateQuize[0]['candidate_id'];
 		$quiz_id		=$CandidateQuize[0]['quiz_id'];
 		$attempt_counter=$CandidateQuize[0]['attempt_counter'];
-            
+
 		//$quizeResult = QuizeResult::where('candidate_quize_id', '=',$candidate_quiz_id)->where('quiz_attempt_counter', '=',$attempt_counter)->get()->toArray();
-		
+
 		$quizeResult =   \DB::table('quize_result')
 		->select('quize_result.id as quize_result_id','quize_result.quize_id','quize_result.candidate_quize_id','quize_result.section_id','question_id','selected_option','quize_result.question_type','marks','quiz_attempt_counter','question')
 		->join('questions','quize_result.question_id','=','questions.id')
@@ -118,7 +117,7 @@ class QuizresultController extends Controller
 		$quizeResult = $quizeResult->get()->toArray();
 		$resultData['resultData'] =$quizeResult;
 		$resultData['status'] ='success';
-		
+
 		return json_encode($resultData);
     }
 
@@ -126,7 +125,7 @@ class QuizresultController extends Controller
 
 
   public function ajaxquizmarksupdate(Request $request)
-    {      
+    {
 		$data = $request->all();
 		$quizresultId = $data['quizresultId'];
 		$marks = $data['marks'];
@@ -137,25 +136,25 @@ class QuizresultController extends Controller
 			$QuizeResult = QuizeResult::where('id', '=',$quizresult)
 				->first();
 			$QuizeResult->marks =$Qmarkes;
-			$QuizeResult->save();		
+			$QuizeResult->save();
 			$counter++;
-			$candidate_quize_id = $QuizeResult->candidate_quize_id; 
+			$candidate_quize_id = $QuizeResult->candidate_quize_id;
 			$candidateMarks+=$Qmarkes;
-		}		
+		}
 		$totalMarks = 10*$counter;
 		$candidatePercent =  ($candidateMarks/$totalMarks)*100;
 		if($candidatePercent >=60){ $quiz_result = 'PASS'; }else{  $quiz_result = 'FAIL'; }
 		$CandidateQuize = CandidateQuize::where('id', '=',$candidate_quize_id)
 		->first();
 		$CandidateQuize->is_evaluated =1;
-		$CandidateQuize->quiz_result =$quiz_result;  
+		$CandidateQuize->quiz_result =$quiz_result;
 		if($quiz_result =='PASS'){
-			$CandidateQuize->quiz_re_enabled =1;  
+			$CandidateQuize->quiz_re_enabled =1;
 		}else{
-			//$CandidateQuize->quiz_re_enabled =$quiz_result;  
+			//$CandidateQuize->quiz_re_enabled =$quiz_result;
 		}
 		$CandidateQuize->save();
-		$resultData['status'] ='success';		
+		$resultData['status'] ='success';
 		return json_encode($resultData);
     }
 
@@ -165,32 +164,57 @@ class QuizresultController extends Controller
 
 
   public function ajaxreenablequizbtn(Request $request)
-    {      
+    {
 		$data = $request->all();
-		$candidate_quiz_id = $data['candidate_quiz_id'];	 
+		$candidate_quiz_id = $data['candidate_quiz_id'];
 		$CandidateQuize = CandidateQuize::where('id', '=',$candidate_quiz_id)
 		->first();
-		$CandidateQuize->quiz_re_enabled =0;	
+		$CandidateQuize->quiz_re_enabled =0;
 		$CandidateQuize->save();
-		$resultData['status'] ='success';		
+		$resultData['status'] ='success';
 		return json_encode($resultData);
     }
 
-	public function ajaxhtmltopdfview(Request $request)
+	public function downloadQuizResult(Request $request)
     {
-       $CandidateQuize = CandidateQuize::where('is_deleted', '=',0)->orderBy('id', 'ASC' )->get()->toArray();
-        view()->share('products',$CandidateQuize);
-     
-	 
-	 $headers = ['Content-Type: application/pdf'];
-    
+       $candidateQuize = CandidateQuize::where('is_deleted', '=',0)
+       ->where('id', '=',$request->candidate_quiz_id)->first();
+       if($candidateQuize) {
+        $candidate = $candidateQuize->candidate()->first();
+        $courseQuize = $candidateQuize->courseQuize()->first();
 
-    
-	 
-            $pdf = PDF::loadView('htmltopdfview');
-            return $pdf->download('htmltopdfview',$headers);
-       
-       // return view('htmltopdfview');
+        $quizeResult = $courseQuize->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
+        $latest = current($quizeResult);
+        if(!empty($latest)){
+          $totalMarks = 0;
+          foreach ($latest as $objs){
+            $totalQues = count($objs);
+            foreach ($objs as $obj) {
+              if(!empty($obj->marks)) {
+                $totalMarks = $totalMarks + (int)$obj->marks;
+              }
+            }
+          }
+          $totalMarks = ($totalMarks / ($totalQues*10)) *100;
+          $totalMarks = $totalMarks.' %';
+        } else {
+          $totalMarks = '--';
+        }
+
+        $result = [
+          'candidateName' => isset($candidate->name)? $candidate->name : '',
+          'courseQuizeName' => isset($courseQuize->quize_name)? $courseQuize->quize_name : '',
+          'totalMarks' => $totalMarks,
+          'status' => isset($candidateQuize->quiz_result)? $candidateQuize->quiz_result : '',
+        ];
+       // $headers = ['Content-Type: application/pdf'];
+        $pdf = PDF::loadView('htmltopdfview', $result);
+        return $pdf->download('result.pdf');
+       } else {
+          \Session::flash('error', 'Report dowload failed');
+          return Redirect::back()->withInput();
+       }
+
     }
 
 

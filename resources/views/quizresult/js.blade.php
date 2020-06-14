@@ -33,7 +33,7 @@ var ROOT_PATH = '{{$ROOT_PATH}}';
 
 $("#submitquizevaluation").submit(function(e) {
     e.preventDefault(); // avoid to execute the actual submit of the form.
-    var form = $(this);   
+    var form = $(this);
     $.ajax({
            type: "POST",
            url: ROOT_PATH+"/ajaxquizmarksupdate",
@@ -46,8 +46,8 @@ $("#submitquizevaluation").submit(function(e) {
 });
 
 function reEnableQuizBtn(candidate_quiz_id){
-	
-    var form = $(this);   
+
+    var form = $(this);
     $.ajax({
            type: "POST",
            url: ROOT_PATH+"/ajaxreenablequizbtn",
@@ -60,12 +60,15 @@ function reEnableQuizBtn(candidate_quiz_id){
            {    location.reload();
                //alert(data); // show response from the php script.
            }
-     });	
+     });
 }
 
 function downloadCetificate(candidate_quiz_id){
-	
-    var form = $(this);   
+
+    $("#candidate_quiz_id").val(candidate_quiz_id);
+    $("#downloadCertificate").submit();
+    return false;
+    /*var form = $(this);
     $.ajax({
            type: "POST",
            url: ROOT_PATH+"/ajaxhtmltopdfview",
@@ -78,7 +81,7 @@ function downloadCetificate(candidate_quiz_id){
            {    location.reload();
                //alert(data); // show response from the php script.
            }
-     });	
+     });	*/
 }
 
 
@@ -86,8 +89,8 @@ function downloadCetificate(candidate_quiz_id){
 
 
 
-function showevaluationmodal(candidate_quiz_id){	
-	$('#quize_result_Modal').modal('toggle');	
+function showevaluationmodal(candidate_quiz_id){
+	$('#quize_result_Modal').modal('toggle');
     $.ajax({
         url: ROOT_PATH+"/ajaxquizeanswers",
        data: {
@@ -95,12 +98,12 @@ function showevaluationmodal(candidate_quiz_id){
           "candidate_quiz_id": candidate_quiz_id,
         },
 		   dataType: 'json',
-        success: function(result) {			
+        success: function(result) {
             // get the ajax response data  resultData
 			var QuestionListHTML='';
            // var QuestionList = res.resultData; alert(QuestionList);alert(res.resultData);alert(res.status);
 		   var Qcount =1;
-			$.each( result.resultData, function( key, value) { 
+			$.each( result.resultData, function( key, value) {
 				QuestionListHTML+='<div class="form-group row">\
                       <div class="col-lg-10">\
                           <label class="col-form-label kt-font-bolder">Question&nbsp;'+Qcount+' :&nbsp;</label><label>'+value.question+'</label>\
@@ -111,7 +114,7 @@ function showevaluationmodal(candidate_quiz_id){
 					  <div class="col-lg-12">\
 						<label>Answer&nbsp;:&nbsp;</label><label>'+value.selected_option+'</label>\
                       </div>\
-                    </div>';			
+                    </div>';
 					Qcount++;
 				});
           $('#quizquestionList').html(QuestionListHTML);
@@ -125,9 +128,9 @@ function showevaluationmodal(candidate_quiz_id){
         }
     });
 
-	
-	
-	
+
+
+
 }
 
 

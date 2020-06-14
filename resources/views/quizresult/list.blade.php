@@ -32,7 +32,7 @@
               </div>
               <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                  
+
                 </div>
               </div>
             </div>
@@ -40,6 +40,35 @@
           <!-- end:: Content Head -->
           <!-- begin:: Content -->
           <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+             @if ($message = Session::get('success'))
+                <div class="col-md-12">
+                  <div class="alert alert-success in">
+                    <div class="col-md-11">
+                      <i class="fa fa-check faa-pulse animated"></i>
+                      <strong>Success: </strong>
+                      {{ $message }}
+                    </div>
+                     <div class="col-md-1">
+                      <button type="button" class="close pull-right" data-dismiss="alert">&times;</button>
+                     </div>
+                  </div>
+                </div>
+             @endif
+
+            @if ($message = Session::get('error'))
+              <div class="col-md-12">
+                <div class="alert alert alert-danger in">
+                  <div class="col-md-11">
+                    <i class="fa fa-exclamation-circle faa-pulse animated"></i>
+                   <strong>Error: </strong>
+                   {{ $message }}
+                  </div>
+                   <div class="col-md-1">
+                    <button type="button" class="close pull-right" data-dismiss="alert">&times;</button>
+                   </div>
+                </div>
+              </div>
+            @endif
             <div id='ajaxmessagediv'></div>
             <div class="kt-portlet kt-portlet--mobile">
               <div class="kt-portlet__body">
@@ -75,6 +104,10 @@
               </div>
             </div>
           </div>
+          <form id="downloadCertificate" method="post" action="{{route('downloadQuizResult')}}">
+            {!! csrf_field() !!}
+            <input type="text" name="candidate_quiz_id" id="candidate_quiz_id">
+          </form>
         <!-- end:: Content -->
         </div>
         <!-- begin:: Footer -->

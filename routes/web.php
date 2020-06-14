@@ -79,7 +79,7 @@ Route::get('ajaxquizeresultlist','QuizresultController@ajaxquizeresultlist')->na
 Route::get('ajaxquizeanswers','QuizresultController@ajaxquizeanswers')->name('ajaxquizeanswers')->middleware('auth');
 Route::post('ajaxquizmarksupdate','QuizresultController@ajaxquizmarksupdate')->name('ajaxquizmarksupdate')->middleware('auth');
 Route::post('ajaxreenablequizbtn','QuizresultController@ajaxreenablequizbtn')->name('ajaxreenablequizbtn')->middleware('auth');
-Route::post('ajaxhtmltopdfview',array('as'=>'ajaxhtmltopdfview','uses'=>'QuizresultController@ajaxhtmltopdfview'));
+Route::post('ajaxhtmltopdfview', 'QuizresultController@downloadQuizResult')->name('downloadQuizResult')->middleware('auth');
 
 
 
