@@ -135,6 +135,10 @@
     });
 
     $('#courseedit_modal').on('show.bs.modal', function(e) {
+      //Fixed edit datepicker clear all fields data
+      if($('#courseedit_modal').hasClass('show')) {
+        return false;
+      }
       $("#editcoursemessage").hide();
       var courseId = $(e.relatedTarget).data('id');
       var courseEdit = $(e.relatedTarget).data('name');
