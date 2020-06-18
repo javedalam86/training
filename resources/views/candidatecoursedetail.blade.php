@@ -204,8 +204,8 @@
 					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 						<thead>
 							<tr>
-								<th>Quiz Name</th>
-								<th>Quiz Date</th>
+								<th>Quiz Name</th> <!--
+								<th>Quiz Date</th> -->
 								<th></th>
 
 
@@ -226,8 +226,8 @@
                   }
                 @endphp
 							<tr>
-								<td>{{$CourseQuizeDataObj->quize_name}}</td>
-								<td>{{$CourseQuizeDataObj->start_date}}</td>
+								<td>{{$CourseQuizeDataObj->quize_name}}</td> <!--
+								<td>{{$CourseQuizeDataObj->start_date}}</td>  -->
 								<td> <a href="{{ $quizeLink }}"><button type="reset" id="startQuizBtn" class="btn btn-success"> Quiz</button></a></td>
 							</tr>
 							@endforeach

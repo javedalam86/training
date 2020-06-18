@@ -19,7 +19,7 @@ use App\Models\CourseSections;
 class QuestionController extends Controller
 {
 	
-	var $recordPerPage =20;
+	var $recordPerPage =10;
     /**
      * Display a listing of the resource.
      *

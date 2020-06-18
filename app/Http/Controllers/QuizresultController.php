@@ -29,8 +29,10 @@ class QuizresultController extends Controller
 		->select('*')
 		->join('users','candidate_quizes.candidate_id','=','users.id')
 		->join('course_quize','candidate_quizes.quiz_id','=','course_quize.id')
-		//->where(['something' => 'something', 'otherThing' => 'otherThing'])
+		->where('attempt_counter', '!=', 0)
 		->get()->toArray();
+		
+		//print_r($CandidateQuize);die; // ajaxquizeresultlist
         return view('quizresult.list', compact('CandidateQuize'));
     }
 
@@ -55,7 +57,8 @@ class QuizresultController extends Controller
 		->select('candidate_quizes.id as candidate_quiz_id','users.name as username','users.email as email','candidate_id', 'quiz_id',  'is_evaluated',  'attempt_counter','quiz_re_enabled', 'quiz_result', 'candidate_id', 'courses.name as course_name', 'course_type','quize_name')
 		->join('users','candidate_quizes.candidate_id','=','users.id')
 		->join('course_quize','candidate_quizes.quiz_id','=','course_quize.id')
-		->join('courses','course_quize.course_id','=','courses.id');
+		->join('courses','course_quize.course_id','=','courses.id')
+			->where('attempt_counter', '!=', 0);
 		//->where(['something' => 'something', 'otherThing' => 'otherThing'])   offset sortfield
 		//->get()->toArray();
 

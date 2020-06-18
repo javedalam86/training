@@ -106,7 +106,7 @@
           </div>
           <form id="downloadCertificate" method="post" action="{{route('downloadQuizResult')}}">
             {!! csrf_field() !!}
-            <input type="text" name="candidate_quiz_id" id="candidate_quiz_id">
+            <input type="hidden" name="candidate_quiz_id" id="candidate_quiz_id">
           </form>
         <!-- end:: Content -->
         </div>

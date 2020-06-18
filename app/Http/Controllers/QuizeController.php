@@ -31,7 +31,7 @@ class QuizeController extends Controller
         $data = $request->all();
         $QuizeId = $data['QuizeId'];
         $CourseQuizeSections = CourseQuizeSections::where('course_quize_id', '=',$QuizeId)->orderBy('id', 'ASC' )->get()->toArray();
-        //print_r($CourseQuizeSections);
+      // print_r($CourseQuizeSections);
 
 
         $CourseQuize = CourseQuize::where('id', '=',$QuizeId)->orderBy('id', 'ASC' )->get()->toArray();
@@ -39,14 +39,21 @@ class QuizeController extends Controller
         $course_id = $CourseQuize[0]['course_id'];
         //print_r($CourseQuize);
         $resultsQuestion = array();
-        foreach($CourseQuizeSections as  $CourseQuizeSectionsObject){
+        foreach($CourseQuizeSections as  $CourseQuizeSectionsObject){ 
             $section_id 	= $CourseQuizeSectionsObject['section_id'];
             $questionsCount 	= $CourseQuizeSectionsObject['questions'];
-             $question_type   = $CourseQuizeSectionsObject['question_type'];
+            $subQuestionsCount 	= $CourseQuizeSectionsObject['sub_questions'];
+            $question_type   = $CourseQuizeSectionsObject['question_type'];
               //$Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
-            $Questions = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->limit($questionsCount)->orderBy('id', 'ASC' )->get()->toArray();
-
-            $resultsQuestion = (array_merge($resultsQuestion,$Questions));
+			  if($questionsCount >=1){
+            $Questions = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '0')->limit($questionsCount)->orderBy('id', 'ASC' )->get()->toArray();
+			 	$resultsQuestion = (array_merge($resultsQuestion,$Questions));
+			 }
+			  if($subQuestionsCount>=1){
+			$QuestionsSub = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '1')->limit($subQuestionsCount)->orderBy('id', 'ASC' )->get()->toArray();
+			
+			$resultsQuestion = (array_merge($resultsQuestion,$QuestionsSub));
+			  }
         }
 
         //Insert quize strat date

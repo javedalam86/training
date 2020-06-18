@@ -112,7 +112,7 @@
 							
 							<?php }elseif(strtoupper($userType) == 'CANDIDATE'){ ?>
 								<li class="kt-menu__item <?php if($routeName =='candidatecourses'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
-								<a href="{{ route('candidatecourses') }}"  class="kt-menu__link ">
+								<a href="{{ route('course-calendar') }}"  target="_blank" class="kt-menu__link ">
 									<i class="kt-menu__link-icon flaticon2-list"></i>
 									<span class="kt-menu__link-text"> Courses</span></a>										
 							</li>
