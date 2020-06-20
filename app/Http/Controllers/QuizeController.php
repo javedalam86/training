@@ -155,6 +155,17 @@ class QuizeController extends Controller
 
          return response()->json(array('status' => 'success', 'data'=>$courseQuize));
     }
+	
+	
+	public function quizdetaileditmodal(Request $request,$id)
+    {
+        $CourseQuize = CourseQuize::where('id', '=',$id)->orderBy('id', 'ASC' )->get()->toArray();
+        $CourseQuizeSection = CourseQuizeSections::where('course_quize_id', '=',$id)->get()->toArray();
+	    $resultDataTable['CourseQuize'] = $CourseQuize;
+		$resultDataTable['CourseQuizeSection'] = $CourseQuizeSection;
+		
+        return json_encode($resultDataTable);
+    }
 
 
 }

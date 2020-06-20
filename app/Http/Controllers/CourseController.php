@@ -21,7 +21,7 @@ use App\Imports\UsersImport;
 class CourseController extends Controller
 {
 
-  var $recordPerPage =20;
+  var $recordPerPage =10;
   /**
   * Display a listing of the resource.
   *
@@ -215,6 +215,42 @@ class CourseController extends Controller
 	  $i++;
 	  }
 	  
+      return response(array("status"=>"success", "code"=>200,"data" => $data));
+    }
+  }  
+  
+  
+  /**
+  * Create a new user instance after a valid registration.
+  *
+  * @param  array  $data
+  * @return \App\User
+  */
+  public function updatecoursequiz(Request $request)
+  {
+    $data = $request->all();
+    $validator = Validator::make($request->all(), [
+      'quize_name'=> 'required|min:5|max:256',    
+      'quize_desc'=> 'required|min:5|max:256',     
+    ]);	
+	
+    if ($validator->fails()) {
+      return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
+    }else{
+		$edit_quiz_id=$data['edit_quiz_id'];
+		$CourseQuize = CourseQuize::find($edit_quiz_id);
+        $CourseQuize->quize_name    =$data['quize_name'];
+        $CourseQuize->quize_desc    =$data['quize_desc'];
+        $CourseQuize->save();		
+		$i=0;	
+	  foreach($data['sub_question'] as $questionsObj ){
+		   $section_id =$data['section'][$i];
+		    $quizDataTDB['sub_questions'] =$data['sub_question'][$i];
+			$quizDataTDB['questions'] =$data['obj_question'][$i];
+			\DB::table('course_quize_sections')->where('course_quize_id', $edit_quiz_id)->where('section_id', $section_id)->update($quizDataTDB);	
+  
+	  $i++;
+	  }	  
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
   }

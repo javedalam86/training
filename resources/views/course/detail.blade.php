@@ -70,7 +70,7 @@
 					<div class="form-group form-group-xs row">
 						<label class="col-2 col-form-label kt-font-bolder">Price:</label>
 						<div class="col-8">
-						  <span class="form-control-plaintext ">{{$Course['cost']}}</span>
+						  <span class="form-control-plaintext ">$ {{$Course['cost']}}</span>
 						</div>
 					</div>
 					<!--
@@ -141,14 +141,12 @@
 					</div>
 				</div>
 				<div class="kt-portlet__body">
-				<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
+					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 						<thead>
 							<tr>
 								<th>Quiz Name</th>
 								<th>Quiz Description</th>
 								<th>Status</th>
-							
-								
 							</tr>
 						</thead>
 						<tbody>
@@ -160,42 +158,14 @@
 								<td>
 									<a href="javascript:void(0);" class='toggleQuizStatus' data-id="{{$CourseQuizeObj['id']}}" class="btn btn-sm btn-clean btn-icon btn-icon-sm" ><i class="<?php echo $ActiveClass?>"></i>	
 									</a>
-								</td>
-
-							
+									<a href="javascript:;"  onclick="veiwLoadQuizEdit({{$CourseQuizeObj['id']}})" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit">							<i class="flaticon2-edit"></i>						</a>
+								</td>						
 							</tr>
 							@endforeach
 						</tbody>
-					</table>
-				
-	<!--			
-					@foreach ($CourseQuize as $CourseQuizeObj)
-				
-					<div class="form-group form-group-xs row">
-                        <label class="col-2 col-form-label kt-font-bolder">Quiz Name:</label>
-						<div class="col-8">
-							<span class="form-control-plaintext ">{{$CourseQuizeObj['quize_name']}}	</span>
-						</div>
-					</div>
-					
-					@endforeach		
-
--->			
-					
-				
+					</table>			
 				</div>
-			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			</div>			
 			
 			
 			
@@ -215,7 +185,7 @@
     <div class="modal-dialog " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Course Section</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Course Section:</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           </button>
         </div>
@@ -244,15 +214,14 @@
     <div class="modal-dialog " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Course Quiz</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Course Quiz:</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           </button>
         </div>
         {{ Form::open(array('method'=>'post','url' => 'coursequizadd', 'id'=>'coursequizadd')) }}
           <div class="modal-body">
             <div  style="display:none" id='addquizmessage'> </div>
-			
-               <div class="form-group">
+			  <div class="form-group">
                 <label for="course" class="form-control-label">Quiz Name:</label>
                 <input type="text" class="form-control" required='required'  name="quize_name" id="quize_name">
               </div>
@@ -261,20 +230,19 @@
                 <textarea id="quize_desc" class="form-control" name="quize_desc" rows="4" cols="50"></textarea>
               </div> 		  
 			  @foreach ($sectionsData as $sectionsDataObj)
-								
-			
 				<div class="form-group row">
 					<div class="col-lg-12">
-					<label for="course" class="form-control-label kt-font-bolder">{{$sectionsDataObj['section_name']}}</label></div>
-						<div class="col-lg-6">
-							<label class="">Objective questions:</label>
-							<input type="number" name="obj_question[]"  id="obj_question[]"  class="form-control" placeholder="Enter question number">
-						</div>
-						<div class="col-lg-6">
-							<label class="">Subjective questions:</label>
-							<input  type="number" name="sub_question[]"  id="sub_question[]" class="form-control" placeholder="Enter question number">
-						</div>
-						<input type="hidden" name="section[]" value="{{$sectionsDataObj['id']}}">
+					<label for="course" class="form-control-label kt-font-bolder">{{$sectionsDataObj['section_name']}}</label>
+					</div>
+					<div class="col-lg-6">
+						<label class="">Objective questions:</label>
+						<input type="number" name="obj_question[]"  id="obj_question[]"  class="form-control" placeholder="Enter question number">
+					</div>
+					<div class="col-lg-6">
+						<label class="">Subjective questions:</label>
+						<input  type="number" name="sub_question[]"  id="sub_question[]" class="form-control" placeholder="Enter question number">
+					</div>
+					<input type="hidden" name="section[]" value="{{$sectionsDataObj['id']}}">
 				</div>
 			@endforeach		
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -286,6 +254,57 @@
     </div>
   </div>
   <!--end::Modal Add Section-->
+  
+  
+     <!--begin::Edit quiz Modal-->
+  <div class="modal fade" id="quizedit_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Course Quiz:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        {{ Form::open(array('method'=>'post','url' => 'coursequizedit', 'id'=>'coursequizedit')) }}
+          <div class="modal-body">
+            <div  style="display:none" id='editquizmessage'> </div>
+			  <div class="form-group">
+			  <input type="hidden" name="edit_quiz_id" id="edit_quiz_id">
+                <label for="course" class="form-control-label">Quiz Name:</label>
+                <input type="text" class="form-control" required='required'  name="quize_name" id="quize_name_edit">
+              </div>
+              <div class="form-group">
+                <label for="course" class="form-control-label">Quiz Description:</label>
+                <textarea id="quize_desc_edit" class="form-control" name="quize_desc" rows="4" cols="50"></textarea>
+              </div> 		  
+			  @foreach ($sectionsData as $sectionsDataObj)
+				<?php $objQuestionId = 'question_'.$sectionsDataObj['id'];
+					  $subQuestionId = 'subquestion_'.$sectionsDataObj['id'];   ?>
+				<div class="form-group row">
+					<div class="col-lg-12">
+					<label for="course" class="form-control-label kt-font-bolder">{{$sectionsDataObj['section_name']}}</label>
+					</div>
+					<div class="col-lg-6">
+						<label class="">Objective questions:</label>
+						<input type="number" name="obj_question[]"  id="<?php echo $objQuestionId?>"  class="form-control" placeholder="Enter question number">
+					</div>
+					<div class="col-lg-6">
+						<label class="">Subjective questions:</label>
+						<input  type="number" name="sub_question[]"   id="<?php echo $subQuestionId?>"  class="form-control" placeholder="Enter question number">
+					</div>
+					<input type="hidden" name="section[]" value="{{$sectionsDataObj['id']}}">
+				</div>
+			@endforeach		
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update Course Quiz</button>
+          </div>
+          <div class="modal-footer"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--end::Modal Add Section-->
+  
   
   
      <!-- Confirm Modal -->
@@ -375,6 +394,109 @@
   
   var ROOT_PATH = '{{$ROOT_PATH}}';
   var CourseId = '{{$CourseId}}';
+  
+  
+  
+    function veiwLoadQuizEdit(quizId) { 
+	    $.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var viewUrl = "{{ url('/') }}/quizdetaileditmodal/"+quizId;
+		$.ajax({
+			type:'GET',
+			url:viewUrl,  
+			dataType: 'json',
+			success:function(data){ 
+				var quize_name_edit = data.CourseQuize[0].quize_name;
+				var quize_desc_edit = data.CourseQuize[0].quize_desc;
+				var edit_quiz_id = data.CourseQuize[0].id;
+				CourseQuizeSection  = data.CourseQuizeSection;
+				$("#quize_name_edit").val(quize_name_edit);
+				$("#quize_desc_edit").val(quize_desc_edit);
+				$("#edit_quiz_id").val(edit_quiz_id);				
+				$.each( data.CourseQuizeSection, function( key, value) {
+					var course_quize_id =value.course_quize_id;
+					var questions =value.questions;
+					var sub_questions =value.sub_questions;
+					var section_id =  value.section_id;
+					var optQuestionCntId = 'question_'+section_id;
+					var subQuestionCntId = 'subquestion_'+section_id;				
+					$("#"+optQuestionCntId).val(questions);
+					$("#"+subQuestionCntId).val(sub_questions);				
+				});					
+				$("#quizedit_Modal").modal('show')		 
+			},
+		error: function (response, status, error) {  
+		  //  $('.viewLoader-'+auditId).hide();
+		  //  skipDetailAjaxCall = false;
+		}
+    });
+  }
+  
+  
+  
+    $('#coursequizedit').on('submit', function(e) {
+		e.preventDefault();
+		//$("#addcoursemessage").hide();    quize_desc  sub_question obj_question  quize_name
+		//var quize_desc 	= $('#quize_desc_edit').val();
+		//var sub_question	= $('#sub_question').val();
+		//var obj_question   = $('#obj_question').val();
+		//var quize_name     = $('#quize_name').val();
+		var data = $(this).serializeArray();	 
+		data.push({
+			name: "_token", // These blank empty brackets are imp!
+            value: "{{ csrf_token() }}"
+		 });
+		 data.push({
+			name: "CourseId", // These blank empty brackets are imp!
+            value: CourseId		  
+        }); 
+	 
+		$.ajax({
+			type: "POST",
+			url: ROOT_PATH+"/updatecoursequiz",
+			dataType: "json",
+			data: data,
+        success: function(msg) {
+          var status = msg.status;
+          if(status =='success'){
+           // $('#courseadd_Modal').modal('toggle');
+
+            $('#editquizmessage').show();
+            $('#editquizmessage').html('<div class="alert alert-success alert-dismissible">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>  <strong>Success!</strong> Add Successfully.</div>');
+            setTimeout(function() {  $('#editquizmessage').fadeOut('fast');}, 3000);
+			
+				window.location.reload();
+          }else{
+            errorString='';
+            $.each( msg.message, function( key, value) {
+              for(var l=0;l<value.length; l++){
+                errorString +=  value[l] +'<br/>' ;
+              }
+            });
+            $("#editquizmessage").show();
+            $("#editquizmessage").html("<strong>Error!</strong> "+errorString);
+            $("#editquizmessage").slideDown(function() {
+              setTimeout(function() {
+                $("#editquizmessage").slideUp();
+              }, 3000);
+              //$("#addCompanyModal").trigger('reset');
+            });
+          }
+        }
+      });
+    });
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

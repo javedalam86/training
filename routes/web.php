@@ -100,8 +100,14 @@ Route::post('updatesection','CourseController@updatesection')->name('updatesecti
 Route::post('createcoursequiz','CourseController@createcoursequiz')->name('createcoursequiz')->middleware('auth');
 
 
-Route::post('toggleQuizStatus','QuizeController@toggleQuizStatus')->name('toggleQuizStatus')->middleware('auth');
 
+Route::post('updatecoursequiz','CourseController@updatecoursequiz')->name('updatecoursequiz')->middleware('auth');
+
+
+Route::post('toggleQuizStatus','QuizeController@toggleQuizStatus')->name('toggleQuizStatus')->middleware('auth');
+Route::get('quizdetaileditmodal/{id}','QuizeController@quizdetaileditmodal')->name('quizdetaileditmodal')->middleware('auth');
+
+//Route::get('quizdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
 
 
 

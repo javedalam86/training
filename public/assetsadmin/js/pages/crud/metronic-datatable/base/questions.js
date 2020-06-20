@@ -57,7 +57,14 @@ var KTDatatableRemoteAjaxQuestion = function() {
 					title: 'Question',
 				}, {
 					field: 'correct_option',
-					title: 'Correct Option',					
+					title: 'Correct Option',	
+					template: function(row) {	
+						if( row.question_type ==0){
+						return row.correct_option;
+						}else{
+							 return '--';
+						}
+					}			
 				}, {
 					field: 'name',
 					title: 'Courses',					
