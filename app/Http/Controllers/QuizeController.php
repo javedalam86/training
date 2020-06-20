@@ -86,6 +86,20 @@ class QuizeController extends Controller
         $data = $request->all();
         $quizeRec = [];
         if(!empty($data) && (int)$data['totalQuestions']>0) {
+          //Checked if quize already submitted
+          $courseQuize = CourseQuize::where('id', '=',$data['quize_id'])->first();
+          $candQuiz = $courseQuize->candidateQuize()
+          ->where('candidate_id','=',Auth::user()->id)
+          ->where('quiz_re_enabled','=',1)
+          ->first();
+          if($candQuiz){
+            \Session::flash('error', 'Quiz already attempted!');
+            return redirect()->route('candidatecoursedetail',['id'=>$data['course_id']]);
+            exit();
+          }
+
+
+
           $candQuize = CandidateQuize::where('quiz_id', '=',$data['quize_id'])
           ->where('candidate_id', '=',Auth::user()->id)
           ->where('is_deleted', '=',0)
