@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Courses;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CandidateCourses;
+use Carbon\Carbon;
 
 class CourseCalenderController extends Controller
 {
@@ -40,6 +41,7 @@ class CourseCalenderController extends Controller
     public function buyCourse(Request $request, $courseId) {
       $feed_back=array();
       $course = Courses::where('is_deleted', '=', 0)->where('id', '=', $courseId)->first();
+      $current_date = Carbon::now();
       //if(\Auth::check()){
       if(!$course){
           $feed_back['type']='alert-danger';
@@ -47,6 +49,14 @@ class CourseCalenderController extends Controller
           $feed_back['error'][] = 'Invalid Course';
           return json_encode($feed_back);
           exit();
+      }
+
+      if($course->start_date < $current_date){
+        $feed_back['type']='alert-danger';
+        $feed_back['type_error']='1';
+        $feed_back['error'][] = 'Course start date should be greater than or equal to today';
+        return json_encode($feed_back);
+        exit();
       }
 
       if(!Auth::check()){

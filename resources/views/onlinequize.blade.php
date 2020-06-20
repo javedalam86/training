@@ -81,8 +81,10 @@
 										<div class="col-lg-12 kt-portlet__head">
 											<div class="col-lg-12 kt-portlet__head-label">
 												<div class=" col-lg-12 kt-align-center">
-                          @if(!empty($CourseQuize))
+                          @if(!empty($CourseQuize) && $isQuizStartBtnShow)
                             <button type="reset" id="startQuizBtn" class="btn-lg btn-danger">Start Quiz</button>
+                          @elseif(!empty($CourseQuize) && !$isQuizStartBtnShow)
+                            Quiz already attempted
                           @else
                               In valid Quiz
                           @endif
@@ -91,9 +93,9 @@
 											</div>
 										</div>
 										 @if(!empty($CourseQuize))
-										<div class="kt-section__info"> 
+										<div class="kt-section__info">
 										{!!$CourseQuize[0]['quize_desc']!!}
-										
+
 										</div>
 										 @endif
 									</div>

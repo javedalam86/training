@@ -23,8 +23,15 @@ class QuizeController extends Controller
 {
     public function quize(Request $request,$id)
     {
-       $CourseQuize = CourseQuize::where('id', '=',$id)->orderBy('id', 'ASC' )->get()->toArray();
-        return view('onlinequize', ['CourseQuize' => $CourseQuize,'QuizeId' => $id] );
+       $CourseQuize = CourseQuize::where('id', '=',$id)->orderBy('id', 'ASC' );
+       $candQuiz = $CourseQuize->first()->candidateQuize()->where('candidate_id','=',Auth::user()->id)->first();
+       $isQuizStartBtnShow = false;
+       if(!$candQuiz || ($candQuiz->quiz_re_enabled == 0)){
+        $isQuizStartBtnShow = true;
+       }
+       $CourseQuize = $CourseQuize->get()->toArray();
+
+        return view('onlinequize', ['CourseQuize' => $CourseQuize,'QuizeId' => $id, 'isQuizStartBtnShow' => $isQuizStartBtnShow] );
     }
 
     public function ajaxgetquizequestion(Request $request){
@@ -39,7 +46,7 @@ class QuizeController extends Controller
         $course_id = $CourseQuize[0]['course_id'];
         //print_r($CourseQuize);
         $resultsQuestion = array();
-        foreach($CourseQuizeSections as  $CourseQuizeSectionsObject){ 
+        foreach($CourseQuizeSections as  $CourseQuizeSectionsObject){
             $section_id 	= $CourseQuizeSectionsObject['section_id'];
             $questionsCount 	= $CourseQuizeSectionsObject['questions'];
             $subQuestionsCount 	= $CourseQuizeSectionsObject['sub_questions'];
@@ -51,7 +58,7 @@ class QuizeController extends Controller
 			 }
 			  if($subQuestionsCount>=1){
 			$QuestionsSub = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '1')->limit($subQuestionsCount)->orderBy('id', 'ASC' )->get()->toArray();
-			
+
 			$resultsQuestion = (array_merge($resultsQuestion,$QuestionsSub));
 			  }
         }
@@ -155,15 +162,15 @@ class QuizeController extends Controller
 
          return response()->json(array('status' => 'success', 'data'=>$courseQuize));
     }
-	
-	
+
+
 	public function quizdetaileditmodal(Request $request,$id)
     {
         $CourseQuize = CourseQuize::where('id', '=',$id)->orderBy('id', 'ASC' )->get()->toArray();
         $CourseQuizeSection = CourseQuizeSections::where('course_quize_id', '=',$id)->get()->toArray();
 	    $resultDataTable['CourseQuize'] = $CourseQuize;
 		$resultDataTable['CourseQuizeSection'] = $CourseQuizeSection;
-		
+
         return json_encode($resultDataTable);
     }
 
