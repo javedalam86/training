@@ -20,10 +20,11 @@ class CourseCalenderController extends Controller
         $all_event = Courses::where('is_deleted','=',0)->get()->toArray();
         $event_data=array();
         foreach ($all_event as $key => $event_val) {
-          $event_data[$key]['title'] =$event_val['name'];
-          $event_data[$key]['start'] =$event_val['start_date'];
-          $event_data[$key]['end']  =$event_val['end_date'];
-
+          $carbon_date = Carbon::parse($event_val['end_date']);
+          $event_val['end_date'] = $carbon_date->addHours(23)->addMinutes(59);
+          $event_data[$key]['title'] = $event_val['name'];
+          $event_data[$key]['start'] = $event_val['start_date'];
+          $event_data[$key]['end']  = $event_val['end_date'];
           $event_data[$key]['start_formate'] =implode("/", array_reverse(explode("-", $event_val['start_date'])));
           $event_data[$key]['end_formate']  =implode("/", array_reverse(explode("-", $event_val['end_date'])));
           $event_data[$key]['events_id'] = $event_val['id'];
