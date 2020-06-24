@@ -3,10 +3,6 @@
 <body id="page-top">
    @include('layouts.header')
 
-
-
-
-
   <!--/ Intro Skew Star /-->
 <!--   <div id="home" class="intro route bg-image" style="background-image: url(img/headerimage.jpg)">
     <div class="overlay-itro"></div>
@@ -390,8 +386,8 @@ if(!$abtImages->isEmpty()) {
               <span class="ico-circle"><i class="ion-checkmark-round"></i></span>
             </div>
             <div class="counter-num">
-              <p class="counter">450</p>
-              <span class="counter-text">WORKS COMPLETED</span>
+              <p class="counter">{!!  $statsData['STAT_WORKS_COMPLETED_VAL'] ?? '' !!}</p>
+              <span class="counter-text">{!!  $statsData['STAT_WORKS_COMPLETED_TEXT'] ?? '' !!}</span>
             </div>
           </div>
         </div>
@@ -401,8 +397,8 @@ if(!$abtImages->isEmpty()) {
               <span class="ico-circle"><i class="ion-ios-calendar-outline"></i></span>
             </div>
             <div class="counter-num">
-              <p class="counter">15</p>
-              <span class="counter-text">YEARS OF EXPERIENCE</span>
+              <p class="counter">{!!  $statsData['STAT_YEARS_OF_EXPERIENCE_VAL'] ?? '' !!}</p>
+              <span class="counter-text">{!!  $statsData['STAT_YEARS_OF_EXPERIENCE_TEXT'] ?? '' !!}</span>
             </div>
           </div>
         </div>
@@ -412,8 +408,8 @@ if(!$abtImages->isEmpty()) {
               <span class="ico-circle"><i class="ion-ios-people"></i></span>
             </div>
             <div class="counter-num">
-              <p class="counter">550</p>
-              <span class="counter-text">TOTAL CLIENTS</span>
+              <p class="counter">{!!  $statsData['STAT_TOTAL_CLIENTS_VAL'] ?? '' !!}</p>
+              <span class="counter-text">{!!  $statsData['STAT_TOTAL_CLIENTS_TEXT'] ?? '' !!}</span>
             </div>
           </div>
         </div> <!--

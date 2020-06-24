@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\Policy;
+use App\Models\Setting;
 use App\Models\Pages;
 
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +24,18 @@ class FrontController extends Controller
       $destinationPath = $destinationPath.$fileName;
       $fileData = chunk_split(base64_encode(file_get_contents($destinationPath)));
       $pages = Pages::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
+	  $Setting = Setting::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
+	  foreach($Setting as $SettingObj){
+		  $statsData[$SettingObj['setting_key']] = $SettingObj['setting_value'];
+		  
+	  }	  
+	 
       $data = array(
         'fileData'=>$fileData,
         'Description'=>'This is New Application',
         'author'=>'foo',
-        'pages'=> $pages
+        'pages'=> $pages,
+        'statsData'=> $statsData
       );
 
       return view('welcome')->with($data);

@@ -312,4 +312,15 @@ class PageController extends Controller
     $page->save();
     return redirect('/pages')->with('success', 'page updated!');
   }
+  
+  
+  
+  
+  public function asset(Request $request)
+  {
+   
+    return view('asset');
+  }
+  
+  
 }

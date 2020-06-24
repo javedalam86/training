@@ -126,7 +126,7 @@ class BookController extends Controller
     {		$data = $request->all();
 			$validator = Validator::make($request->all(), [ 
 				'name'=> 'required|min:5', 
-				'file' => 'sometimes|mimes:jpeg,png,doc,docx,pptx,pps,ppt,PPT,PDF,pdf,jpg,gif,svg|max:2048',
+				'file' => 'sometimes|mimes:jpeg,png,doc,docx,pptx,pps,ppt,PPT,PDF,pdf,jpg,gif,svg',
 			]);	
 			
 			
@@ -136,12 +136,23 @@ class BookController extends Controller
 			return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
 		}else{
 			
+			$BooksPostData = new Books;
+/*
+$BooksPostData->body = request('body');
+$comment->email = request('email');
+$comment->name = request('name');
+$comment->post_id = $post->id;*/
+
+
+
+
 			if($files=$request->file('file')){
 			$name=$files->getClientOriginalName();			
 			$name = time().'.'.$files->getClientOriginalExtension(); 
 			$destinationPath = public_path('/coursebooks/');
 			$files->move($destinationPath, $name);
-			 $input['bookpath'] 		=   $name;
+			 $inputBook['bookpath'] 		=   $name;
+			 $BooksPostData->bookpath =  $name;
 			}	
 		
 			
@@ -154,15 +165,19 @@ class BookController extends Controller
 
   
 
-       // request()->image->move(public_path('images'), $imageName);
+       // request()->image->move(public_path('images'), $imageName); courseid
 		
-		
-			$input['name'] =$data['name'];
-			$input['course_id'] =$data['courseid'];				
-			$input['description'] =$data['description'];
-						
-			$book = Books::create($input);		
-			return response(array("status"=>"success", "code"=>200,"data" => $data));
+		/*
+			$inputBook['name'] =$data['name'];
+			$inputBook['course_id'] =$data['courseid'];				
+			$inputBook['description'] =$data['description'];
+						print_r($inputBook)	;
+			$book = Books::create($inputBook); */	
+				 $BooksPostData->name =$data['name'];
+				 	 $BooksPostData->course_id =  $data['courseid'];				
+					 	 $BooksPostData->description =$data['description'];
+			$BooksPostData->save();
+			return response(array("status"=>"success", "code"=>200,"data" => $inputBook));
 		}	
        
     }

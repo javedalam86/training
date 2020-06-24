@@ -208,3 +208,7 @@ Route::get('course-calendar', 'CourseCalenderController@index')->name('course-ca
 Route::get('all-course', 'CourseCalenderController@getAllCourse')->name('get-all-calendar');
 Route::get('course-by-id/{courseId}', 'CourseCalenderController@courseDetail')->name('course-by-id');
 Route::get('book-course/{courseId}', 'CourseCalenderController@buyCourse')->name('buy-course');
+
+
+// CMS PAGES FRONT
+Route::get('/asset', 'PageController@asset')->name('asset');

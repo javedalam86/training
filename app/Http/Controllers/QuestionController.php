@@ -151,7 +151,7 @@ class QuestionController extends Controller
 			}
 		if ($validator->fails()) { 
 			return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
-		}else{
+		}else{ /*
 			$input['question_type'] =$data['question_type'];	
 			$input['section_id'] =$data['section_id'];	
 			$input['question'] =$data['question'];				
@@ -161,7 +161,20 @@ class QuestionController extends Controller
 			$input['option_d'] =$data['option_d'];
 			$input['course_id'] =$data['course_id'];
 			$input['correct_option'] =$data['correct_option'];					
-			$question = Questions::create($input);		
+			$question = Questions::create($input);	
+			*/
+			$QuestionPostData = new Questions;
+			$QuestionPostData->question_type =$data['question_type'];	
+			$QuestionPostData->section_id =$data['section_id'];	
+			$QuestionPostData->question =$data['question'];	
+			$QuestionPostData->option_a =$data['option_a'];	
+			$QuestionPostData->option_b =$data['option_b'];	
+			$QuestionPostData->option_c =$data['option_c'];	
+			$QuestionPostData->option_d =$data['option_d'];	
+			$QuestionPostData->course_id =$data['course_id'];	
+			$QuestionPostData->correct_option =$data['correct_option'];	
+			$QuestionPostData->save();	
+			
 			return response(array("status"=>"success", "code"=>200,"data" => $data));
 		}	
        
