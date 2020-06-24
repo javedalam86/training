@@ -8,7 +8,7 @@
 
 
   <!--/ Section Contact-Footer Star /-->
-  <section >
+  <section  style=" padding-top: 30px;">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
