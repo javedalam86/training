@@ -17,59 +17,25 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="{{ csrf_token() }}" crossorigin="anonymous">
     <link href="{{asset('vendor/event/css/bootstrap-datetimepicker.css')}}" rel="stylesheet">
     <link href="{{asset('vendor/event/css/custom.css')}}" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+
+      .navbar-brand {
+        padding: 5px 5px;
+      }
+      ul.navbar-nav {
+        float: right;
+      }
+    </style>
   </head>
 
   <body id="page-top">
-
-    <nav class="navbar navbar-b navbar-trans navbar-expand-md " id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll logo" href="#page-top"><img src="img/logo.png"></a>
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="navbar-collapse collapse justify-content-end" id="navbarDefault" style="padding: 0.5rem 1rem;">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll " href="./">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="./#training">Training</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="./#service">Services</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="./#aboutid">About US</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="./#contact">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="./#policyid">Policy</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('qms')}}">QMS</a>
-          </li><!--
-          <li class="nav-item">
-            <a class="nav-link active" href="{{route('course-calendar')}}">Course</a>
-          </li> -->
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="space"></div>
-  <div class="space"></div>
-
-    <div class="jumbotron">
-      <div class="container">
-           @yield('content')
-      </div>
-    </div>
+    @include('layouts.header')
+   <section  style=" padding-top: 30px;">
+        <div class="container">
+             @yield('content')
+        </div>
+    </section>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
@@ -81,43 +47,6 @@
   @section('content_script')
   @show
 
- <footer>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="footer-logo">
-            <!-- <img src="img/logo_footer.jpg"> <p></p> -->
-            <h3>U2 Marine Services Ltd.</h3>
-            <p>Email Us: info@u2marineservices.com</p>
-            <p>Telephone: +44 74620 40500</p>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="footer-logo">
-              <!-- <img src="img/logo_footer.jpg"> <p></p> -->
-            <h3>Services</h3>
-            <p><a href="asset.html">Asset Management</a></p>
-            <p><a href="AUDITSANDINSPECTIONS.html">Audits and Inspections</a></p>
-            <p><a href="LNGSpecific.html">LNG Specific</a></p>
-            <p><a href="manuals.html">Manuals</a></p>
-         </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="footer-logo">
-            <!-- <img src="img/logo_footer.jpg"> <p></p> -->
-            <h3>About Us</h3>
-            <p><a href="">Core Values</a></p>
-            <p><a href="">Vision</a></p>
-            <p><a href="">Mission</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <div class="footer2">
-    <div class="copyright-box container-fluid">
-      <p class="copyright">&copy; Copyright <strong> U2 MARINE SERVICES LTD. </strong>. All Rights Reserved</p>
-    </div>
-  </div>
+ @include('layouts.footer')
 </body>
 </html>
