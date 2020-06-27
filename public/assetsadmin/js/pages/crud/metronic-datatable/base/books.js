@@ -8,7 +8,7 @@ var KTDatatableRemoteAjaxBook = function() {
 	// basic demo
 	var demo = function() {
 
-		var datatable = $('.kt-bookdatatable').KTDatatable({ 
+		var datatable = $('.kt-bookdatatable').KTDatatable({
 			// datasource definition
 			data: {
 				type: 'remote',
@@ -16,7 +16,7 @@ var KTDatatableRemoteAjaxBook = function() {
 					read: {
 						url: 'ajaxbookslist',
 						method: 'GET',
-						
+
 						// sample custom headers
 						headers: {'x-my-custokt-header': 'some value', 'x-test-header': 'the value'},
 						map: function(raw) {
@@ -49,7 +49,7 @@ var KTDatatableRemoteAjaxBook = function() {
 			search: {
 				//input: $('#generalSearch'),
 			},
-				
+
 			// columns definition
 			columns: [
 				/*{
@@ -69,28 +69,31 @@ var KTDatatableRemoteAjaxBook = function() {
 					title: 'Book',
 				}, {
 					field: 'description',
-					title: 'Description',					
+					title: 'Description',
 				},
 				{
 					field: 'cname',
-					title: 'Courses',					
+					title: 'Courses',
 				},
-				
+
 				{
 					field: 'id',
-					title: 'Download',		
+					title: 'Download',
 					template: function(row) {
 						var bookpath = 'file-download/'+row.bookpath;
 						return '\
 						<a href="'+bookpath+'" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Download">\
 							<i class="flaticon-download"></i>\
 						</a>\
+            <a href="/ViewerJS/#../'+bookpath+'" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View">\
+              <i class="flaticon-eye"></i>\
+            </a>\
 					';
 					},
 
-					
+
 				},
-				
+
 				{
 					field: 'Actions',
 					title: 'Actions',
@@ -130,8 +133,8 @@ var KTDatatableRemoteAjaxBook = function() {
 			datatable.search($(this).val(), 'bookgeneralSearch');
 		}
 	});
-	
-	
+
+
 	};
 
 	return {
@@ -144,7 +147,7 @@ var KTDatatableRemoteAjaxBook = function() {
 
 jQuery(document).ready(function() {
 	KTDatatableRemoteAjaxBook.init();
-	
-	 
-  
+
+
+
 });
