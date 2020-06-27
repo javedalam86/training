@@ -2,4 +2,6 @@
 /node_modules/
 *.sublime-project
 *.sublime-workspace
+.env
 /vendor/*
+
