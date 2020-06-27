@@ -37,13 +37,27 @@ class QuizeController extends Controller
     public function ajaxgetquizequestion(Request $request){
         $data = $request->all();
         $QuizeId = $data['QuizeId'];
-        $CourseQuizeSections = CourseQuizeSections::where('course_quize_id', '=',$QuizeId)->orderBy('id', 'ASC' )->get()->toArray();
-      // print_r($CourseQuizeSections);
-
 
         $CourseQuize = CourseQuize::where('id', '=',$QuizeId)->orderBy('id', 'ASC' )->get()->toArray();
 
         $course_id = $CourseQuize[0]['course_id'];
+
+        //Checked if quize already submitted
+        $courseQuize = CourseQuize::where('id', '=',$QuizeId)->first();
+        $candQuiz = $courseQuize->candidateQuize()
+        ->where('candidate_id','=',Auth::user()->id)
+        ->where('quiz_re_enabled','=',1)
+        ->first();
+        if($candQuiz){
+          \Session::flash('error', 'Quiz already attempted!');
+          return response()->json(array('status' => 'fail', "courseId"=>$course_id,'message'=>'Quiz already attempted!'));
+        }
+
+        $CourseQuizeSections = CourseQuizeSections::where('course_quize_id', '=',$QuizeId)->orderBy('id', 'ASC' )->get()->toArray();
+      // print_r($CourseQuizeSections);
+
+
+
         //print_r($CourseQuize);
         $resultsQuestion = array();
         foreach($CourseQuizeSections as  $CourseQuizeSectionsObject){

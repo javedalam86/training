@@ -17,8 +17,8 @@
              <p><a href="AUDITSANDINSPECTIONS.html">Audits and Inspections</a></p>
              <p><a href="LNGSpecific.html">LNG Specific</a></p>
              <p><a href="manuals.html">Manuals</a></p>
-            
-            
+
+
             </div>
           </div>
             <div class="col-sm-4">
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-          
+
       </div>
     </footer>
     <div class="footer2">
@@ -49,13 +49,16 @@
 
   <script src="lib/jquery/jquery-migrate.min.js"></script>
   <!-- <script src="lib/popper/popper.min.js"></script> -->
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  @if(Route::current()->getName() != 'course-calendar')
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  @endif
+
   <script src="lib/easing/easing.min.js"></script>
   <script src="lib/counterup/jquery.waypoints.min.js"></script>
   <script src="lib/counterup/jquery.counterup.js"></script>
    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="lib/typed/typed.min.js"></script>
-  
+
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>

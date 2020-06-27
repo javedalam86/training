@@ -236,7 +236,11 @@ var totalQuestions=0;
 			 data: {
                     "_token": "{{ csrf_token() }}", QuizeId:QuizeId},
 			success: function(msg){
+
 				if(msg.status=='fail'){
+          $("#startQuizBtn").hide();
+
+          window.location.href = ROOT_PATH+"/candidatecoursedetail/"+msg.courseId;
 					/*$.each( msg.casedata.errors, function( key, value) {
 						for(var l=0;l<value.length; l++){
 							var fieldErrorId =  'error_'+editloanid+'_'+key;
