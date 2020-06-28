@@ -178,8 +178,8 @@
 									<a href="<?php echo  $bookpath;?>" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Download">
 									<i class="flaticon-download"></i>
 									</a>
-									<a href="#" onclick="openpdffile('<?php echo $BookDataObj['bookpath'];?>')" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View">
-									<i class="flaticon-view"></i>
+									<a href="javascript:void(0)" onclick="openpdffile('<?php echo $BookDataObj['bookpath'];?>')" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View">
+									<i class="flaticon-eye"></i>
 									</a>
 								</td>
 

@@ -44,6 +44,7 @@ class CandidateCourseController extends Controller
         $BookData->leftJoin('courses', function ($join) {
             $join->on('courses.id', '=', 'course_books.course_id');
         });
+        $BookData->where('course_books.is_deleted', '=', 0);
         $BookData->where('course_books.course_id', '=', $id);
         $BookData =	$BookData->get()->toArray();
 
