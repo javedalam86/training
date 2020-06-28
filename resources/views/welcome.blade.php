@@ -76,9 +76,11 @@ if($trainingImage) {
        <div class="text-center training_btn">
           <!-- <button>REGISTER</button>
          <button>LOGIN</button>  -->
-		 <a href="{{ route('course-calendar')}}"><button type="button" class="btn btn-brand btn-icon-sm" ">
+		 <a href="{{ route('course-calendar')}}"><button type="button" class="btn btn-brand btn-icon-sm">
            Courses
         </button> </a>
+				@guest
+					
 		<button type="button" class="btn btn-brand btn-icon-sm"  data-toggle="modal" data-target="#SignUp">
            REGISTER
         </button>
@@ -86,8 +88,7 @@ if($trainingImage) {
 		<button type="button" class="btn btn-brand btn-icon-sm" data-toggle="modal" data-target="#userLoginModal">
           Login
         </button>
-
-
+@endguest
 
        </div>
 

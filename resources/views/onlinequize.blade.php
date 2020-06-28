@@ -33,9 +33,9 @@
 									</div>
 								</div>
 								<div class="kt-subheader__toolbar">
-									<div class="kt-subheader__wrapper">
+									<div class="kt-subheader__wrapper"> <!--
 										 <button type="button" class="btn btn-brand btn-icon-sm" ><a href="{{ URL::previous() }}" style="color:white;"> <i class="flaticon2-plus"></i> Go Back</a>
-                                    </button>
+                                    </button>  -->
 									</div>
 								</div>
 							</div>
