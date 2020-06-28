@@ -282,6 +282,8 @@ class CourseController extends Controller
         $Course->cost 				=  $request->get('cost');
         $Course->course_type 		=  $request->get('course_type');
         $Course->description 		=  $request->get('description');
+        $Course->start_date 		=  $request->get('start_date');
+        $Course->end_date 		=  $request->get('end_date');
 
         $Course->save();
       return response(array("status"=>"success", "code"=>200,"data" => $Course));
