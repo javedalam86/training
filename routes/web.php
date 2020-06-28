@@ -216,3 +216,4 @@ Route::get('/core-values', 'PageController@corevalues')->name('core-values');
 Route::get('/vision', 'PageController@vision')->name('vision');
 Route::get('/mission', 'PageController@mission')->name('mission');
 
+Route::post('getfilecontent', 'BookController@getfiledata')->middleware('auth');

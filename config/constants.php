@@ -1,7 +1,7 @@
 <?php
 
 return [
-'ROOT_PATH' => 'http://laravel-dev.com',
+'ROOT_PATH' => 'http://localhost/mytrainingapp/public',
 'SCRIPT_VERSION' => 11.01,
 
 ];

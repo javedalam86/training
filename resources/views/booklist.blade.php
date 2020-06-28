@@ -158,7 +158,7 @@
                 </div>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Book</button>
+                    <button type="submit" class="btn btn-primary">Add Book</button><span  style="display:none"  id="add-book-spinner" class="kt-spinner kt-spinner--sm kt-spinner--brand"></span> 
 
                 </div>
                 <div class="modal-footer">
@@ -217,7 +217,7 @@
 				
 				
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button><span  style="display:none"  id="update-book-spinner" class="kt-spinner kt-spinner--sm kt-spinner--brand"></span> 
 
                 </div>
                 <div class="modal-footer">
@@ -383,12 +383,12 @@
             headers: {
                 'X-CSRF-Token': $('meta[name=_token]').attr('content')
             }
-        });
+        }); 
 		
-            	      
+             $("#update-book-spinner").show();	      
             $.ajax({
                 type: "POST",
-                url: './editbook',
+                url:  ROOT_PATH+"/editbook",
                 data: form_data,
 			          contentType: false, // The content type used when sending data to the server.
                   cache: false, // To unable request pages to be cached
@@ -415,8 +415,8 @@
 								$("#editbookmessage").slideUp();
 							}, 3000);
 						});
-					}				
-                }
+					}	 $("#update-book-spinner").hide();			
+                } 
             });
 
         });
@@ -452,7 +452,7 @@
             var bookIdDelete = $('#bookIdDelete').val();
             $.ajax({
                 type: "POST",
-                url: './deletebook',
+                url:  ROOT_PATH+"/deletebook",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "bookIdDelete": bookIdDelete

@@ -301,6 +301,23 @@ public function deletebook(Request $request)
     }
 	
 
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response  bookpath
+     */
+    public function getfiledata(Request $request)
+    {   $data = $request->all(); 
+		$filePath = $data['filePath'];
+		$fileBasePath = '../public/coursebooks/'.$filePath; 
+        $base64PDF = chunk_split(base64_encode(file_get_contents($fileBasePath))); 
+		$fileData['base64']= $base64PDF;
+		$fileData['title']='MY PDF file';	
+		return response(array("status"=>"success", "code"=>200,"data" => $fileData));	
+      
+    }
+	
+
 	
 	
 }

@@ -178,6 +178,9 @@
 									<a href="<?php echo  $bookpath;?>" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Download">
 									<i class="flaticon-download"></i>
 									</a>
+									<a href="#" onclick="openpdffile('<?php echo $BookDataObj['bookpath'];?>')" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View">
+									<i class="flaticon-view"></i>
+									</a>
 								</td>
 
 							</tr>
@@ -352,10 +355,73 @@
   <script src="{{ asset('assetsadmin/js/scripts.bundle.js?v='.$scriptVer) }}" type="text/javascript"></script>
   <script src="{{ asset('assetsadmin/js/pages/dashboard.js?v='.$scriptVer) }}" type="text/javascript"></script>
   <script src="{{ asset('assetsadmin/js/pages/custom/user/profile.js?v='.$scriptVer) }}" type="text/javascript"></script>
+
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js"></script>
+
+  <script src="{{ asset('assetsadmin/js/easyPDF.js?v='.$scriptVer) }}" type="text/javascript"></script>
+  
   <script type="text/javascript">
   setTimeout(function() {
     $('#ajaxmessagediv').fadeOut('fast');
   }, 1200);
+  		
+	  var ROOT_PATH = '{{$ROOT_PATH}}';	
+	  var file64content = '';
+	  var filetitle = '';
+  function openpdffile(filePath){
+	   $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name=_token]').attr('content')
+            }
+        });
+	  
+	   $.ajax({
+            type: "POST",
+            url: ROOT_PATH+"/getfilecontent",
+            data: {     "filePath": filePath         },
+			//contentType: false, // The content type used when sending data to the server.
+         //   cache: false, // To unable request pages to be cached
+          //  processData: false,	
+                success: function(msg) {  
+				var status = msg.status;
+				if(status =='success'){		
+					
+                       file64content= msg.data.base64;
+                       filetitle= msg.data.title;
+					  
+					   easyPDF(file64content, filetitle);
+				}else{
+					
+					
+				
+				}	 	
+                }
+            });
+			
+	  
+	 /* 
+	  filetitle ='dddddd';
+	  
+	  
+	  base = 'JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwog' +
+    'IC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAv' +
+    'TWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0K' +
+    'Pj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAg' +
+    'L1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+' +
+    'PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9u' +
+    'dAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2Jq' +
+    'Cgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJU' +
+    'CjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVu' +
+    'ZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4g' +
+    'CjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAw' +
+    'MDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9v' +
+    'dCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G';
+
+    easyPDF(file64content, filetitle) */
+  }
   </script>
 </body>
 <!-- end::Body -->
