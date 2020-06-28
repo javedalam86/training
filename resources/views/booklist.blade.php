@@ -1,6 +1,7 @@
 @extends('layouts.admin') 
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
+@php $ROOT_PATH =  Config::get('constants.ROOT_PATH'); @endphp
 <!-- end::Head -->
 <!-- begin::Body -->
  <meta name="_token" content="{{ csrf_token() }}" />
@@ -293,6 +294,8 @@
             window.location.href = urlRoute;
 
         }
+		
+	  var ROOT_PATH = '{{$ROOT_PATH}}';	
     </script>
     <script>
        
@@ -318,10 +321,10 @@
             }
         });
 		
-
+ $("#add-book-spinner").show();
             $.ajax({
                 type: "POST",
-                url: './createbook',
+       url: ROOT_PATH+"/createbook",
                data: form_data,
 			          contentType: false, // The content type used when sending data to the server.
             cache: false, // To unable request pages to be cached
@@ -351,7 +354,7 @@
 							}, 3000);
 						});
 					
-				}				
+				}	 $("#add-book-spinner").hide();						
                 }
             });
         });

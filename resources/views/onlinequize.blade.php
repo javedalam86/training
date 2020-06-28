@@ -281,46 +281,56 @@ var totalQuestions=0;
                     </div>\
                   </div>';
           } else {
-            questionsList +='<input type="hidden" name="correct_option_'+(key+1)+'"  value="'+value.correct_option+'" >';
+			  questionsList +='<input type="hidden" name="correct_option_'+(key+1)+'"  value="'+value.correct_option+'" >';
 					   questionsList +='<div id='+question_id+' class="questionsList" style="display:none">\
 										<div class="form-group row">\
 											<div class="col-lg-12">\
 												<label>'+value.question+'</label>\
 											</div>\
-										</div>\
-										<div class="form-group row">\
+										</div>';
+										
+						if(value.option_a !=null || (value.option_a=='')){
+						 questionsList +='<div class="form-group row">\
 											<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
 														<input type="radio" name="'+option_name+'"  class="quetsionoptions"  value="A">'+value.option_a+'<span></span>\
 													</label>\
 												</div>\
-											</div>\
-											<div class="col-lg-6">\
+											</div>';
+						}				
+						if(value.option_b !=null || (value.option_b=='')){
+						 questionsList +='<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
 														<input type="radio" name="'+option_name+'"  class="quetsionoptions" value="B">'+value.option_b+'<span></span>\
 													</label>\
 												</div>\
 											</div>\
-										</div>\
-										<div class="form-group row">\
+										</div>';
+						}else{ questionsList +='</div>'; }				
+										
+						if(value.option_c !=null || (value.option_c=='')){
+						 questionsList +='<div class="form-group row">\
 											<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
 														<input type="radio" name="'+option_name+'" class="quetsionoptions" value="C">'+value.option_c+'<span></span>\
 													</label>\
 												</div>\
-											</div>\
-											<div class="col-lg-6">\
+											</div>';
+						}					
+						if(value.option_d !=null || (value.option_d=='')){
+						 questionsList +='<div class="col-lg-6">\
 												<div class="kt-radio-inline">\
 													<label class="kt-radio kt-radio--solid">\
 														<input type="radio" name="'+option_name+'" class="quetsionoptions"  value="D">'+value.option_d+'<span></span>\
 													</label>\
 												</div>\
 											</div>\
-										</div>\
-									</div>';
+										</div>';
+						}else{ questionsList +='</div>'; }						
+						 questionsList +='</div>';
           }
 
 					});

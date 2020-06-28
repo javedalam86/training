@@ -209,6 +209,10 @@ Route::get('all-course', 'CourseCalenderController@getAllCourse')->name('get-all
 Route::get('course-by-id/{courseId}', 'CourseCalenderController@courseDetail')->name('course-by-id');
 Route::get('book-course/{courseId}', 'CourseCalenderController@buyCourse')->name('buy-course');
 
-
 // CMS PAGES FRONT
-Route::get('/asset', 'PageController@asset')->name('asset');
+Route::get('/audits-and-inspections', 'PageController@auditsandinspections')->name('audits-and-inspections');
+Route::get('/lng-specific', 'PageController@lngspecific')->name('lng-specific');
+Route::get('/core-values', 'PageController@corevalues')->name('core-values');
+Route::get('/vision', 'PageController@vision')->name('vision');
+Route::get('/mission', 'PageController@mission')->name('mission');
+
