@@ -154,7 +154,8 @@
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title">
-							Course Documents
+							Course Documents<span  style="display:none"  id="spinnerid" class="kt-spinner kt-spinner--sm kt-spinner--brand"></span> 
+
 						</h3>
 					</div>
 				</div>
@@ -377,7 +378,7 @@
                 'X-CSRF-Token': $('meta[name=_token]').attr('content')
             }
         });
-	  
+	   $("#spinnerid").show();
 	   $.ajax({
             type: "POST",
             url: ROOT_PATH+"/getfilecontent",
@@ -397,7 +398,7 @@
 					
 					
 				
-				}	 	
+				}	  $("#spinnerid").hide(); 	
                 }
             });
 			
