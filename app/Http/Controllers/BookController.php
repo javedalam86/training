@@ -312,7 +312,7 @@ public function deletebook(Request $request)
 		$fileBasePath = '../public/coursebooks/'.$filePath; 
         $base64PDF = chunk_split(base64_encode(file_get_contents($fileBasePath))); 
 		$fileData['base64']= $base64PDF;
-		$fileData['title']='MY PDF file';	
+		$fileData['title']='PDF File';	
 		return response(array("status"=>"success", "code"=>200,"data" => $fileData));	
       
     }
