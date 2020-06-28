@@ -113,7 +113,7 @@
 								<td>{{$sectionsDataObj['section_name']}}</td>
 										
 								<td>
-									<a href="javascript:;" data-id="{{$sectionsDataObj['id']}}" data-name="{{$sectionsDataObj['section_name']}}" data-toggle="modal" data-target="#editsectionModal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">							<i class="flaticon2-edit"></i>						</a>
+									<a href="javascript:;" data-id="{{$sectionsDataObj['id']}}" data-name="{{$sectionsDataObj['section_name']}}" data-toggle="modal" data-target="#editsectionModal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit">							<i class="flaticon2-edit"></i>						</a>
 									
 									
 									<a href="javascript:;" data-id="{{$sectionsDataObj['id']}}" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">							<i class="flaticon2-trash"></i>						</a>
@@ -343,7 +343,7 @@
                 </div>
                 {{ Form::open(array('method'=>'post','url' => 'editsection', 'id'=>'editsection')) }}
                 <div class="modal-body">
-                    Are you sure you want to delete this section?
+                 
 					<input type='text'  class="form-control"  name='sectionNameUpdate' id='sectionNameUpdate'>
                     <input type='hidden' name='sectionIdUpdate' id='sectionIdUpdate'>
                 </div>

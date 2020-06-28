@@ -9,27 +9,37 @@
         <span></span>
       </button>
       <div class="navbar-collapse collapse justify-content-end" id="navbarDefault" style="padding: 0.5rem 1rem;">
+	 <?php   $routeName = Route::currentRouteName(); 	?>			
+	  
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll active" href="#home">Home</a>
+       
+			<li class="nav-item">
+            <a class="nav-link js-scroll active" href="{{ url('/') }}">Home</a>
           </li>
 		   <li class="nav-item">
-            <a class="nav-link js-scroll" href="#training">Training</a>
+            <a class="nav-link js-scroll" href="#{{ url('/#training') }}">Training</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link js-scroll" href="#service">Services</a>
+            <a class="nav-link js-scroll" href="{{ url('/#service') }}">Services</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link js-scroll" href="#aboutid">About US</a>
+            <a class="nav-link js-scroll" href="{{ url('/#aboutid') }}">About US</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll" href="#contact">Contact</a>
+            <a class="nav-link js-scroll" href="{{ url('/#contact') }}">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll" href="#policyid">Policy</a>
+            <a class="nav-link js-scroll" href="{{ url('/#policyid') }}">Policy</a>
           </li>
+		@if (Auth::check())
+			<li class="nav-item">
+				<a class="nav-link js-scroll" href="{{ route('dashboard') }}">Dashboard</a>
+			</li>
+		@endif
+		  
+		  
 <!--
           <li class="nav-item">
             <a class="nav-link js-scroll" href="{{ route('qms')}}">QMS</a>

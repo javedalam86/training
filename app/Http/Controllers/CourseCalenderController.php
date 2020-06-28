@@ -63,7 +63,7 @@ class CourseCalenderController extends Controller
       if(!Auth::check()){
         $feed_back['type']='alert-danger';
         $feed_back['type_error']='2';
-        $feed_back['error'][]= 'Please login first to buy cours';
+        $feed_back['error'][]= 'Please login first to buy course';
          return json_encode($feed_back);
           exit();
       }
