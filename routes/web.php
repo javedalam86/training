@@ -213,7 +213,7 @@ Route::get('book-course/{courseId}', 'CourseCalenderController@buyCourse')->name
 Route::get('audits-and-inspections', 'PageController@auditsandinspections')->name('audits-and-inspections');
 Route::get('lng-specific', 'PageController@lngspecific')->name('lng-specific');
 Route::get('core-values', 'PageController@corevalues')->name('core-values');
-Route::get('vision', 'PageController@vision')->name('vision');
+Route::get('page/vision', 'PageController@vision')->name('vision');
 Route::get('mission', 'PageController@mission')->name('mission');
 
 Route::post('getfilecontent', 'BookController@getfiledata')->middleware('auth');
