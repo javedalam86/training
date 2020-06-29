@@ -232,6 +232,7 @@ class CourseController extends Controller
     $validator = Validator::make($request->all(), [
       'quize_name'=> 'required|min:5|max:256',    
       'quize_desc'=> 'required|min:5|max:256',     
+	  
     ]);	
 	
     if ($validator->fails()) {
@@ -270,6 +271,8 @@ class CourseController extends Controller
 				'courseId' => 'required',
 				'name' => 'required|min:5|max:256',
 				'cost'=> 'required',
+				 'start_date'=> 'required|date',
+				 'end_date'=> 'required|date|after_or_equal:start_date',
 
 			]);
 		if ($validator->fails()) {
