@@ -186,16 +186,28 @@ Route::post('editmanual','ManualController@editmanual')->name('editmanual')->mid
 Route::post('deletemanual','ManualController@deletemanual')->name('deletemanual')->middleware('auth');
 
 
-
+Route::group(['middleware' => ['checkRole:admin']], function(){
 Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
 Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth');
+
+});
+
+
+Route::group(['middleware' => ['checkRole:candidate']], function(){  // candidatecourselist
+	
+Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
+
+});
+
+
+
 Route::get('ajaxauditslist','AuditController@ajaxauditlist')->name('ajaxauditlist')->middleware('auth');
 Route::post('createaudit','AuditController@auditadd')->name('auditadd')->middleware('auth');
 Route::post('editaudit','AuditController@editaudit')->name('editaudit')->middleware('auth');
 Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->middleware('auth');
 
 Route::post('jquery-ajax-form-submit', 'ContactController@store');
-Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
+
 Route::get('candidatecoursedetail/{id}','CandidateCourseController@candidatecoursedetail')->name('candidatecoursedetail')->middleware('auth');
 
 
