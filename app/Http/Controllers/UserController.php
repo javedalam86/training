@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Config;
-
+use App\Models\CandidateCourses;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Verified;
@@ -15,7 +15,7 @@ use Illuminate\Auth\Events\Verified;
 class UserController extends Controller
 {
     
-var $recordPerPage =20;
+var $recordPerPage =10;
 
 	function index(){
 		
@@ -35,8 +35,8 @@ function ajaxuserslist(Request $request){
 		$searchArray['per_page']=$per_page;
 		$searchArray['page']	=$page;
 		
-	//$pageNo = 1;
-		$usersData = User::select('*');			
+	
+		$usersData = User::select('users.id','users.name','users.last_name','users.photo_path','users.phone','users.email','users.email_verified_at','users.created_at','users.user_type','users.parent_company','u2.name as companyName');			
 		if(@isset($data['query']['usergeneralSearch'])){
 			$searchKey =$data['query']['usergeneralSearch'];	
 			$usersData = $usersData->where(function($q) use ($searchKey){
@@ -44,26 +44,30 @@ function ajaxuserslist(Request $request){
 				->orWhere('email', 'LIKE', '%' . $searchKey . '%');
 		});
 		}	
-		$sortfield ='id';
+		
+		$usersData = $usersData->leftJoin('users as u2', function ($join) {
+            $join->on('u2.id', '=', 'users.parent_company');
+         });
+		$sortfield ='users.id';
 		if(@isset($data['sort']['field']) ){
-			if(in_array($data['sort']['field'], array('name','email','id'))){
+			if(in_array($data['sort']['field'], array('users.name','users.email','users.id'))){
 			$sortfield =$data['sort']['field'];
-			}else{$sortfield  = 'id'; }
+			}else{$sortfield  = 'users.id'; }
 		}
 		$sortorder ='ASC';
 		if(@isset($data['sort']['sort'])){
 			$sortorder =$data['sort']['sort'];
 		}
 		if($page ==1){ $offset = 0; }else{ $offset = $this->recordPerPage*($page-1); }
-		$usersData->where('is_deleted', '=', '0');
-		$usersData->where('user_type', '=', 'candidate');
+		$usersData->where('users.is_deleted', '=', '0');
+		$usersData->where('users.user_type', '=', 'candidate');
 
 		$usersData->offset($offset);
         $usersData->limit($this->recordPerPage);
 		$usersData->orderBy($sortfield, $sortorder);
 		$usersData =	$usersData->get()->toArray();
 		
-		
+	
 		$userCount = User::select('*');
 		if(@isset($data['query']['generalSearch'])){
 			$searchKey =$data['query']['generalSearch'];	
@@ -93,12 +97,26 @@ function ajaxuserslist(Request $request){
      */
     public function candidatedetail(Request $request, $id)
     {
-       // $pages = Pages::all();	
+      
         $CandidateData = User::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
-		 $Candidate =  $CandidateData[0];
-	//	 print_R($Candidate); die;
-	//	 print_R($Candidate); die;
-        return view('candidatedetail', compact('Candidate'));
+		$Candidate =  $CandidateData[0];
+
+		if($Candidate['parent_company']>=1){
+			$CompanyData = User::where('is_deleted', '=', '0')->where('id', '=', $Candidate['parent_company'])->get()->toArray();
+		
+			$Candidate['companyName'] = $CompanyData[0]['name'];
+		}else{
+			$Candidate['companyName'] = 'N/A';
+		}
+		
+		$CandidateCourseData = CandidateCourses::select('courses.id as id','courses.name as cname','courses.description as description');
+
+		$CandidateCourseData->leftJoin('courses', function ($join) {
+            $join->on('courses.id', '=', 'candidate_courses.course_id');
+		});
+		$CandidateCourseData->where('candidate_courses.candidate_id', '=', $id);
+		$CandidateCourseData =	$CandidateCourseData->get()->toArray();
+	    return view('candidatedetail', compact('Candidate','CandidateCourseData'));
     }
 		
 		

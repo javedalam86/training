@@ -58,64 +58,42 @@
                             <!--begin: Search Form kt-portlet__body  -->
                     	<div class="kt-portlet__body">
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
 													<label class="col-2 col-form-label">First Name:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Candidate['name']}}	</span>
 													</div>
-												</div><!--
-												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Last Name:</label>
-													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">{{$Candidate['last_name']}}	</span>
-													</div>
 												</div>
-												-->
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
 													<label class="col-2 col-form-label">Date of Birth:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Candidate['dob']}}</span>
 													</div>
-												</div>
-												<!--<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Location:</label>
-													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">London, UK.</span>
-													</div>
-												</div>-->
-												
+												</div>												
 												<?php	if($Candidate['photo_path'] ==''){
-																$imageFullPath = '../userimage/default1.jpg';
-																		}else{
-																		$imageFullPath = '../userimage/'. $Candidate['photo_path']; 
-																		}
+															$imageFullPath = '../userimage/default1.jpg';
+														}else{
+															$imageFullPath = '../userimage/'. $Candidate['photo_path']; 
+														}
 												?>
 																		
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Photo Path:</label>
+													<label class="col-2 col-form-label">Photo:</label>
 													<div class="col-8">
 													
 													<div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
 																		
 															<div class="kt-avatar__holder" style="background-image: url(<?php echo $imageFullPath;?>);"></div>
-												</div>
-													
-													
-														
+													</div>
 													</div>
 												</div>
-												<div class="form-group form-group-xs row"><label class="col-2 col-form-label"></label>
+												<div class="form-group form-group-xs row">
 													<label class="col-2 col-form-label">Phone:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Candidate['phone']}}</span>
 													</div>
 												</div>
+												
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
 													<label class="col-2 col-form-label">Email:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">
@@ -123,24 +101,12 @@
 														</span>
 													</div>
 												</div>
-												<!--<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Website:</label>
+												<div class="form-group form-group-xs row">
+													<label class="col-2 col-form-label">Company:</label>
 													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">
-															<a href="#">www.loop.com</a>
-														</span>
+														<span class="form-control-plaintext kt-font-bolder">{{$Candidate['companyName']}}</span>
 													</div>
 												</div>
-												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
-													<label class="col-2 col-form-label">Contact Person:</label>
-													<div class="col-8">
-														<span class="form-control-plaintext kt-font-bolder">
-															<a href="#">Nick Bold</a>
-														</span>
-													</div>
-												</div>-->
 											</div>
 												
 												
@@ -149,9 +115,52 @@
                         </div>
 												
                     </div>
-                </div>
+               
+				
+				
+				
+				
+		<?php	if(!empty($CandidateCourseData)) { ?> 
+      <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head">
+          <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+              Course
+            </h3>
+          </div>
+        </div>
+        <div class="kt-portlet__body">
+          <table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
+            <thead>
+              <tr>
+                <th>Quiz Name</th>
+                <th>Quiz Attempt Date</th>
+                
+              </tr>
+            </thead>
+            <tbody>              
+              @foreach ($CandidateCourseData as $CandidateCourseObj)              
+                    <tr>
+                      <td>{{$CandidateCourseObj['cname']}}</td> 
+					  <td>{{$CandidateCourseObj['description']}}</td>
+                    </tr>
+              @endforeach              
+            </tbody>
+          </table>
+        </div>
+      </div>
+		<?php } ?>
+				
+				
+				
+				
+				
+		 </div>
 
-                <!-- end:: Content -->
+                <!-- end:: Content -->		
+				
+				
+				
 
             </div>
             <!-- begin:: Footer -->

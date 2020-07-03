@@ -33,25 +33,35 @@ Route::post('loginuserfrm', [ 'as' => 'loginuserfrm', 'uses' => 'UserController@
 
 Route::get('dashboard','DashboardController@dashboard')->name('dashboard')->middleware('auth');
 
-Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
 
 // Admin
-Route::get('userslist', [ 'as' => 'userslist', 'uses' => 'UserController@index']);
-Route::get('ajaxuserslist', [ 'as' => 'ajaxuserslist', 'uses' => 'UserController@ajaxuserslist']);
-Route::post('createuser', [ 'as' => 'createuser', 'uses' => 'UserController@createuser']);
-Route::post('edituser', [ 'as' => 'edituser', 'uses' => 'UserController@edituser']);
-Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@deleteuser']);
+
 
 
 Route::get('myprofile', [ 'as' => 'myprofile', 'uses' => 'ProfileController@myprofile'])->middleware('auth');
 Route::post('updateprofile', [ 'as' => 'updateprofile', 'uses' => 'ProfileController@updateprofile']);
 
+
+
+Route::group(['middleware' => ['checkRole:company']], function(){
 Route::get('mycandidatedetail/{id}', [ 'as' => 'mycandidatedetail', 'uses' => 'MyUserController@mycandidatedetail'])->middleware('auth');
 Route::get('myuserslist', [ 'as' => 'myuserslist', 'uses' => 'MyUserController@index']);
 Route::get('ajaxmyuserslist', [ 'as' => 'ajaxmyuserslist', 'uses' => 'MyUserController@ajaxmyuserslist']);
 Route::post('createmyuser', [ 'as' => 'createmyuser', 'uses' => 'MyUserController@createmyuser']);
 Route::post('editmyuser', [ 'as' => 'editmyuser', 'uses' => 'MyUserController@editmyuser']);
 Route::post('deletemyuser', [ 'as' => 'deletemyuser', 'uses' => 'MyUserController@deletemyuser']);
+
+
+//Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
+
+});
+
+
+Route::group(['middleware' => ['checkRole:company_admin']], function(){
+
+Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
+
+});
 
 Route::get('companydetail/{id}','CompanyController@companydetail')->name('companydetail')->middleware('auth');
 Route::get('companylist', [ 'as' => 'companylist', 'uses' => 'CompanyController@index']);
@@ -187,8 +197,17 @@ Route::post('deletemanual','ManualController@deletemanual')->name('deletemanual'
 
 
 Route::group(['middleware' => ['checkRole:admin']], function(){
+	
+Route::get('userslist', [ 'as' => 'userslist', 'uses' => 'UserController@index']);
+Route::get('ajaxuserslist', [ 'as' => 'ajaxuserslist', 'uses' => 'UserController@ajaxuserslist']);
+Route::post('createuser', [ 'as' => 'createuser', 'uses' => 'UserController@createuser']);
+Route::post('edituser', [ 'as' => 'edituser', 'uses' => 'UserController@edituser']);
+Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@deleteuser']);	
+	
+	
 Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
 Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth');
+
 
 });
 
