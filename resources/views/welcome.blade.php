@@ -80,7 +80,7 @@ if($trainingImage) {
            Courses
         </button> </a>
 				@guest
-					
+
 		<button type="button" class="btn btn-brand btn-icon-sm"  data-toggle="modal" data-target="#SignUp">
            REGISTER
         </button>
@@ -639,7 +639,13 @@ if(!$abtImages->isEmpty()) {
                      </div>
                   </div>
                   <div class="modal-footer">
-
+                     <div class="form-group row">
++                       @if (Route::has('password.request'))
++                        <a class="btn btn-link btn-primar" href="{{ route('password.request') }}">
++                            {{ __('Forgot Your Password?') }}
++                        </a>
++                    @endif
++                    </div>
                      <button type="button" id='submitLoginForm' class="training_btnpopup btn btn-primary">Login</button>
 					 <button type="button" class="training_btnpopup btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
@@ -847,8 +853,8 @@ function zoominbuttonfun(){
 //-----------------
 $(document).ready(function(){
 $('#send_form').click(function(e){
-	 
-	 	$(".contact_us_error").hide();						
+
+	 	$(".contact_us_error").hide();
    e.preventDefault();
    /*Ajax Request Header setup*/
    $.ajaxSetup({
@@ -858,7 +864,7 @@ $('#send_form').click(function(e){
   });
 
    $('#send_form').html('Sending..');
-   
+
    /* Submit form data using ajax*/
    $.ajax({
       url: "{{ url('jquery-ajax-form-submit')}}",
@@ -871,10 +877,10 @@ $('#send_form').click(function(e){
 			$.each( response.errors, function( key, value) {
 					for(var l=0;l<value.length; l++){
 						var fieldErrorId =  'error_'+key;
-						//fieldErrorId = fieldErrorId.replace('.','');	
-	
-						$("#"+fieldErrorId).text(value);	
-						$("#"+fieldErrorId).show();						
+						//fieldErrorId = fieldErrorId.replace('.','');
+
+						$("#"+fieldErrorId).text(value);
+						$("#"+fieldErrorId).show();
 					}
 				});
 		 }else{
@@ -883,7 +889,7 @@ $('#send_form').click(function(e){
             $('#res_message').html(response.msg);
             $('#msg_div').removeClass('d-none');
 
-            document.getElementById("contact_us").reset(); 
+            document.getElementById("contact_us").reset();
             setTimeout(function(){
             $('#res_message').hide();
             $('#msg_div').hide();
