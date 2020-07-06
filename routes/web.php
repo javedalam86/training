@@ -33,25 +33,35 @@ Route::post('loginuserfrm', [ 'as' => 'loginuserfrm', 'uses' => 'UserController@
 
 Route::get('dashboard','DashboardController@dashboard')->name('dashboard')->middleware('auth');
 
-Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
 
 // Admin
-Route::get('userslist', [ 'as' => 'userslist', 'uses' => 'UserController@index']);
-Route::get('ajaxuserslist', [ 'as' => 'ajaxuserslist', 'uses' => 'UserController@ajaxuserslist']);
-Route::post('createuser', [ 'as' => 'createuser', 'uses' => 'UserController@createuser']);
-Route::post('edituser', [ 'as' => 'edituser', 'uses' => 'UserController@edituser']);
-Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@deleteuser']);
+
 
 
 Route::get('myprofile', [ 'as' => 'myprofile', 'uses' => 'ProfileController@myprofile'])->middleware('auth');
 Route::post('updateprofile', [ 'as' => 'updateprofile', 'uses' => 'ProfileController@updateprofile']);
 
+
+
+Route::group(['middleware' => ['checkRole:company']], function(){
 Route::get('mycandidatedetail/{id}', [ 'as' => 'mycandidatedetail', 'uses' => 'MyUserController@mycandidatedetail'])->middleware('auth');
 Route::get('myuserslist', [ 'as' => 'myuserslist', 'uses' => 'MyUserController@index']);
 Route::get('ajaxmyuserslist', [ 'as' => 'ajaxmyuserslist', 'uses' => 'MyUserController@ajaxmyuserslist']);
 Route::post('createmyuser', [ 'as' => 'createmyuser', 'uses' => 'MyUserController@createmyuser']);
 Route::post('editmyuser', [ 'as' => 'editmyuser', 'uses' => 'MyUserController@editmyuser']);
 Route::post('deletemyuser', [ 'as' => 'deletemyuser', 'uses' => 'MyUserController@deletemyuser']);
+
+
+//Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
+
+});
+
+
+Route::group(['middleware' => ['checkRole:company_admin']], function(){
+
+Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserController@candidatedetail'])->middleware('auth');
+
+});
 
 Route::get('companydetail/{id}','CompanyController@companydetail')->name('companydetail')->middleware('auth');
 Route::get('companylist', [ 'as' => 'companylist', 'uses' => 'CompanyController@index']);
@@ -186,16 +196,37 @@ Route::post('editmanual','ManualController@editmanual')->name('editmanual')->mid
 Route::post('deletemanual','ManualController@deletemanual')->name('deletemanual')->middleware('auth');
 
 
-
+Route::group(['middleware' => ['checkRole:admin']], function(){
+	
+Route::get('userslist', [ 'as' => 'userslist', 'uses' => 'UserController@index']);
+Route::get('ajaxuserslist', [ 'as' => 'ajaxuserslist', 'uses' => 'UserController@ajaxuserslist']);
+Route::post('createuser', [ 'as' => 'createuser', 'uses' => 'UserController@createuser']);
+Route::post('edituser', [ 'as' => 'edituser', 'uses' => 'UserController@edituser']);
+Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@deleteuser']);	
+	
+	
 Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
 Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth');
+
+
+});
+
+
+Route::group(['middleware' => ['checkRole:candidate']], function(){  // candidatecourselist
+	
+Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
+
+});
+
+
+
 Route::get('ajaxauditslist','AuditController@ajaxauditlist')->name('ajaxauditlist')->middleware('auth');
 Route::post('createaudit','AuditController@auditadd')->name('auditadd')->middleware('auth');
 Route::post('editaudit','AuditController@editaudit')->name('editaudit')->middleware('auth');
 Route::post('deleteaudit','AuditController@deleteaudit')->name('deleteaudit')->middleware('auth');
 
 Route::post('jquery-ajax-form-submit', 'ContactController@store');
-Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
+
 Route::get('candidatecoursedetail/{id}','CandidateCourseController@candidatecoursedetail')->name('candidatecoursedetail')->middleware('auth');
 
 

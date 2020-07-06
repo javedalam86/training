@@ -87,6 +87,16 @@ var KTDatatableRemoteAjaxUser = function() {
 					field: 'email',
 					title: 'Email',
 				},{
+					field: 'companyName',
+					title: 'Company',
+					template: function(row) {
+						if(row.companyName== null){
+						return '--';
+						}else{
+						return row.companyName;	
+						}
+					}
+				},{
 					field: 'Actions',
 					title: 'Actions',
 					sortable: false,

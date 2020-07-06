@@ -14,53 +14,7 @@ class MyUserController extends Controller
 {
 
 var $recordPerPage =20;
-function callAPI($method, $url, $data=''){
-	$curl = curl_init();
-	switch ($method){
-		case "POST":
-			curl_setopt($curl, CURLOPT_POST, 1);
-			if ($data)
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-			break;
-		case "PUT":
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
-			if ($data)
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-			break;
-		case "GET":
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-			break;
-		default:
-			if ($data)
-				$url = sprintf("%s?%s", $url, http_build_query($data));
-	}
-	curl_setopt($curl, CURLOPT_URL, $url);
-	  curl_setopt($curl, CURLOPT_HEADER, 1);
-	curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-		'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE3YmY4NjVlNzc2NjYwNjIzMzM3MzAzMDdiNjU0ZWE5Nzg3ZmIyZjYzNTA0YjY1NWQ0NDhiYTZhZDE1N2IzNjgzNjI3MTMxNDVjYmRjODE5In0.eyJhdWQiOiIxIiwianRpIjoiYTdiZjg2NWU3NzY2NjA2MjMzMzczMDMwN2I2NTRlYTk3ODdmYjJmNjM1MDRiNjU1ZDQ0OGJhNmFkMTU3YjM2ODM2MjcxMzE0NWNiZGM4MTkiLCJpYXQiOjE1NjAwNTcyNjYsIm5iZiI6MTU2MDA1NzI2NiwiZXhwIjoxNTkxNjc5NjY1LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.kTTALnBq_UKDCshFxgiHBtJSRy-x8A7mdJLqePctN_wbt1gXgKOu4Bmezc5VJjb2TgnFPeCzeAFnYJbdPnOi6NQcu7cwEHugI1KH0f_L2va3HaFYjwLcctc6h_YgdlFUgnszv8OLLjDYY5RPud-a-3eWTezGAQ_PScslHez55aWY6uhOkfTwQ4-KLUzjLzZ0Jk3YqJiFROZyNUh9RbTUSSJaOPVAsovPKDALiVgVyLx5bcsKXHUUjzM2O3hGmrRl7x5uNQ9_QC_-7tTVDf-vBm3GnaTYqAhKXx6GNGyaYYbu2pYVhyt8d6WLEDVBgYsH_auR7c-RULF_VHSUMrui0A5mZz_ioxkpzwQvDf2OvAk2XZJrjf4ToXfo7wgW-Wi6MdAXo-qGDMKv8UGh_DW9MYv-hNV3zH8ZX31NNnDnU4v61a986Oy_ZqqBB1UY2USiDA2kBwWiucaBMQ6Ij6-6yiFWkqJDFeW42ql5hVoYpyGLh3mJ9BYKbf9VmhCTQCoGu4EFx_DAeP45nsOVcfwTZvGS4b8-IlVf5al4Hj22qeac2qLn98Kszy2vdblpSZmy2g5QvXXg73WmugVlCX3Myscw3sA_L-Mku7-GAgOCNAZ33fWJIUZ9W6hPG1qhYGriqguSxdRzDiH4uFtRBRTPO9ZHazIY5ES6RY-cwnyBxd4',
-		'Content-Type: application/json',
-		'Accept: application/json',
-	));
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);;
-	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    // EXECUTE:
-	$result = curl_exec($curl);
-	if(!$result){die("Connection Failure");}
 
-	$header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-	$header = substr($result, 0, $header_size);
-	$body = substr($result, $header_size);
-	$header = explode("\r\n", $header); // The seperator used in the Response Header is CRLF (Aka. \r\n)
-	$header = array_filter($header);
-	foreach ($header as $headerObj) {
-		if (! preg_match('/^([^:]+):(.*)$/', $headerObj, $output)) continue;
-		$parsedArray[$output[1]] = $output[2];
-	}
-
-	curl_close($curl);
-	return array('headerData'=>$parsedArray, 'responceBody'=>$body);
-}
 	function index(){
 
 		return view('myuserslist');
