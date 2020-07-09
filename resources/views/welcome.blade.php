@@ -640,12 +640,12 @@ if(!$abtImages->isEmpty()) {
                   </div>
                   <div class="modal-footer">
                      <div class="form-group row">
-+                       @if (Route::has('password.request'))
-+                        <a class="btn btn-link btn-primar" href="{{ route('password.request') }}">
-+                            {{ __('Forgot Your Password?') }}
-+                        </a>
-+                    @endif
-+                    </div>
+                     @if (Route::has('password.request'))
+                      <a class="btn btn-link btn-primar" href="{{ route('password.request') }}">
+                         {{ __('Forgot Your Password?') }}
+                     </a>
+                  @endif
+                  </div>
                      <button type="button" id='submitLoginForm' class="training_btnpopup btn btn-primary">Login</button>
 					 <button type="button" class="training_btnpopup btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
