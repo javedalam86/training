@@ -207,6 +207,7 @@ Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@dele
 	
 Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
 Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth');
+Route::get('reportlist','ReportController@reportlist')->name('reportlist')->middleware('auth');
 
 
 });
