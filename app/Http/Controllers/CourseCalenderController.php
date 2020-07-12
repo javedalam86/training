@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Courses;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CandidateCourses;
 use Carbon\Carbon;
@@ -83,9 +84,21 @@ class CourseCalenderController extends Controller
           exit();
       }
 
-       $feed_back['type']='alert-success';
-       $feed_back['message']='Record successfully updated';
-       $feed_back['error']=array();
+      $feed_back['type']='alert-success';
+      $feed_back['message']='Record successfully updated';
+      $feed_back['error']=array();
+
+      $orders = [
+        'course_id' => $courseId,
+        'candidate_id' => Auth::user()->id,
+        'payment_status' => 'pending',
+        'payment_type' => 1,
+        'price' => $course->cost,
+        'added_date' => $current_date
+      ];
+
+      $orders = Order::create($orders);
+      $feed_back['orders'] = $orders;
 
        return json_encode($feed_back);
         exit();
