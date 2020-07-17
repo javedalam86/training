@@ -104,6 +104,12 @@
 							</li>
 							
 							
+							<li class="kt-menu__item <?php if($routeName =='reportlist'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
+								<a href="{{ route('reportlist') }}"  class="kt-menu__link ">
+									<i class="kt-menu__link-icon flaticon-doc"></i>
+									<span class="kt-menu__link-text">Report</span></a>										
+							</li>
+							
 							<li class="kt-menu__item <?php if($routeName =='sitesetting'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
 								<a href="{{ route('sitesetting') }}"  class="kt-menu__link ">
 									<i class="kt-menu__link-icon flaticon-doc"></i>
