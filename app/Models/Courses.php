@@ -15,4 +15,13 @@ class Courses extends Model
   * @var array
   */
   protected $fillable = ['name','description','cost','course_type','is_deleted','start_date','end_date'];
+
+  /**
+  * Get the comments for the blog post.
+  */
+  public function order()
+  {
+    return $this->hasMany('App\Models\Order','course_id','id');
+  }
+
 }

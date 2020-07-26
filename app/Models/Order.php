@@ -25,4 +25,20 @@ class Order extends Model
     'payment_date',
     'added_date'
   ];
+
+   /**
+   * Get the post that owns the comment.
+   */
+  public function course()
+  {
+     return $this->belongsTo('App\Models\Courses','course_id','id');
+  }
+
+  /**
+   * Get the post that owns the comment.
+   */
+  public function candidate()
+  {
+     return $this->belongsTo('App\User','candidate_id','id');
+  }
 }

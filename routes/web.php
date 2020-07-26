@@ -197,24 +197,25 @@ Route::post('deletemanual','ManualController@deletemanual')->name('deletemanual'
 
 
 Route::group(['middleware' => ['checkRole:admin']], function(){
-	
+
 Route::get('userslist', [ 'as' => 'userslist', 'uses' => 'UserController@index']);
 Route::get('ajaxuserslist', [ 'as' => 'ajaxuserslist', 'uses' => 'UserController@ajaxuserslist']);
 Route::post('createuser', [ 'as' => 'createuser', 'uses' => 'UserController@createuser']);
 Route::post('edituser', [ 'as' => 'edituser', 'uses' => 'UserController@edituser']);
-Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@deleteuser']);	
-	
-	
+Route::post('deleteuser', [ 'as' => 'deleteuser', 'uses' => 'UserController@deleteuser']);
+
+
 Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail')->middleware('auth');
 Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth');
 Route::get('reportlist','ReportController@reportlist')->name('reportlist')->middleware('auth');
+Route::get('ajaxreportlist','ReportController@ajaxreportlist')->name('ajaxreportlist')->middleware('auth');
 
 
 });
 
 
 Route::group(['middleware' => ['checkRole:candidate']], function(){  // candidatecourselist
-	
+
 Route::get('candidatecourselist','CandidateCourseController@candidatecourselist')->name('candidatecourselist')->middleware('auth');
 
 });
