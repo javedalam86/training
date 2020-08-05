@@ -34,7 +34,7 @@
         format: 'yyyy-mm-dd'
       });
     });
-
+ $('#kt_form_course,#kt_form_candidate').selectpicker();
 </script>
 <style type="text/css">
   .datepicker {
