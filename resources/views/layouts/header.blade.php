@@ -17,7 +17,7 @@
             <a class="nav-link js-scroll active" href="{{ url('/') }}">Home</a>
           </li>
 		   <li class="nav-item">
-            <a class="nav-link js-scroll" href="#{{ url('/#training') }}">Training</a>
+            <a class="nav-link js-scroll" href="{{ url('/#training') }}">Training</a>
           </li>
 
           <li class="nav-item">
