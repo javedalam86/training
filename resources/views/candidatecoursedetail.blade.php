@@ -154,7 +154,7 @@
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title">
-							Course Documents<span  style="display:none"  id="spinnerid" class="kt-spinner kt-spinner--sm kt-spinner--brand"></span> 
+							Course Documents<span  style="display:none"  id="spinnerid" class="kt-spinner kt-spinner--sm kt-spinner--brand"></span>
 
 						</h3>
 					</div>
@@ -270,7 +270,9 @@
                   $cqResult = $CourseQuizeDataObj->candidateQuize() ->where('candidate_id','=',Auth::user()->id)
                   ->where('is_deleted','=',0)
                   ->first();
-
+                  if(!$cqResult){
+                    continue;
+                  }
                   $quizeResult = $CourseQuizeDataObj->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
                   $latest = current($quizeResult);
                   if(empty($latest)){
@@ -363,13 +365,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js"></script>
 
   <script src="{{ asset('assetsadmin/js/easyPDF.js?v='.$scriptVer) }}" type="text/javascript"></script>
-  
+
   <script type="text/javascript">
   setTimeout(function() {
     $('#ajaxmessagediv').fadeOut('fast');
   }, 1200);
-  		
-	  var ROOT_PATH = '{{$ROOT_PATH}}';	
+
+	  var ROOT_PATH = '{{$ROOT_PATH}}';
 	  var file64content = '';
 	  var filetitle = '';
   function openpdffile(filePath){
@@ -385,28 +387,28 @@
             data: {     "filePath": filePath         },
 			//contentType: false, // The content type used when sending data to the server.
          //   cache: false, // To unable request pages to be cached
-          //  processData: false,	
-                success: function(msg) {  
+          //  processData: false,
+                success: function(msg) {
 				var status = msg.status;
-				if(status =='success'){		
-					
+				if(status =='success'){
+
                        file64content= msg.data.base64;
                        filetitle= msg.data.title;
-					  
+
 					   easyPDF(file64content, filetitle);
 				}else{
-					
-					
-				
-				}	  $("#spinnerid").hide(); 	
+
+
+
+				}	  $("#spinnerid").hide();
                 }
             });
-			
-	  
-	 /* 
+
+
+	 /*
 	  filetitle ='dddddd';
-	  
-	  
+
+
 	  base = 'JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwog' +
     'IC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAv' +
     'TWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0K' +
