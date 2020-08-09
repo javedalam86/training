@@ -26,47 +26,42 @@ class BookController extends Controller
     {
        // $pages = Pages::all();	
       //  $Books = Books::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-	
-	
-	        $Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
-	
+	$Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
         return view('booklist', ['Courses' => $Courses] );
     }
 	
-	public function bookdetail(Request $request, $id)
+    public function bookdetail(Request $request, $id)
     {
-      //$BookData = Books::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
-	  
-	  $BookData = Books::select('course_books.id as id','courses.name as cname','course_books.description','type','course_books.name','course_id','bookpath');	
-	  
-		$BookData->leftJoin('courses', function ($join) {
-            $join->on('courses.id', '=', 'course_books.course_id');
-			});
-		$BookData->where('course_books.id', '=', $id);
-		$BookData =	$BookData->get()->toArray();	
-	
-		$Book =  $BookData[0];
+        //$BookData = Books::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
+        $BookData = Books::select('course_books.id as id','courses.name as cname','course_books.description','type','course_books.name','course_id','bookpath');	
+	$BookData->leftJoin('courses', function ($join) {
+        $join->on('courses.id', '=', 'course_books.course_id');
+	});
+	$BookData->where('course_books.id', '=', $id);
+	$BookData =	$BookData->get()->toArray();	
+	$Book =  $BookData[0];
         return view('bookdetail', compact('Book'));
     }
 	
-	function ajaxbooklist(Request $request){
-		$data = $request->all();
-		$page =$data['pagination']['page'];	
-		$per_page = $data['pagination']['perpage'];	
-		if($per_page ==''){
-		$per_page =10; }		
-		$method='GET';
-		$searchArray['per_page']=$per_page;
-		$searchArray['page']	=$page;
+    function ajaxbooklist(Request $request){
+	$data = $request->all();
+	$page =$data['pagination']['page'];	
+	$per_page = $data['pagination']['perpage'];	
+	if($per_page ==''){
+            $per_page =10;
+        }		
+	$method='GET';
+	$searchArray['per_page']=$per_page;
+	$searchArray['page']	=$page;
 		
 	//$pageNo = 1;
 		$questiosData = Books::select('course_books.id as id','courses.name as cname','course_books.description','course_books.name','course_id','bookpath');			
 		if(@isset($data['query']['bookgeneralSearch'])){
 			$searchKey =$data['query']['bookgeneralSearch'];	
 			$questiosData = $questiosData->where(function($q) use ($searchKey){
-				$q->where('name', 'LIKE', '%' . $searchKey . '%')
-				->orWhere('description', 'LIKE', '%' . $searchKey . '%')
-				->orWhere('cname', 'LIKE', '%' . $searchKey . '%')
+				$q->where('course_books.name', 'LIKE', '%' . $searchKey . '%')
+				->orWhere('course_books.description', 'LIKE', '%' . $searchKey . '%')
+				->orWhere('courses.name', 'LIKE', '%' . $searchKey . '%')
 				->orWhere('course_id', 'LIKE', '%' . $searchKey . '%');
 		});
 		}	

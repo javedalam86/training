@@ -15,6 +15,7 @@ use Carbon\Carbon;
 class AuditController extends Controller
 {
   var $recordPerPage =20;
+  
   /**
   * Display a listing of the resource.
   *
