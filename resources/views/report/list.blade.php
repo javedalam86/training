@@ -43,10 +43,10 @@
                     <!--begin: Search Form -->
                         <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                             <div class="row align-items-center">
-                                <div class="col-xl-8 order-2 order-xl-1">
+                                <div class="col-xl-12 order-2 order-xl-1">
                                   <form>
                                     <div class="row align-items-center">
-                                         <div class="kt-form__group kt-form__group--inline" style="padding-right: 15px;">
+                                         <div class="col-md-3 kt-form__group kt-form__group--inline" style="padding-right: 15px;">
                                             <div class="kt-form__label">
                                               <label>StartDate
                                               </label>
@@ -55,7 +55,7 @@
                                               <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="startDate" autocomplete="off">
                                             </div>
                                           </div>
-                                         <div class="kt-form__group kt-form__group--inline">
+                                         <div class="col-md-3 kt-form__group kt-form__group--inline">
                                               <div class="kt-form__label">
                                                 <label>EndDate
                                                 </label>

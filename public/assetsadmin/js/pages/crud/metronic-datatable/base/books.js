@@ -86,7 +86,7 @@ var KTDatatableRemoteAjaxBook = function() {
 							<i class="flaticon-download"></i>\
 						</a>\
             <a target="_blank" href="viewerjs/#../'+bookpath+'" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View">\
-              <i class="flaticon-eye"></i>\
+              <i class="flaticon2-search"></i>\
             </a>\
 					';
 					},

@@ -38,22 +38,17 @@ class QuestionController extends Controller
         return view('questionlist', compact('Questions', 'Courses', 'Sections'));
     }
 	
-	public function questiondetail(Request $request, $id)
+    public function questiondetail(Request $request, $id)
     {
       // $QuestionData = questions::where('is_deleted', '=', '0')->where('id', '=', $id);
 	  	$QuestionData = Questions::select('questions.id as id','question','option_a','option_b','option_c','option_d','correct_option','name as cname','course_id','section_id','question_type');
-	  $QuestionData->where('questions.is_deleted', '=', '0')->where('questions.id', '=', $id);
+                $QuestionData->where('questions.is_deleted', '=', '0')->where('questions.id', '=', $id);
 		$QuestionData->leftJoin('courses', function ($join) {
-            $join->on('courses.id', '=', 'questions.course_id');
-			});
-			
+                    $join->on('courses.id', '=', 'questions.course_id');
+		});
 		$QuestionData = $QuestionData->get()->toArray();
 		//print_r(  $QuestionData); die;	
-		
-		
 		$Question =  $QuestionData[0];
-		
-		
 		
 		
         return view('questiondetail', compact('Question'));
@@ -68,7 +63,7 @@ class QuestionController extends Controller
 		$method='GET';
 		$searchArray['per_page']=$per_page;
 		$searchArray['page']	=$page;
-		
+		$this->recordPerPage	=$per_page;
 	//$pageNo = 1;
 	
 	
@@ -95,36 +90,31 @@ class QuestionController extends Controller
 		}
 		
 		$questiosData->leftJoin('courses', function ($join) {
-            $join->on('courses.id', '=', 'questions.course_id');
-			});
-		
-		
+                    $join->on('courses.id', '=', 'questions.course_id');
+		});
 		
 		if($page ==1){ $offset = 0; }else{ $offset = $this->recordPerPage*($page-1); }
 		$questiosData->where('questions.is_deleted', '=', '0');
 		$questiosData->offset($offset);
-        $questiosData->limit($this->recordPerPage);
+                $questiosData->limit($this->recordPerPage);
 		$questiosData->orderBy($sortfield, $sortorder);
-		$questiosData =	$questiosData->get()->toArray();		
-	
-
+		$questiosData =	$questiosData->get()->toArray();
 		$userCount = Questions::select('*');
 		if(@isset($data['query']['questiongeneralSearch'])){
 			$searchKey =$data['query']['questiongeneralSearch'];	
 			$userCount = $userCount->where(function($q) use ($searchKey){
 				$q->where('question', 'LIKE', '%' . $searchKey . '%');
-		});
+                        });
 		}
 		$userCount->where('is_deleted', '=', '0');
 		$userCount =$userCount->get();			
-		$totalRecord =$userCount->count();	
-		
+		$totalRecord =$userCount->count();		
 		$resultDataTable['data'] = $questiosData;	
 		$resultDataTable['meta']['page'] = $page;
 		$resultDataTable['meta']['pages'] = ceil($totalRecord/$per_page);
 		$resultDataTable['meta']['perpage'] = $per_page;
 		$resultDataTable['meta']['total'] = $totalRecord;
-			return json_encode($resultDataTable);
+		return json_encode($resultDataTable);
 }
 	
 	

@@ -1180,7 +1180,9 @@
                <span class="kt-hidden kt-header__topbar-username kt-hidden-mobile">Sean</span>
                <img class="kt-hidden" alt="Pic" src="{{ asset('assetsadmin/media/users/300_25.jpg') }}" />
                <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-               <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bolder">S</span>
+               
+               <?php $userType= Auth::user()->user_type;    $email= Auth::user()->email; ?>
+               <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bolder">{{$userType}}</span>
             </div>
          </div>
          <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
@@ -1207,7 +1209,7 @@
                   </div>
                   <div class="kt-notification__item-details">
                      <div class="kt-notification__item-title kt-font-bold">
-                        My Profile
+                        My Profile ({{$email}})
                      </div>
                      <div class="kt-notification__item-time">
                         Account settings 
