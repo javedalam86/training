@@ -117,7 +117,7 @@
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title">
-							Course Details
+							Course 
 						</h3>
 					</div>
 				</div>
@@ -311,7 +311,7 @@
               @endforeach
 
               @if(!$isQuizeReport)
-                <tr><td colspan="4" align="center">No Quize report available</td> </tr>
+                <tr><td colspan="4" align="center">No Quiz report available</td> </tr>
               @endif
             </tbody>
           </table>

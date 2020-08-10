@@ -167,7 +167,7 @@ class QuizeController extends Controller
           return Redirect::back()->withInput();
         }
 
-        \Session::flash('success', 'Quize completed Successfully');
+        \Session::flash('success', 'Quiz completed Successfully');
 
         return redirect()->route('candidatecoursedetail',['id'=>$data['course_id']]);
     }

@@ -1182,7 +1182,7 @@
                <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                
                <?php $userType= Auth::user()->user_type;    $email= Auth::user()->email; ?>
-               <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bolder">{{$userType}}</span>
+               <span style="width: 100%; padding: 10px;" class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bolder">{{$userType}}</span>
             </div>
          </div>
          <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">

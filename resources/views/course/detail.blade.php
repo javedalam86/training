@@ -30,10 +30,10 @@
                 	</span>
                 </div>
               </div>
-              <div class="kt-subheader__toolbar"> <!--
+              <div class="kt-subheader__toolbar"> 
                 <div class="kt-subheader__wrapper">
                   <button type="button" class="btn btn-brand btn-icon-sm" ><a href="{{ URL::previous() }}" style="color:white;"> <i class="flaticon2-plus"></i> Go Back</a></button>
-                </div> -->
+                </div> 
               </div>
             </div>
           </div>
@@ -44,7 +44,7 @@
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title">
-							Course Details
+							Course 
 						</h3>
 					</div>
 				</div>

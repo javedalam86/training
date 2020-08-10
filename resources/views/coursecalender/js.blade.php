@@ -88,7 +88,14 @@ $("#edit_event_btn").click(function(){
 
        if(jd.type=='alert-success'){
           alert('Course Booked Successfully!');
+         
+		  
+		    setInterval(function(){ 
           $('#edit_event_modal').modal('hide');
+          var urlRoute ="{{route('candidatecourselist')}}";
+          window.location.href = urlRoute;
+        }, 3000);
+		
           //alert('redirect to buy page soon...')
        } else {
           var msg = "";

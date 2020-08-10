@@ -70,7 +70,7 @@
                             <!--begin: Search Form kt-portlet__body  -->
                     	<div class="kt-portlet__body">
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
+													
 													<label class="col-2 col-form-label">Company Name:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Company['name']}}	</span>
@@ -99,20 +99,20 @@
 													</div>
 												</div>-->
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
+												
 													<label class="col-2 col-form-label">Photo Path:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Company['photo_path']}}	</span>
 													</div>
 												</div>
-												<div class="form-group form-group-xs row"><label class="col-2 col-form-label"></label>
+												<div class="form-group form-group-xs row">
 													<label class="col-2 col-form-label">Phone:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">{{$Company['phone']}}</span>
 													</div>
 												</div>
 												<div class="form-group form-group-xs row">
-													<label class="col-2 col-form-label"></label>
+													
 													<label class="col-2 col-form-label">Email:</label>
 													<div class="col-8">
 														<span class="form-control-plaintext kt-font-bolder">
