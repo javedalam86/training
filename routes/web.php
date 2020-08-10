@@ -64,7 +64,7 @@ Route::get('candidatedetail/{id}', [ 'as' => 'candidatedetail', 'uses' => 'UserC
 });
 
 Route::get('companydetail/{id}','CompanyController@companydetail')->name('companydetail')->middleware('auth');
-Route::get('companylist', [ 'as' => 'companylist', 'uses' => 'CompanyController@index']);
+
 Route::get('ajaxcompanylist', [ 'as' => 'ajaxcompanylist', 'uses' => 'CompanyController@ajaxcompanylist']);
 Route::post('createcompany', [ 'as' => 'createcompany', 'uses' => 'CompanyController@createcompany']);
 Route::post('editcompany', [ 'as' => 'editcompany', 'uses' => 'CompanyController@editcompany']);
@@ -72,7 +72,7 @@ Route::post('deletecompany', [ 'as' => 'deletecompany', 'uses' => 'CompanyContro
 
 Route::get('trainerdetail/{id}','TrainerController@trainerdetail')->name('trainerdetail')->middleware('auth');
 
-Route::get('trainerlist', [ 'as' => 'trainerlist', 'uses' => 'TrainerController@index']);
+
 Route::get('ajaxtrainerlist', [ 'as' => 'ajaxtrainerlist', 'uses' => 'TrainerController@ajaxtrainerlist']);
 Route::post('createtrainer', [ 'as' => 'createtrainer', 'uses' => 'TrainerController@createtrainer']);
 Route::post('edittrainer', [ 'as' => 'edittrainer', 'uses' => 'TrainerController@edittrainer']);
@@ -209,6 +209,9 @@ Route::get('auditdetail/{id}','AuditController@auditdetail')->name('auditdetail'
 Route::get('auditlist','AuditController@auditlist')->name('auditlist')->middleware('auth');
 Route::get('reportlist','ReportController@reportlist')->name('reportlist')->middleware('auth');
 Route::get('ajaxreportlist','ReportController@ajaxreportlist')->name('ajaxreportlist')->middleware('auth');
+
+Route::get('companylist', [ 'as' => 'companylist', 'uses' => 'CompanyController@index']);
+Route::get('trainerlist', [ 'as' => 'trainerlist', 'uses' => 'TrainerController@index']);
 
 
 });
