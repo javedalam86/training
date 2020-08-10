@@ -43,6 +43,16 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--end::Layout Skins -->
 		<link rel="shortcut icon" href="{{ asset('assetsadmin/media/logos/favicon.ico') }}" />
+                
+                <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+                <meta http-equiv="Pragma" content="no-cache" />
+                <meta http-equiv="Expires" content="0" />
+                <?php
+                header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0");
+                
+                ?>
 	</head>
 
 @yield('content')
