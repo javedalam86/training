@@ -203,6 +203,10 @@ if(!$abtImages->isEmpty()) {
     $abtImgTitle3 = $abtImages[2]->title;
   }
 }
+
+
+$isoImg= url('/')."/img/UKAS9001.jpg";
+
 @endphp
 <div class="space" id="aboutid"  ></div>
 	<div class="container">
@@ -288,7 +292,7 @@ if(!$abtImages->isEmpty()) {
 						&nbsp; &nbsp;
 						<span>Page: <span id="pageNum"></span> / <span id="pageLength"></span></span>
 						</div>
-					<div id="pdfDialogxx" style="width:1000px;height:600px;overflow-y:scroll;">
+					<div id="pdfDialogxx" style="height:600px;overflow-y:scroll;">
 						<canvas id="pdfview" oncontextmenu="return false;"  ></canvas>
 					</div>
 				</div>
@@ -510,6 +514,11 @@ if(!$abtImages->isEmpty()) {
                       <li><a href=""><span class="ico-circle"><i class="ion-social-pinterest"></i></span></a></li>
                     </ul>
                   </div>
+                    
+                    <div >
+                         <img  style="max-width: 145px;" src="{!! $isoImg ?? '' !!}">
+                  </div>
+                    
                 </div>
               </div>
             </div>

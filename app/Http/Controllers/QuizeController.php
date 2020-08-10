@@ -67,11 +67,11 @@ class QuizeController extends Controller
             $question_type   = $CourseQuizeSectionsObject['question_type'];
               //$Questions = Questions::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
 			  if($questionsCount >=1){
-            $Questions = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '0')->limit($questionsCount)->orderBy('id', 'ASC' )->get()->toArray();
+            $Questions = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '0')->limit($questionsCount)->inRandomOrder()->get()->toArray();
 			 	$resultsQuestion = (array_merge($resultsQuestion,$Questions));
 			 }
 			  if($subQuestionsCount>=1){
-			$QuestionsSub = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '1')->limit($subQuestionsCount)->orderBy('id', 'ASC' )->get()->toArray();
+			$QuestionsSub = Questions::where('course_id', '=',$course_id)->where('section_id', '=', $section_id)->where('question_type', '=', '1')->limit($subQuestionsCount)->inRandomOrder()->get()->toArray();
 
 			$resultsQuestion = (array_merge($resultsQuestion,$QuestionsSub));
 			  }

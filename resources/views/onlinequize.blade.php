@@ -269,7 +269,7 @@ var totalQuestions=0;
               questionsList +='<div id='+question_id+' class="questionsList" style="display:none">\
                     <div class="form-group row">\
                       <div class="col-lg-12">\
-                        <label>'+value.question+'</label>\
+                        <label style="text-align: left;">'+value.question+'</label>\
                       </div>\
                     </div>\
                     <div class="form-group row">\
@@ -285,7 +285,7 @@ var totalQuestions=0;
 					   questionsList +='<div id='+question_id+' class="questionsList" style="display:none">\
 										<div class="form-group row">\
 											<div class="col-lg-12">\
-												<label>'+value.question+'</label>\
+												<label  style="text-align: left;">'+value.question+'</label>\
 											</div>\
 										</div>';
 										
