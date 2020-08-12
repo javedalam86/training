@@ -508,10 +508,11 @@ $isoImg= url('/')."/img/UKAS9001.jpg";
                   </div>
                   <div class="socials">
                     <ul>
-                      <li><a href=""><span class="ico-circle"><i class="ion-social-facebook"></i></span></a></li>
+                      <li><a target="_blank" href="https://www.linkedin.com/in/u2-marine-963835a5/"><span class="ico-circle"><i class="ion-social-linkedin"></i></span></a></li>
+					  <!--
                       <li><a href=""><span class="ico-circle"><i class="ion-social-instagram"></i></span></a></li>
                       <li><a href=""><span class="ico-circle"><i class="ion-social-twitter"></i></span></a></li>
-                      <li><a href=""><span class="ico-circle"><i class="ion-social-pinterest"></i></span></a></li>
+                      <li><a href=""><span class="ico-circle"><i class="ion-social-pinterest"></i></span></a></li>  -->
                     </ul>
                   </div>
                     
