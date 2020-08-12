@@ -39,17 +39,20 @@ class CandidateCourseController extends Controller
         $CourseData = courses::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
 
         $Course =  $CourseData[0];
-
-        $BookData = Books::select('course_books.id as id','course_books.name as cname','course_books.description','type','course_books.name','course_id','bookpath');
+        $parentCourseId = $Course['parent_id'];
+        $whereCourseId = $id;
+        if($parentCourseId !=0){
+          $whereCourseId  =$parentCourseId;
+        }
+        $BookData = Books::select('course_books.id as id','course_books.name as cname','course_books.description','type','course_books.name','course_id','bookpath','parent_id');
         $BookData->leftJoin('courses', function ($join) {
             $join->on('courses.id', '=', 'course_books.course_id');
         });
         $BookData->where('course_books.is_deleted', '=', 0);
-        $BookData->where('course_books.course_id', '=', $id);
-        $BookData =	$BookData->get()->toArray();
-
+        $BookData->where('course_books.course_id', '=', $whereCourseId)->orwhere('course_books.course_id', '=', $id);
+        $BookData =	$BookData->get()->toArray();        
         $CourseQuizeData = CourseQuize::where('course_quize_status', '=', '1')->where('course_id', '=', $id)->get();
-
+        
         return view('candidatecoursedetail', compact('Course','BookData','CourseQuizeData'));
     }
 

@@ -17,6 +17,17 @@
                   <option value="Advanced">Advance</option>
                 </select>
               </div>
+            
+            
+              <div class="form-group">
+                <label for="course" class="form-control-label">Main Course:</label>
+                <select class="form-control" id="parent_course" name="parent_course">                    
+                    @foreach($mainCourses as $Course)
+                        <option value="{{$Course['id']}}">{{$Course['name']}}</option>
+                    @endforeach	
+                  <option value="0">Parent Course</option>                  
+                </select>
+              </div>
               <div class="form-group">
                 <label for="course" class="form-control-label">Course:</label>
                 <input type="text" class="form-control" required='required'  name="name" id="name">
@@ -66,6 +77,19 @@
                 <option value="Advanced">Advance</option>
               </select>
             </div>
+            
+            
+            <div class="form-group">
+                <label for="course" class="form-control-label">Main Course:</label>
+                <select class="form-control" id="parent_courseEdit" name="parent_courseEdit">                    
+                    @foreach($mainCourses as $Course)
+                        <option value="{{$Course['id']}}">{{$Course['name']}}</option>
+                    @endforeach	
+                  <option value="0">Parent Course</option>                  
+                </select>
+              </div>
+            
+            
             <div class="form-group">
               <label for="course" class="form-control-label">Course:</label>
               <input type="text" required='required' class="form-control" id="nameEdit" name="nameEdit">

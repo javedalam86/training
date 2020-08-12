@@ -30,7 +30,9 @@ class CourseController extends Controller
   public function courselist()
   {
     $Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-    return view('course.list', compact('Courses'));
+    
+    $mainCourses = Courses::where('is_deleted', '=', '0')->where('parent_id', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
+    return view('course.list', compact('Courses','mainCourses'));
   }
 
   /**
@@ -149,6 +151,7 @@ class CourseController extends Controller
       $input['course_type'] =$data['course_type'];
       $input['start_date'] =$data['start_date'];
       $input['end_date'] =$data['end_date'];
+      $input['parent_id'] =$data['parent_course'];
       $course = Courses::create($input);
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
@@ -281,13 +284,13 @@ class CourseController extends Controller
 			$id = $data['courseId'];
 
         $Course = Courses::find($id);
-        $Course->name 				=  $request->get('name');
-        $Course->cost 				=  $request->get('cost');
+        $Course->name 			=  $request->get('name');
+        $Course->cost 			=  $request->get('cost');
         $Course->course_type 		=  $request->get('course_type');
         $Course->description 		=  $request->get('description');
         $Course->start_date 		=  $request->get('start_date');
         $Course->end_date 		=  $request->get('end_date');
-
+        $Course->parent_id              =  $request->get('parent_course'); 
         $Course->save();
       return response(array("status"=>"success", "code"=>200,"data" => $Course));
     }}

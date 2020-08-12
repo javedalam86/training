@@ -43,6 +43,8 @@
       var cost = $('#cost').val();
       var start_date = $('#startDate').val();
       var end_date = $('#endDate').val();
+      var parent_course = $('#parent_course').val();
+      
       $.ajax({
         type: "POST",
         url: './createcourse',
@@ -54,6 +56,7 @@
           "course_type": course_type,
           "start_date": start_date,
           "end_date": end_date,
+          "parent_course": parent_course,
         },
         success: function(msg) {
           var status = msg.status;
@@ -93,7 +96,7 @@
       var costEdit = $('#costEdit').val();
       var startdateEdit = $('#startDateEdit').val();
       var enddateEdit = $('#endDateEdit').val();
-
+      var parent_course = $('#parent_courseEdit').val();
       $.ajax({
         type: "POST",
         url: './editcourse',
@@ -107,6 +110,7 @@
           "cost": costEdit,
           "start_date": startdateEdit,
           "end_date": enddateEdit,
+          "parent_course": parent_course,
         },
         success: function(msg) {
           var status = msg.status;
@@ -145,6 +149,9 @@
       var descriptionEdit = $(e.relatedTarget).data('description');
       var nameEdit = $(e.relatedTarget).data('name');
       var course_typeEdit = $(e.relatedTarget).data('course_type');
+      
+      var parent_courseEdit = $(e.relatedTarget).data('parent_course');
+      
       var costEdit = $(e.relatedTarget).data('cost');
       var startdateEdit = $(e.relatedTarget).data('start_date');
       var enddateEdit = $(e.relatedTarget).data('end_date');
@@ -153,6 +160,8 @@
       $("#nameEdit").val(nameEdit);
       $("#descriptionEdit").val(descriptionEdit);
       $("#course_typeEdit").val(course_typeEdit);
+      $("#parent_courseEdit").val(parent_courseEdit);
+      
       $("#costEdit").val(costEdit);
       $('#startDateEdit').val(startdateEdit);
       $('#endDateEdit').val(enddateEdit);

@@ -59,6 +59,8 @@
                             <!--begin: Search Form -->
                             <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                                 <div class="row align-items-center">
+                                    
+                                      
                                     <div class="col-xl-8 order-2 order-xl-1">
                                         <div class="row align-items-center">
                                             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
@@ -69,9 +71,34 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                            
+                                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                          <div class="kt-form__group kt-form__group--inline">
+                                            <div class="kt-form__label">
+                                              <label>Course
+                                              </label>
+                                            </div>
+                                            <div class="kt-form__control">
+                                              <select class="form-control bootstrap-select" id="kt_form_course">
+                                                <option value="">All</option>
+                                             
+                                                    @foreach ($Courses as $course)
+                                                      <option value="{{ $course['id']}}">{{ $course['name']}}</option>
+                                                    @endforeach
+                                               
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                            
+                                            
 
                                         </div>
                                     </div>
+                           
+                                    
+                                    
+                                  
                                     <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
                                         <a href="#" class="btn btn-default kt-hidden">
                                             <i class="la la-cart-plus"></i> New Order
@@ -299,7 +326,8 @@
     </script>
     <script>
        
-
+ $('#kt_form_course').selectpicker();
+ 
 
 		$('#bookadd').on('submit', function(e) {
             e.preventDefault();

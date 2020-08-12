@@ -102,7 +102,7 @@ var KTDatatableRemoteAjaxCourse = function() {
 						<a href="coursedetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
 							<i class="flaticon-eye"></i>\
 						</a>\
-						<a href="javascript:;" data-id='+row.id+'   data-name="'+row.name+'"   data-cost="'+row.cost+'"   data-course_type="'+row.course_type+'"   data-description="'+row.description+'"  data-start_date="'+start_date+'" data-end_date="'+end_date+'"data-toggle="modal" data-target="#courseedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+						<a href="javascript:;" data-id='+row.id+'   data-name="'+row.name+'"   data-cost="'+row.cost+'"   data-parent_course="'+row.parent_id+'"  data-course_type="'+row.course_type+'"   data-description="'+row.description+'"  data-start_date="'+start_date+'" data-end_date="'+end_date+'"data-toggle="modal" data-target="#courseedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
 							<i class="flaticon2-edit"></i>\
 						</a>\
 						<a href="javascript:;"  data-id='+row.id+'  data-toggle="modal" data-target="#deleteModal"  class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Delete">\

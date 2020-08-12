@@ -26,7 +26,7 @@ class BookController extends Controller
     {
        // $pages = Pages::all();	
       //  $Books = Books::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-	$Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
+	$Courses = Courses::where('is_deleted', '=', '0')->where('parent_id', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
         return view('booklist', ['Courses' => $Courses] );
     }
 	
@@ -45,11 +45,16 @@ class BookController extends Controller
 	
     function ajaxbooklist(Request $request){
 	$data = $request->all();
+        
 	$page =$data['pagination']['page'];	
 	$per_page = $data['pagination']['perpage'];	
 	if($per_page ==''){
             $per_page =10;
         }		
+        $courseSelected='';       
+        if(isset($data['query']['course'])){
+           $courseSelected=$data['query']['course'];  
+        }
 	$method='GET';
 	$searchArray['per_page']=$per_page;
 	$searchArray['page']	=$page;
@@ -84,6 +89,10 @@ class BookController extends Controller
 		
 		if($page ==1){ $offset = 0; }else{ $offset = $this->recordPerPage*($page-1); }
 		$questiosData->where('course_books.is_deleted', '=', '0');
+                
+                if($courseSelected !==''){
+                    $questiosData->where('course_books.course_id', '=', $courseSelected );
+                }
 		$questiosData->offset($offset);
         $questiosData->limit($this->recordPerPage);
 		$questiosData->orderBy($sortfield, $sortorder);

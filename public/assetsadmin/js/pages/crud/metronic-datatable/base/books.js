@@ -3,8 +3,6 @@
 
 var KTDatatableRemoteAjaxBook = function() {
 	// Private functions
-
-
 	// basic demo
 	var demo = function() {
 
@@ -117,11 +115,11 @@ var KTDatatableRemoteAjaxBook = function() {
 				}],
 
 		});
-/*
-    $('#kt_form_status').on('change', function() {
-      datatable.search($(this).val().toLowerCase(), 'caseStatus');
-    });
 
+    $('#kt_form_course').on('change', function() {
+      datatable.search($(this).val().toLowerCase(), 'course');
+    });
+/*
     $('#kt_form_type').on('change', function() {
       datatable.search($(this).val().toLowerCase(), 'caseStage');
     });
