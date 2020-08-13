@@ -1,3 +1,4 @@
+@php $CURRENCY_SYMBOL =  Config::get('constants.CURRENCY_SYMBOL'); @endphp
 <!--     Edit Event  -->
 <div class="modal fade" id="edit_event_modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" >
@@ -25,7 +26,7 @@
             <div class="col-lg-12 col-xs-12">
               <div class="form-group">
                 <label class="col-lg-4 col-xs-4">Price</label>
-                <div class="col-lg-8 col-xs-8" id="edit_price"></div>
+                <div class="col-lg-8 col-xs-8" > <span class="" id="edit_price"></span> &nbsp;{{$CURRENCY_SYMBOL}}</div>
               </div>
               <input type="hidden" id="edit_event_id" value="" name="id" />
             </div>
