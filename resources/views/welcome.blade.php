@@ -304,6 +304,29 @@ $isoImg= url('/')."/img/UKAS9001.jpg";
 	</div>
 
 
+        
+        
+        
+        
+        
+        
+    <div class="space" id="GDPRid"  ></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="contact-mf">
+            <div  class="box-shadow-full">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12 about-txt text-left">
+			<h1 class="btmline underline text-center  ">GDPR</h1>
+                    	<p class="aboutp">U2 Marine Services is a multipurpose marine services providing company focused on bringing in the very best skills to clients in the maritime sector and related business areas. Within a very short period, U2 Marine has achieved a broad client base within Oil, Chemical and Gas Industry across the globe. Our consultants are ex – Master Mariners and Chief Engineers who have wide ranging experience in the Oil, Chemical and Gas transportation industries and enjoy over 100 years of combined experience among themselves.</p>
+                    </div>
+		</div>
+            </div>
+	  </div>
+	</div>
+      </div>
+    </div>
 
 
 

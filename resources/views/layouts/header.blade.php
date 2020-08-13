@@ -33,6 +33,9 @@
           <li class="nav-item">
             <a class="nav-link js-scroll" href="{{ url('/#policyid') }}">Policy</a>
           </li>
+		  <li class="nav-item">
+            <a class="nav-link js-scroll" href="{{ url('/#GDPRid') }}">GDPR </a>
+          </li>
 		@if (Auth::check())
 			<li class="nav-item">
 				<a class="nav-link js-scroll" href="{{ route('dashboard') }}">Dashboard</a>
