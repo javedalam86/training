@@ -31,6 +31,9 @@ class CourseCalenderController extends Controller
           $event_data[$key]['events_id'] = $event_val['id'];
           $event_data[$key]['event_description'] =$event_val['description'];
           $event_data[$key]['created_at'] =date('d/m/Y', strtotime($event_val['start_date']));
+          if(!empty($event_val['color'])) {
+            $event_data[$key]['color'] = $event_val['color'];
+          }
         }
         echo json_encode($event_data);
     }

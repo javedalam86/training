@@ -14,7 +14,7 @@ class Courses extends Model
   *
   * @var array
   */
-  protected $fillable = ['name','description','cost','course_type','is_deleted','start_date','end_date','parent_id'];
+  protected $fillable = ['name','description','cost','course_type','is_deleted','start_date','end_date','parent_id','color'];
 
   /**
   * Get the comments for the blog post.

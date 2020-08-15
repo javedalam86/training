@@ -117,7 +117,7 @@
 				<div class="kt-portlet__head">
 					<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title">
-							Course 
+							Course
 						</h3>
 					</div>
 				</div>

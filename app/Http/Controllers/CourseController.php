@@ -30,7 +30,7 @@ class CourseController extends Controller
   public function courselist()
   {
     $Courses = Courses::where('is_deleted', '=', '0')->orderBy('id', 'ASC' )->get();
-    
+
     $mainCourses = Courses::where('is_deleted', '=', '0')->where('parent_id', '=', '0')->orderBy('id', 'ASC' )->get()->toArray();
     return view('course.list', compact('Courses','mainCourses'));
   }
@@ -55,13 +55,13 @@ class CourseController extends Controller
   public function coursedetail(Request $request, $id)
   {
     $CourseData = courses::where('is_deleted', '=', '0')->where('id', '=', $id)->get()->toArray();
-    $Course =  $CourseData[0]; 
+    $Course =  $CourseData[0];
 	$CourseId = $id;
 	$sectionsData = CourseSections::where('is_deleted', '=', '0')->where('course_id', '=', $id)->get()->toArray();
 	$CourseQuize = CourseQuize::where('is_deleted', '=', '0')->where('course_id', '=', $id)->get()->toArray();
-	
-	
-	
+
+
+
     return view('course.detail', compact('Course','sectionsData','CourseId','CourseQuize'));
   }
 
@@ -148,6 +148,7 @@ class CourseController extends Controller
       $input['name'] =$data['name'];
       $input['description'] =$data['description'];
       $input['cost'] =$data['cost'];
+      $input['color'] =$data['color'];
       $input['course_type'] =$data['course_type'];
       $input['start_date'] =$data['start_date'];
       $input['end_date'] =$data['end_date'];
@@ -156,8 +157,8 @@ class CourseController extends Controller
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
   }
-  
-  
+
+
   /**
   * Create a new user instance after a valid registration.
   *
@@ -168,19 +169,19 @@ class CourseController extends Controller
   {
     $data = $request->all();
     $validator = Validator::make($request->all(), [
-      'coursesectionname'=> 'required|min:5|max:256',     
+      'coursesectionname'=> 'required|min:5|max:256',
     ]);
     if ($validator->fails()) {
       return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
     }else{
       $input['section_name'] =$data['coursesectionname'];
       $input['course_id'] =$data['CourseId'];
-    
+
       $course = CourseSections::create($input);
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
   }
-  
+
   /**
   * Create a new user instance after a valid registration.
   *
@@ -191,24 +192,24 @@ class CourseController extends Controller
   {
     $data = $request->all();
     $validator = Validator::make($request->all(), [
-      'quize_name'=> 'required|min:5|max:256',    
-      'quize_desc'=> 'required|min:5|max:256',     
+      'quize_name'=> 'required|min:5|max:256',
+      'quize_desc'=> 'required|min:5|max:256',
     ]);
-	
-	
-	
+
+
+
     if ($validator->fails()) {
       return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
     }else{
       $inputQuiz['quize_name'] =$data['quize_name'];
-      $inputQuiz['quize_desc'] =$data['quize_desc'];	
-	$inputQuiz['course_id'] =$data['CourseId'];	  
-		
+      $inputQuiz['quize_desc'] =$data['quize_desc'];
+	$inputQuiz['course_id'] =$data['CourseId'];
+
 	  $course = CourseQuize::create($inputQuiz);
 	 $course->id;
-	$i=0;	
+	$i=0;
 	  foreach($data['sub_question'] as $questionsObj ){
-		  
+
       $inputQuizSection['sub_questions'] =$data['sub_question'][$i];
       $inputQuizSection['questions'] =$data['obj_question'][$i];
       $inputQuizSection['section_id'] =$data['section'][$i];
@@ -217,12 +218,12 @@ class CourseController extends Controller
       $CourseQuizeSections = CourseQuizeSections::create($inputQuizSection);
 	  $i++;
 	  }
-	  
+
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
-  }  
-  
-  
+  }
+
+
   /**
   * Create a new user instance after a valid registration.
   *
@@ -233,11 +234,11 @@ class CourseController extends Controller
   {
     $data = $request->all();
     $validator = Validator::make($request->all(), [
-      'quize_name'=> 'required|min:5|max:256',    
-      'quize_desc'=> 'required|min:5|max:256',     
-	  
-    ]);	
-	
+      'quize_name'=> 'required|min:5|max:256',
+      'quize_desc'=> 'required|min:5|max:256',
+
+    ]);
+
     if ($validator->fails()) {
       return response(array("status"=>"fail", "code"=>400,'message' => $validator->errors(),"data" => $data));
     }else{
@@ -245,16 +246,16 @@ class CourseController extends Controller
 		$CourseQuize = CourseQuize::find($edit_quiz_id);
         $CourseQuize->quize_name    =$data['quize_name'];
         $CourseQuize->quize_desc    =$data['quize_desc'];
-        $CourseQuize->save();		
-		$i=0;	
+        $CourseQuize->save();
+		$i=0;
 	  foreach($data['sub_question'] as $questionsObj ){
 		   $section_id =$data['section'][$i];
 		    $quizDataTDB['sub_questions'] =$data['sub_question'][$i];
 			$quizDataTDB['questions'] =$data['obj_question'][$i];
-			\DB::table('course_quize_sections')->where('course_quize_id', $edit_quiz_id)->where('section_id', $section_id)->update($quizDataTDB);	
-  
+			\DB::table('course_quize_sections')->where('course_quize_id', $edit_quiz_id)->where('section_id', $section_id)->update($quizDataTDB);
+
 	  $i++;
-	  }	  
+	  }
       return response(array("status"=>"success", "code"=>200,"data" => $data));
     }
   }
@@ -284,13 +285,14 @@ class CourseController extends Controller
 			$id = $data['courseId'];
 
         $Course = Courses::find($id);
-        $Course->name 			=  $request->get('name');
-        $Course->cost 			=  $request->get('cost');
-        $Course->course_type 		=  $request->get('course_type');
-        $Course->description 		=  $request->get('description');
-        $Course->start_date 		=  $request->get('start_date');
-        $Course->end_date 		=  $request->get('end_date');
-        $Course->parent_id              =  $request->get('parent_course'); 
+        $Course->name = $request->get('name');
+        $Course->cost = $request->get('cost');
+        $Course->course_type =  $request->get('course_type');
+        $Course->description =  $request->get('description');
+        $Course->start_date =  $request->get('start_date');
+        $Course->end_date =  $request->get('end_date');
+        $Course->parent_id =  $request->get('parent_course');
+        $Course->color = $request->get('color');
         $Course->save();
       return response(array("status"=>"success", "code"=>200,"data" => $Course));
     }}

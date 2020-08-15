@@ -17,15 +17,15 @@
                   <option value="Advanced">Advance</option>
                 </select>
               </div>
-            
-            
+
+
               <div class="form-group">
                 <label for="course" class="form-control-label">Main Course:</label>
-                <select class="form-control" id="parent_course" name="parent_course">                    
+                <select class="form-control" id="parent_course" name="parent_course">
                     @foreach($mainCourses as $Course)
                         <option value="{{$Course['id']}}">{{$Course['name']}}</option>
-                    @endforeach	
-                  <option value="0">Parent Course</option>                  
+                    @endforeach
+                  <option value="0">Parent Course</option>
                 </select>
               </div>
               <div class="form-group">
@@ -40,6 +40,10 @@
               <div class="form-group">
                 <label for="course" class="form-control-label">Price:</label>
                 <input type="text" class="form-control" required='required'  name="cost" id="cost">
+              </div>
+              <div class="form-group">
+                <label for="course" class="form-control-label">Calendar Color:</label>
+                <input type="text" class="form-control"  name="color" id="color">
               </div>
               <div class="form-group">
                 <label for="course" class="form-control-label">Start Date:</label>
@@ -77,19 +81,19 @@
                 <option value="Advanced">Advance</option>
               </select>
             </div>
-            
-            
+
+
             <div class="form-group">
                 <label for="course" class="form-control-label">Main Course:</label>
-                <select class="form-control" id="parent_courseEdit" name="parent_courseEdit">                    
+                <select class="form-control" id="parent_courseEdit" name="parent_courseEdit">
                     @foreach($mainCourses as $Course)
                         <option value="{{$Course['id']}}">{{$Course['name']}}</option>
-                    @endforeach	
-                  <option value="0">Parent Course</option>                  
+                    @endforeach
+                  <option value="0">Parent Course</option>
                 </select>
               </div>
-            
-            
+
+
             <div class="form-group">
               <label for="course" class="form-control-label">Course:</label>
               <input type="text" required='required' class="form-control" id="nameEdit" name="nameEdit">
@@ -102,6 +106,10 @@
             <div class="form-group">
               <label for="course" class="form-control-label">Price:</label>
               <input type="text" class="form-control" required='required' name="costEdit" id="costEdit">
+            </div>
+            <div class="form-group">
+              <label for="course" class="form-control-label">Calendar Color:</label>
+              <input type="text" class="form-control"  name="colorEdit" id="colorEdit">
             </div>
             <div class="form-group">
               <label for="course" class="form-control-label">Start Date:</label>
