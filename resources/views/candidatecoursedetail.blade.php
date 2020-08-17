@@ -274,7 +274,8 @@
                     continue;
                   }
                   $quizeResult = $CourseQuizeDataObj->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
-                  $latest = current($quizeResult);
+                  //$latest = current($quizeResult);
+                  $latest = $quizeResult;
                   if(empty($latest)){
                     continue;
                   }
@@ -304,7 +305,7 @@
                       <td><b>{{$cqResult->quiz_result}}</b></td>
                     </tr>
                     @php
-                      break;
+                      //break;
                     @endphp
                   @endforeach
                 @endif
