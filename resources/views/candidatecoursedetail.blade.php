@@ -289,7 +289,7 @@
                     @endphp
                     @foreach ($objs as $obj)
                       @php
-                      //echo "<pre>";print_r($obj);
+                     //echo "<pre>";print_r($obj);
                       if(!empty($obj->marks)) {
                         $totalMarks = $totalMarks + (int)$obj->marks;
                       }
@@ -306,7 +306,7 @@
                       <td>{{$CourseQuizeDataObj['quize_name']}}</td>
                       <td>{{$objs[0]->attempt_date}}</td>
                       <td><b>{{ ($cqResult->is_evaluated == 1) ? number_format($totalMarks, 2) : '--'}}</b></td>
-                      <td><b>{{ ($cqResult->is_evaluated == 1) ? $passStatus : 'Pending'}}</b></td>
+                      <td><b>{{ ($cqResult->is_evaluated == 1) ? $passStatus : 'Pending'}}</b> <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" onclick=showevaluationmodal({{$obj->candidate_quize_id}})><i class="flaticon2-search"></i></a></td>
                     </tr>
                     @php
                       //break;
@@ -335,6 +335,27 @@
       </div>
     </div>
   </div>
+
+   <!--begin::Add Modal-->
+  <div class="modal fade" id="candidate_result_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Quiz answers:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+
+          <div class="modal-body" style="height: 350px; overflow-y: auto;">
+            <div id='quizquestionList'> </div>
+          </div>
+          <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+  <!--end::Modal-->
+
+
   <!-- end:: Page -->
   @include('layouts.adminotherpanels')
   <!-- begin::Global Config(global config for global JS sciprts) -->
@@ -431,7 +452,61 @@
 
     easyPDF(file64content, filetitle) */
   }
+
+
+
+
+
+function showevaluationmodal(candidate_quiz_id){
+	$('#candidate_result_Modal').modal('toggle');
+
+    $.ajax({
+        url: ROOT_PATH+"/ajaxquizeanswers",
+       data: {
+          "_token": "{{ csrf_token() }}",
+          "candidate_quiz_id": candidate_quiz_id,
+        },
+		   dataType: 'json',
+        success: function(result) {
+            // get the ajax response data  resultData
+			var QuestionListHTML='';
+           // var QuestionList = res.resultData; alert(QuestionList);alert(res.resultData);alert(res.status);
+		   var Qcount =1;
+			$.each( result.resultData, function( key, value) {
+			QuestionListHTML+='<div class="form-group row">\
+                      <div class="col-lg-10">\
+                          <label class="col-form-label kt-font-bolder">Question&nbsp;'+Qcount+' :&nbsp;</label><label>'+value.question+'</label>\
+                      </div>\
+					  <div class="col-lg-1">\
+                         <label  class="col-form-label kt-font-bolder"><input type="hidden" name="quizresultId[]"  value="'+value.quize_result_id+'"><input type="text" name="marks[]"  readonly style="width:65px;" class="form-control" value="'+value.marks+'"></label>\
+                      </div>\
+					  <div class="col-lg-12">\
+						<label>Answer&nbsp;:&nbsp;</label><label>'+value.selected_option+'</label>\
+                      </div>\
+                    </div>';
+					Qcount++;
+				});
+          $('#quizquestionList').html(QuestionListHTML);
+
+            // show modal
+            //$('#myModal').modal('show');
+
+        },
+        error:function(request, status, error) {
+            console.log("ajax call went wrong:" + request.responseText);
+        }
+    });
+    }
+
+
+
+
   </script>
+
+
+
+
+
 </body>
 <!-- end::Body -->
 @endsection
