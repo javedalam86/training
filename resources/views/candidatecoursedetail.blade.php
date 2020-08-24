@@ -263,6 +263,7 @@
             <tbody>
               @php
                 $isQuizeReport = false;
+                $resultantArray = [];
               @endphp
               @foreach ($CourseQuizeData as $CourseQuizeDataObj)
                 @php
@@ -284,7 +285,6 @@
                 @if(!$latest->isEmpty())
                   @foreach ($latest as $objs)
                     @php
-                    $isQuizeReport = true;;
                     $totalQues = count($objs);
                     @endphp
                     @foreach ($objs as $obj)
@@ -298,27 +298,43 @@
                     @php
                       $totalMarks = ($totalMarks / ($totalQues*10)) *100;
                       $passStatus = 'FAIL';
-                      if($totalMarks >= 60){
+                      $passingPercent =  (int)Config::get('constants.PASSING_PERCENT');
+                      if($totalMarks >= $passingPercent){
                         $passStatus = 'PASS';
                       }
-                    @endphp
-                    <tr>
-                      <td>{{$CourseQuizeDataObj['quize_name']}}</td>
-                      <td>{{$objs[0]->attempt_date}}</td>
-                      <td><b>{{ ($cqResult->is_evaluated == 1) ? number_format($totalMarks, 2) : '--'}}</b></td>
-                      <td><b>{{ ($cqResult->is_evaluated == 1) ? $passStatus : 'Pending'}}</b> <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" onclick=showevaluationmodal({{$obj->candidate_quize_id}})><i class="flaticon2-search"></i></a></td>
-                    </tr>
-                    @php
+                      $attmtD = $objs[0]->attempt_date;
+                      $attmtD = str_replace("-", "",$attmtD);
+                      $attmtD = str_replace(" ", "",$attmtD);
+                      $attmtD = str_replace(":", "",$attmtD);
+
+                      $evaluated = ($cqResult->is_evaluated == 1) ? number_format($totalMarks, 2) : '--';
+                      $passStatus = ($cqResult->is_evaluated == 1) ? $passStatus : 'Pending';
+                      $resultantArray[$attmtD] = [
+                        'quize_name' => $CourseQuizeDataObj['quize_name'],
+                        'attempt_date' => $objs[0]->attempt_date,
+                        'evaluated' => $evaluated,
+                        'passStatus' => $passStatus,
+                        'candidate_quize_id' => $obj->candidate_quize_id
+                      ];
                       //break;
                       $totalMarks = 0;
                     @endphp
                   @endforeach
                 @endif
               @endforeach
-
-              @if(!$isQuizeReport)
-                <tr><td colspan="4" align="center">No Quiz report available</td> </tr>
-              @endif
+              @php
+                krsort($resultantArray);
+              @endphp
+              @forelse ($resultantArray as $res)
+                <tr>
+                <td>{{$res['quize_name']}}</td>
+                <td>{{$res['attempt_date']}}</td>
+                <td><b>{{$res['evaluated']}}</b></td>
+                <td><b>{{$res['passStatus']}}</b> <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" onclick="showevaluationmodal({{$res['candidate_quize_id']}})"><i class="flaticon2-search"></i></a></td>
+              </tr>
+              @empty
+                  <tr><td colspan="4" align="center">No Quiz report available</td> </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
