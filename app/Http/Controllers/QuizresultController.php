@@ -61,6 +61,16 @@ class QuizresultController extends Controller
 			->where('attempt_counter', '!=', 0);
 		//->where(['something' => 'something', 'otherThing' => 'otherThing'])   offset sortfield
 		//->get()->toArray();
+            
+            	if(@isset($data['query']['coursegeneralSearch'])){
+			$searchKey =$data['query']['coursegeneralSearch'];
+			$CandidateQuize = $CandidateQuize->where(function($q) use ($searchKey){
+                            $q->where('users.name', 'LIKE', '%' . $searchKey . '%');
+                            $q->orWhere('courses.name', 'LIKE', '%' . $searchKey . '%');
+                            $q->orWhere('quize_name', 'LIKE', '%' . $searchKey . '%');
+		});
+		}
+            
 
 
 		$sortfield ='candidate_quizes.id';

@@ -43,10 +43,91 @@
 
                 <!-- begin:: Content -->
                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-
-                    <div class="kt-portlet kt-portlet--mobile">
-                        
+                    <div class="kt-portlet kt-portlet--mobile">                        
                         <div class="kt-portlet__body">
+						<div class="row">
+						<?php  $routeName = Route::currentRouteName();							
+							 $userType= Auth::user()->user_type;
+							if(strtoupper($userType) == 'CANDIDATE'){
+							?>			<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+											<div class="kt-portlet kt-portlet--skin-solid kt-bg-danger">
+											<div class="kt-portlet__head kt-portlet__head--noborder">
+												<div class="kt-portlet__head-label">
+													<span class="kt-portlet__head-icon">
+														<i class="flaticon2-graphic"></i>
+													</span>
+													<h3 class="kt-portlet__head-title">
+														My Courses
+													</h3>
+												</div>											
+											</div>
+											<div class="kt-portlet__body">
+												Lorem Ipsum is simply dummy text of the printing and typesetting dummy text of the printing dummy text of the printing dummy text of the printing industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+											</div>
+											</div>						
+										</div>	
+							<?php } 
+								if(strtoupper($userType) == 'ADMIN'){
+							?>			<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+							<div class="kt-portlet kt-portlet--skin-solid kt-bg-danger">
+										<div class="kt-portlet__head kt-portlet__head--noborder">
+											<div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon">
+													<i class="flaticon2-graphic"></i>
+												</span>
+												<h3 class="kt-portlet__head-title">
+													Users
+												</h3>
+											</div>											
+										</div>
+										<div class="kt-portlet__body">
+											Lorem Ipsum is simply dummy text of the printing and typesetting dummy text of the printing dummy text of the printing dummy text of the printing industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+										</div>
+									</div>	</div>		<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+									<div class="kt-portlet kt-portlet--skin-solid kt-bg-danger ">
+										<div class="kt-portlet__head kt-portlet__head--noborder">
+											<div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon">
+													<i class="flaticon2-graphic"></i>
+												</span>
+												<h3 class="kt-portlet__head-title">
+													Courses
+												</h3>
+											</div>											
+										</div>
+										<div class="kt-portlet__body">
+											Lorem Ipsum is simply dummy text of the printing and typesetting dummy text of the printing dummy text of the printing dummy text of the printing industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+										</div>
+									</div></div>	<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+									<div class="kt-portlet kt-portlet--skin-solid kt-bg-danger ">
+										<div class="kt-portlet__head kt-portlet__head--noborder">
+											<div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon">
+													<i class="flaticon2-graphic"></i>
+												</span>
+												<h3 class="kt-portlet__head-title">
+													Companies
+												</h3>
+											</div>											
+										</div>
+										<div class="kt-portlet__body">
+											Lorem Ipsum is simply dummy text of the printing and typesetting dummy text of the printing dummy text of the printing dummy text of the printing industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+										</div>
+									</div>						
+						
+							<?php } ?>
+						
+						
+						
+						
+						
+						     </div>
+						
+						
+						
+						
+						
+						
 
                           
                         </div>
