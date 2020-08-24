@@ -71,7 +71,7 @@ var KTDatatableRemoteAjaxCourse = function() {
 				}, {
 					field: 'description',
 					title: 'Description',	
-					width: 110,
+					width: 210,
 					overflow: 'visible',
 					autoHide: false,					
 				},{
@@ -84,7 +84,7 @@ var KTDatatableRemoteAjaxCourse = function() {
 					template: function(row) {
 						return '\
 						<a href="candidatecoursedetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
-							<i class="flaticon2-magnifier-tool"></i>\
+							<i class="flaticon-eye"></i>\
 						</a>\
 					';
 					},

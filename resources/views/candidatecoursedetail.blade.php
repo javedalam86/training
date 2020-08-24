@@ -2,6 +2,7 @@
 @section('content')
 @php $scriptVer =  Config::get('constants.SCRIPT_VERSION'); @endphp
 @php $ROOT_PATH =  Config::get('constants.ROOT_PATH'); @endphp
+@php $CURRENCY_SYMBOL =  Config::get('constants.CURRENCY_SYMBOL'); @endphp
 <!-- end::Head -->
 <!-- begin::Body -->
 <meta name="_token" content="{{ csrf_token() }}" />
@@ -143,7 +144,7 @@
 					<div class="form-group form-group-xs row">
 						<label class="col-2 col-form-label kt-font-bolder">Price:</label>
 						<div class="col-8">
-						  <span class="form-control-plaintext ">{{$Course['cost']}}</span>
+						  <span class="form-control-plaintext ">{{$CURRENCY_SYMBOL}} {{$Course['cost']}}</span>
 						</div>
 					</div>
 				</div>
