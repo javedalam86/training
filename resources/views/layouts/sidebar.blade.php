@@ -77,13 +77,13 @@
 									<i class="kt-menu__link-icon flaticon-layer"></i>
 									<span class="kt-menu__link-text">Library</span></a>										
 							</li>
-							
+							<!--
 							<li class="kt-menu__item <?php if($routeName =='couponlist'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
 								<a href="{{ route('couponlist') }}"  class="kt-menu__link ">
 									<i class="kt-menu__link-icon flaticon-add-label-button"></i>
 									<span class="kt-menu__link-text">Coupons</span></a>										
 							</li>
-							
+							-->
 							<li class="kt-menu__item <?php if($routeName =='questionlist'){ echo 'kt-menu__item--active'; } ?> " aria-haspopup="true">
 								<a href="{{ route('questionlist') }}"  class="kt-menu__link ">
 									<i class="kt-menu__link-icon flaticon-questions-circular-button"></i>
