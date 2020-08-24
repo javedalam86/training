@@ -31,7 +31,7 @@ class QuizresultController extends Controller
 		->join('course_quize','candidate_quizes.quiz_id','=','course_quize.id')
 		->where('attempt_counter', '!=', 0)
 		->get()->toArray();
-		
+
 		//print_r($CandidateQuize);die; // ajaxquizeresultlist
         return view('quizresult.list', compact('CandidateQuize'));
     }
@@ -207,9 +207,10 @@ class QuizresultController extends Controller
                 $totalMarks = $totalMarks + (int)$obj->marks;
               }
             }
+            break;
           }
           $totalMarks = ($totalMarks / ($totalQues*10)) *100;
-          $totalMarks = $totalMarks.' %';
+          $totalMarks = number_format($totalMarks, 2).' %';
         } else {
           $totalMarks = '--';
         }
