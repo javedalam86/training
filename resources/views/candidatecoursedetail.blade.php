@@ -276,12 +276,12 @@
                   $quizeResult = $CourseQuizeDataObj->quizeResults()->orderBy('attempt_date','DESC')->get()->groupBy('attempt_date');
                   //$latest = current($quizeResult);
                   $latest = $quizeResult;
-                  if(empty($latest)){
+                  if($latest->isEmpty()){
                     continue;
                   }
                   $totalMarks = 0;
                 @endphp
-                @if(!empty($latest))
+                @if(!$latest->isEmpty())
                   @foreach ($latest as $objs)
                     @php
                     $isQuizeReport = true;;
@@ -297,15 +297,20 @@
                     @endforeach
                     @php
                       $totalMarks = ($totalMarks / ($totalQues*10)) *100;
+                      $passStatus = 'FAIL';
+                      if($totalMarks >= 60){
+                        $passStatus = 'PASS';
+                      }
                     @endphp
                     <tr>
                       <td>{{$CourseQuizeDataObj['quize_name']}}</td>
                       <td>{{$objs[0]->attempt_date}}</td>
                       <td><b>{{ ($cqResult->is_evaluated == 1) ? number_format($totalMarks, 2) : '--'}}</b></td>
-                      <td><b>{{$cqResult->quiz_result}}</b></td>
+                      <td><b>{{ ($cqResult->is_evaluated == 1) ? $passStatus : 'Pending'}}</b></td>
                     </tr>
                     @php
                       //break;
+                      $totalMarks = 0;
                     @endphp
                   @endforeach
                 @endif
