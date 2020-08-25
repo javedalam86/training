@@ -25,7 +25,7 @@ var $recordPerPage =10;
 	
 	
 	
-function ajaxuserslist(Request $request){
+function ajaxuserslist(Request $request){  // companyName
 		$data = $request->all();
 		$page =$data['pagination']['page'];	
 		$per_page = $data['pagination']['perpage'];	
@@ -40,8 +40,10 @@ function ajaxuserslist(Request $request){
 		if(@isset($data['query']['usergeneralSearch'])){
 			$searchKey =$data['query']['usergeneralSearch'];	
 			$usersData = $usersData->where(function($q) use ($searchKey){
-				$q->where('name', 'LIKE', '%' . $searchKey . '%')
-				->orWhere('email', 'LIKE', '%' . $searchKey . '%');
+				$q->where('users.name', 'LIKE', '%' . $searchKey . '%')
+				->orWhere('users.email', 'LIKE', '%' . $searchKey . '%')
+                                ->orWhere('u2.name', 'LIKE', '%' . $searchKey . '%');
+                                
 		});
 		}	
 		
@@ -72,8 +74,9 @@ function ajaxuserslist(Request $request){
 		if(@isset($data['query']['generalSearch'])){
 			$searchKey =$data['query']['generalSearch'];	
 			$userCount = $userCount->where(function($q) use ($searchKey){
-				$q->where('name', 'LIKE', '%' . $searchKey . '%')
-				->orWhere('email', 'LIKE', '%' . $searchKey . '%');
+				$q->where('users.name', 'LIKE', '%' . $searchKey . '%')
+				->orWhere('users.email', 'LIKE', '%' . $searchKey . '%')
+                                ->orWhere('u2.name', 'LIKE', '%' . $searchKey . '%');
 		});
 		}
 		$userCount->where('is_deleted', '=', '0');

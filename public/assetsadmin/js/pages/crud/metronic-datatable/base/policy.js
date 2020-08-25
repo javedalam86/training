@@ -97,9 +97,6 @@ var KTDatatableRemoteAjaxPolicy = function() {
 					autoHide: false,
 					template: function(row) {
 						return '\
-						<a href="policydetail/'+row.id+'"   class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="View details">\
-							<i class="flaticon-eye"></i>\
-						</a>\
 						<a href="javascript:;" data-id='+row.id+'   data-title="'+row.title+'"      data-description="'+row.qmsdesc+'" data-toggle="modal" data-target="#policyedit_modal" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
 							<i class="flaticon2-edit"></i>\
 						</a>\

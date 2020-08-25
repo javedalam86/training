@@ -44,7 +44,7 @@
                         <tr>
                           <td>ID</td>
                           <td>Page Title</td>
-                          <td>Page Content</td>
+                         
                           <td colspan = 2>Actions</td>
                         </tr>
                       </thead>
@@ -53,7 +53,7 @@
                           <tr>
                             <td>{{$page->id}}</td>
                             <td>{{$page->pagetitle}}</td>
-                            <td>{!! Str::limit($page->pagecontent, 90, ' ...') !!}</td>
+                         
                             <td>
                               <a href="{{ route('pages.edit',$page->id)}}" class="btn btn-primary">Edit</a>
                             </td>
