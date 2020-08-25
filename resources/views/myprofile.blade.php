@@ -203,6 +203,39 @@
 																			
 																	</div>
 																</div>
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                	
+																<div class="form-group row">
+                                                                                                                                    <label class="col-xl-3 col-lg-3 col-form-label">Password</label>
+                                                                                                                                    <div class="col-lg-9 col-xl-6">
+                                                                                                                                        <input class="form-control" name='editPassword'  placeholder="*********"  id ='editPassword' type="password" value="">
+                                                                                                                                    </div>
+																</div>
+																
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
 															
 															</div>
 														</div>

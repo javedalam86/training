@@ -64,8 +64,7 @@ class ProfileController extends Controller
 		
 		
 		     
-
-		$inputUserData = array();
+        $inputUserData = array();
 		
         $inputUserData['name'] 		=  $data['name'];
         $inputUserData['phone'] 		=   $data['phone']; 
@@ -79,7 +78,11 @@ class ProfileController extends Controller
 			 $inputUserData['photo_path'] 		=   $name;
 		}	
 		
-	
+	if(isset($data['editPassword']) && $data['editPassword']!==''){
+		$inputUserData['password'] = bcrypt($data['editPassword']); 
+	}
+				
+                                
 		 $user = Auth::user();
         $user->update($inputUserData);
 		return back()->with('message', '<div class="alert alert-success alert-dismissible">
